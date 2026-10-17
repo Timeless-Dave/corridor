@@ -1,0 +1,11 @@
+{
+  "ratios": {
+    "body": 15.73,
+    "muted": 7.08,
+    "primary_button": 10.51,
+    "monitor_badge": 8.63,
+    "freeze_badge": 7.49
+  },
+  "threshold": 4.5,
+  "scope": "Primary text/control token pairs, not an exhaustive automated accessibility audit"
+}

@@ -1,0 +1,80 @@
+{
+  "controls": {
+    "family_account": "acct_0000",
+    "legitimate_pool": "pool_00"
+  },
+  "reference_ts": 1792065600,
+  "rings": {
+    "ajo": {
+      "accounts": [
+        "ajo_0",
+        "ajo_1",
+        "ajo_2",
+        "ajo_3",
+        "ajo_4"
+      ],
+      "params": {
+        "pool_id": "pool_abuse"
+      }
+    },
+    "cycle": {
+      "accounts": [
+        "cycle_0",
+        "cycle_1",
+        "cycle_2",
+        "cycle_3",
+        "cycle_4"
+      ],
+      "params": {
+        "account_id": "cycle_0"
+      },
+      "transfers": [
+        "tx_0026041",
+        "tx_0026042",
+        "tx_0026043",
+        "tx_0026044",
+        "tx_0026045"
+      ]
+    },
+    "fan_in": {
+      "accounts": [
+        "mule_0",
+        "mule_1",
+        "mule_2",
+        "mule_3",
+        "mule_4",
+        "mule_5",
+        "mule_6",
+        "mule_7",
+        "mule_8",
+        "mule_9",
+        "mule_10",
+        "mule_11",
+        "collector_0"
+      ],
+      "params": {
+        "account_id": "collector_0",
+        "max_amount": 500.0,
+        "since": 1792065599,
+        "until": 1792238400
+      }
+    },
+    "shared": {
+      "accounts": [
+        "cycle_0",
+        "cycle_1",
+        "shared_0",
+        "shared_1",
+        "shared_2",
+        "shared_3",
+        "shared_4",
+        "shared_5",
+        "shared_6"
+      ],
+      "params": {
+        "account_id": "cycle_0"
+      }
+    }
+  },
+  "seed": 42
+}

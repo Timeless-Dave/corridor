@@ -1,0 +1,25 @@
+{
+  "milestone": "M4",
+  "status": "passed",
+  "recorded_at": "2026-10-17T17:54:00.972558+00:00",
+  "tests": {
+    "passed": 46,
+    "skipped": 0,
+    "seconds": 109.882,
+    "command": "cd api && CORRIDOR_LIVE_TESTS=1 ../.venv/bin/python -m unittest discover -s tests -v"
+  },
+  "database": "real remote FalkorDB; disposable test graphs cleaned up",
+  "model": "scripted M4 routing tests; no additional OpenAI calls",
+  "demo_check": "read-only data.check_company passed",
+  "evidence": "m4-company-evidence.json",
+  "checks": [
+    "both corridor owners and leads",
+    "six policy source documents",
+    "current precedents and supersession direction",
+    "routing in both corridors",
+    "invalid model references close unrouted MONITOR",
+    "invalid writes leave cases open without partial links",
+    "precedent superseded after retrieval rejected at write"
+  ],
+  "next_milestone": "M5 not started"
+}

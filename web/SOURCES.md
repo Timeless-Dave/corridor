@@ -1,0 +1,11 @@
+# Design and component provenance
+
+- React Bits Animated Content: https://reactbits.dev/animations/animated-content and https://github.com/DavidHDev/react-bits/blob/main/src/ts-default/Animations/AnimatedContent/AnimatedContent.tsx. `components/animated-content.tsx` is a reduced mount-only adaptation of its GSAP context/fromTo/reduced-motion pattern. The scroll, blur, tilt, wipe, and disappearance features were omitted. License: MIT + Commons Clause; retained in `licenses/react-bits.txt`. Used inside this application, not redistributed as a component product.
+- 21st.dev reference: https://21st.dev/@shadcn/components/resizable returned Component Not Found during implementation. The upstream shadcn Resizable pattern (https://ui.shadcn.com/docs/components/resizable) is used instead with react-resizable-panels 2.1.9 and custom Corridor styling. Button composition follows shadcn's Radix Slot/CVA pattern. License: MIT; retained in `licenses/shadcn.txt`.
+- Radix Dialog/Tabs/Slot: accessible behavior for history drawer, mobile tabs, and button composition; MIT dependencies, versions pinned in package-lock.json.
+- Three.js + React Three Fiber + Drei: actual cited graph rendering, orbit controls, camera modes, node labels. No simulated graph data in the running app.
+- Impeccable https://impeccable.style/docs/: applied its audit/clarify/harden/polish workflow as a design review, not as an installed plugin. Review includes contrast, density, semantics, error states, reduced motion, and responsive screenshots.
+- Taste Skill https://www.tasteskill.dev/ and the installed design-taste-frontend skill: used visual guidance only because its own scope excludes dense product UI. Design variance 4, motion intensity 3, visual density 6. Charcoal/teal theme with semantic amber/red, one icon family, self-hosted type, restrained borders, no background animation.
+- Geist Sans / Geist Mono: self-hosted via @fontsource, SIL Open Font License included by their packages. Phosphor icons: @phosphor-icons/react, MIT.
+
+No third-party template is presented as original design. The application-specific workflow, evidence mapping, stream handling, layout, and tokens are implemented for Corridor. The README AI disclosure remains reserved for the participant.

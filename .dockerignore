@@ -1,0 +1,8 @@
+.git
+.env
+.venv
+web
+node_modules
+docs
+**/__pycache__
+api/data/dataset.json

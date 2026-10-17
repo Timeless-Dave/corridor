@@ -1,0 +1,2965 @@
+{
+  "recorded_at": "2026-10-17T17:42:45.652485+00:00",
+  "provider": "OpenAI Responses",
+  "runs": [
+    {
+      "account_id": "cycle_0",
+      "model": "gpt-4.1-mini",
+      "decision": {
+        "case_id": "case_6ee0301b40ca4ee7b98ee9e37ae294ec",
+        "verdict": "MONITOR",
+        "risk": 0.6,
+        "pattern": "circular_layering",
+        "members": [
+          "cycle_0",
+          "cycle_1",
+          "cycle_2",
+          "cycle_3",
+          "cycle_4"
+        ],
+        "policy_id": "POL-AML-1",
+        "precedent_decision_id": "DEC-6",
+        "assignee_employee_id": "emp_0",
+        "rationale": "The evidence shows a significant circular flow of funds involving accounts cycle_0 through cycle_4 with a total volume of $2350 over five short transfers, indicative of a potential synthetic remittance pattern. Additionally, shared device and phone identifiers link cycle_0 with multiple accounts, suggesting possible coordinated activity or synthetic identity connections. However, there is no direct link to known bad actors and no definitive fraud evidence. The prior precedent DEC-6 under policy POL-AML-1 resulted in a FREEZE for a similar case, but current evidence supports a MONITOR due to uncertainty and absence of corroborative fraud evidence. Investigation lead Fictional employee 0 from the US-NG corridor recommends monitoring the account with heightened vigilance.",
+        "steps": 12,
+        "step_cap_reached": true,
+        "guardrail_reasons": []
+      },
+      "state": [
+        {
+          "status": "closed",
+          "verdict": "MONITOR",
+          "risk": 0.6,
+          "policy_id": "POL-AML-1",
+          "decision_id": "DEC-6",
+          "assignee_id": "emp_0",
+          "members": [
+            {
+              "id": "cycle_0",
+              "role": "member"
+            },
+            {
+              "id": "cycle_1",
+              "role": "member"
+            },
+            {
+              "id": "cycle_2",
+              "role": "member"
+            },
+            {
+              "id": "cycle_3",
+              "role": "member"
+            },
+            {
+              "id": "cycle_4",
+              "role": "member"
+            },
+            {
+              "id": "cycle_0",
+              "role": "flagged"
+            },
+            {
+              "id": "cycle_1",
+              "role": "member"
+            },
+            {
+              "id": "cycle_2",
+              "role": "member"
+            },
+            {
+              "id": "cycle_3",
+              "role": "member"
+            },
+            {
+              "id": "cycle_4",
+              "role": "member"
+            }
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "finding_id": "finding_00f683d3d05b4bcb8d4910191d5fa854",
+          "step": 1,
+          "tool": "prior_cases",
+          "query_name": "prior_cases",
+          "params": "{\"account_id\": \"cycle_0\", \"exclude_case_id\": \"case_6ee0301b40ca4ee7b98ee9e37ae294ec\"}",
+          "text": "No prior cases were found for account cycle_0 excluding the current case. A circular flow of funds involving accounts cycle_0 to cycle_4 was detected, with a total volume of 2350 USD over five transfers in a short time, indicating a possible synthetic remittance pattern. The account cycle_0 is involved as a member and flagged role in this circular layering pattern, and the verdict given is MONITOR, showing uncertainty without definitive fraud evidence.",
+          "cited": [
+            "cycle_0",
+            "cycle_0"
+          ]
+        },
+        {
+          "finding_id": "finding_0e42fdec53184a00a278c1e315ca61ca",
+          "step": 2,
+          "tool": "shared_identifiers",
+          "query_name": "shared_identifiers",
+          "params": "{\"account_id\": \"cycle_0\"}",
+          "text": "The account 'cycle_0' shares device and phone identifiers with multiple other accounts, specifically sharing 'shared_device_0' and 'shared_device_1' with various accounts, and 'shared_phone_0' with accounts 'shared_1' and 'shared_4'. This indicates that these accounts are linked through common device and phone usage, which could suggest coordinated activity or synthetic identity connections.",
+          "cited": [
+            "cycle_0",
+            "cycle_0"
+          ]
+        },
+        {
+          "finding_id": "finding_58d89731d2744fc7b43e2305fc07c8a8",
+          "step": 3,
+          "tool": "circular_flows",
+          "query_name": "circular_flows",
+          "params": "{\"account_id\": \"cycle_0\", \"max_hops\": 5}",
+          "text": "There is a detected circular flow involving accounts cycle_0, cycle_1, cycle_2, cycle_3, cycle_4, and back to cycle_0 with a total volume of 2350 over five transfers within a short time frame, indicating potential synthetic remittance activity.",
+          "cited": [
+            "cycle_0",
+            "cycle_0"
+          ]
+        },
+        {
+          "finding_id": "finding_a8664b780153453d99b845da860dce4f",
+          "step": 4,
+          "tool": "fan_in",
+          "query_name": "fan_in",
+          "params": "{\"account_id\": \"cycle_0\", \"max_amount\": 500, \"since\": 1791907200}",
+          "text": "Account cycle_0 received a single transfer of $460 from account cycle_4 at timestamp 1792080000.",
+          "cited": [
+            "cycle_0",
+            "cycle_4",
+            "cycle_0",
+            "cycle_4"
+          ]
+        },
+        {
+          "finding_id": "finding_640db48d5de54ae4a41bf093877c273a",
+          "step": 5,
+          "tool": "link_to_known_bad",
+          "query_name": "link_to_known_bad",
+          "params": "{\"account_id\": \"cycle_0\"}",
+          "text": "The account \"cycle_0\" has no links to any known bad actors or accounts in the data.",
+          "cited": []
+        },
+        {
+          "finding_id": "finding_b0dd28c8be86457d8d0aa5b2651d00bd",
+          "step": 6,
+          "tool": "shared_identifiers",
+          "query_name": "shared_identifiers",
+          "params": "{\"account_id\": \"cycle_1\"}",
+          "text": "Account cycle_1 shares device identifier 'shared_device_1' with accounts cycle_0, shared_1, shared_3, and shared_5, and shares phone identifier 'shared_phone_1' with accounts shared_2 and shared_5. This indicates that cycle_1 is linked by device and phone usage to multiple other accounts.",
+          "cited": [
+            "cycle_1",
+            "cycle_1"
+          ]
+        },
+        {
+          "finding_id": "finding_a7d758225d5140ab9d7c5f5a0ce61790",
+          "step": 7,
+          "tool": "shared_identifiers",
+          "query_name": "shared_identifiers",
+          "params": "{\"account_id\": \"cycle_4\"}",
+          "text": "There is no evidence of shared identifiers with other accounts for account 'cycle_4'.",
+          "cited": []
+        },
+        {
+          "finding_id": "finding_26bc7c44ee86448993f570d862dba7cb",
+          "step": 8,
+          "tool": "shared_identifiers",
+          "query_name": "shared_identifiers",
+          "params": "{\"account_id\": \"cycle_2\"}",
+          "text": "No shared identifiers were found for account 'cycle_2', indicating no direct identity overlaps with other monitored accounts in this dataset.",
+          "cited": []
+        },
+        {
+          "finding_id": "finding_a69d5b81bc1c48a5b0777af5a719de18",
+          "step": 9,
+          "tool": "shared_identifiers",
+          "query_name": "shared_identifiers",
+          "params": "{\"account_id\": \"cycle_3\"}",
+          "text": "There is no evidence of shared identifiers for account cycle_3, indicating no directly linked accounts through common identifiers.",
+          "cited": []
+        },
+        {
+          "finding_id": "finding_675224bfc9e34e78b5bcbc5cdad3ceb2",
+          "step": 10,
+          "tool": "shared_identifiers",
+          "query_name": "shared_identifiers",
+          "params": "{\"account_id\": \"cycle_0\"}",
+          "text": "Account cycle_0 shares multiple device identifiers with several accounts, including cycle_1 and shared_1, 3, and 5, indicating shared device usage. Additionally, shared_0, 2, 4, and 6 share another device identifier with cycle_0, and shared_1 and 4 share a phone identifier with cycle_0, suggesting some common device and phone use among these accounts.",
+          "cited": [
+            "cycle_0",
+            "cycle_0"
+          ]
+        },
+        {
+          "finding_id": "finding_1d03e0bcb0d34e339b33987459c53957",
+          "step": 11,
+          "tool": "guardrail",
+          "query_name": "guardrails.py",
+          "params": "{}",
+          "text": "Investigation step cap reached; reserving final two reads for company grounding.",
+          "cited": []
+        },
+        {
+          "finding_id": "finding_0e9c6d73da3c49abbddf94f33b413333",
+          "step": 12,
+          "tool": "corridor_context",
+          "query_name": "corridor_context",
+          "params": "{\"corridor_code\": \"US-NG\"}",
+          "text": "For the US-NG corridor, all four synthetic review policies recommend investigating connected evidence when the threshold of 500.0 is met, but these are fictional demo policies and do not establish a legal threshold. The investigation lead is Fictional employee 0 from Fictional team 0.",
+          "cited": [
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4",
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4"
+          ]
+        },
+        {
+          "finding_id": "finding_69b4d2c800164fb4aeaa2ae8b1ce3f79",
+          "step": 13,
+          "tool": "precedents",
+          "query_name": "precedents",
+          "params": "{\"policy_id\": \"POL-AML-1\"}",
+          "text": "The result shows a precedent decision labeled DEC-6 where employee Fictional employee 6 decided on a FREEZE outcome under policy POL-AML-1.",
+          "cited": [
+            "DEC-6",
+            "DEC-6"
+          ]
+        }
+      ],
+      "audit": [
+        {
+          "case": {
+            "closed_at": 1792258995,
+            "guardrail_reasons": [],
+            "id": "case_6ee0301b40ca4ee7b98ee9e37ae294ec",
+            "opened_at": 1792258966,
+            "pattern": "circular_layering",
+            "proposed_verdict": "MONITOR",
+            "rationale": "The evidence shows a significant circular flow of funds involving accounts cycle_0 through cycle_4 with a total volume of $2350 over five short transfers, indicative of a potential synthetic remittance pattern. Additionally, shared device and phone identifiers link cycle_0 with multiple accounts, suggesting possible coordinated activity or synthetic identity connections. However, there is no direct link to known bad actors and no definitive fraud evidence. The prior precedent DEC-6 under policy POL-AML-1 resulted in a FREEZE for a similar case, but current evidence supports a MONITOR due to uncertainty and absence of corroborative fraud evidence. Investigation lead Fictional employee 0 from the US-NG corridor recommends monitoring the account with heightened vigilance.",
+            "requested_account_id": "cycle_0",
+            "risk": 0.6,
+            "status": "closed",
+            "step_cap_reached": true,
+            "verdict": "MONITOR"
+          },
+          "findings": [
+            {
+              "created_at": 1792258968,
+              "id": "finding_00f683d3d05b4bcb8d4910191d5fa854",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"cycle_0\", \"exclude_case_id\": \"case_6ee0301b40ca4ee7b98ee9e37ae294ec\"}",
+              "query_name": "prior_cases",
+              "rejected_citations": "[]",
+              "result_json": "[{\"case_id\": \"case_800970d719e940cfb5c5bc707faa73f2\", \"key_findings\": [\"No prior cases found for account cycle_0 excluding case 800970d719e940cfb5c5bc707faa73f2.\", \"A circular flow of funds involving accounts cycle_0, cycle_1, cycle_2, cycle_3, and cycle_4 was detected with a total volume of 2350.0 USD over five transfers.\", \"The circular flow of funds involving accounts cycle_0 to cycle_4 shows a significant pattern of fund cycling with a volume of 2350.0 USD over a short time, which could indicate synthetic remittance activity.\"], \"opened_at\": 1792258803, \"pattern\": \"circular_layering\", \"role\": \"member\", \"verdict\": \"MONITOR\"}, {\"case_id\": \"case_800970d719e940cfb5c5bc707faa73f2\", \"key_findings\": [\"No prior cases found for account cycle_0 excluding case 800970d719e940cfb5c5bc707faa73f2.\", \"A circular flow of funds involving accounts cycle_0, cycle_1, cycle_2, cycle_3, and cycle_4 was detected with a total volume of 2350.0 USD over five transfers.\", \"The circular flow of funds involving accounts cycle_0 to cycle_4 shows a significant pattern of fund cycling with a volume of 2350.0 USD over a short time, which could indicate synthetic remittance activity.\"], \"opened_at\": 1792258803, \"pattern\": \"circular_layering\", \"role\": \"flagged\", \"verdict\": \"MONITOR\"}]",
+              "step": 1,
+              "text": "No prior cases were found for account cycle_0 excluding the current case. A circular flow of funds involving accounts cycle_0 to cycle_4 was detected, with a total volume of 2350 USD over five transfers in a short time, indicating a possible synthetic remittance pattern. The account cycle_0 is involved as a member and flagged role in this circular layering pattern, and the verdict given is MONITOR, showing uncertainty without definitive fraud evidence.",
+              "tool": "prior_cases"
+            },
+            {
+              "created_at": 1792258971,
+              "id": "finding_0e42fdec53184a00a278c1e315ca61ca",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"cycle_0\"}",
+              "query_name": "shared_identifiers",
+              "rejected_citations": "[]",
+              "result_json": "[{\"account\": \"cycle_1\", \"identifier\": \"shared_device_1\", \"peer_edge\": 4032, \"source_edge\": 4031, \"via\": \"Device\"}, {\"account\": \"shared_0\", \"identifier\": \"shared_device_0\", \"peer_edge\": 4033, \"source_edge\": 4030, \"via\": \"Device\"}, {\"account\": \"shared_1\", \"identifier\": \"shared_device_1\", \"peer_edge\": 4034, \"source_edge\": 4031, \"via\": \"Device\"}, {\"account\": \"shared_1\", \"identifier\": \"shared_phone_0\", \"peer_edge\": 6048, \"source_edge\": 6045, \"via\": \"Phone\"}, {\"account\": \"shared_2\", \"identifier\": \"shared_device_0\", \"peer_edge\": 4035, \"source_edge\": 4030, \"via\": \"Device\"}, {\"account\": \"shared_3\", \"identifier\": \"shared_device_1\", \"peer_edge\": 4036, \"source_edge\": 4031, \"via\": \"Device\"}, {\"account\": \"shared_4\", \"identifier\": \"shared_device_0\", \"peer_edge\": 4037, \"source_edge\": 4030, \"via\": \"Device\"}, {\"account\": \"shared_4\", \"identifier\": \"shared_phone_0\", \"peer_edge\": 6051, \"source_edge\": 6045, \"via\": \"Phone\"}, {\"account\": \"shared_5\", \"identifier\": \"shared_device_1\", \"peer_edge\": 4038, \"source_edge\": 4031, \"via\": \"Device\"}, {\"account\": \"shared_6\", \"identifier\": \"shared_device_0\", \"peer_edge\": 4039, \"source_edge\": 4030, \"via\": \"Device\"}]",
+              "step": 2,
+              "text": "The account 'cycle_0' shares device and phone identifiers with multiple other accounts, specifically sharing 'shared_device_0' and 'shared_device_1' with various accounts, and 'shared_phone_0' with accounts 'shared_1' and 'shared_4'. This indicates that these accounts are linked through common device and phone usage, which could suggest coordinated activity or synthetic identity connections.",
+              "tool": "shared_identifiers"
+            },
+            {
+              "created_at": 1792258973,
+              "id": "finding_58d89731d2744fc7b43e2305fc07c8a8",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"cycle_0\", \"max_hops\": 5}",
+              "query_name": "circular_flows",
+              "rejected_citations": "[]",
+              "result_json": "[{\"accounts\": [\"cycle_0\", \"cycle_1\", \"cycle_2\", \"cycle_3\", \"cycle_4\", \"cycle_0\"], \"amounts\": [480.0, 475.0, 470.0, 465.0, 460.0], \"timestamps\": [1792065600, 1792069200, 1792072800, 1792076400, 1792080000], \"transfers\": [\"tx_0026041\", \"tx_0026042\", \"tx_0026043\", \"tx_0026044\", \"tx_0026045\"], \"volume\": 2350.0}]",
+              "step": 3,
+              "text": "There is a detected circular flow involving accounts cycle_0, cycle_1, cycle_2, cycle_3, cycle_4, and back to cycle_0 with a total volume of 2350 over five transfers within a short time frame, indicating potential synthetic remittance activity.",
+              "tool": "circular_flows"
+            },
+            {
+              "created_at": 1792258976,
+              "id": "finding_a8664b780153453d99b845da860dce4f",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"cycle_0\", \"max_amount\": 500, \"since\": 1791907200}",
+              "query_name": "fan_in",
+              "rejected_citations": "[]",
+              "result_json": "[{\"collector\": \"cycle_0\", \"first_ts\": 1792080000, \"last_ts\": 1792080000, \"sender_ids\": [\"cycle_4\"], \"senders\": 1, \"total\": 460.0, \"transfers\": [\"tx_0026045\"]}]",
+              "step": 4,
+              "text": "Account cycle_0 received a single transfer of $460 from account cycle_4 at timestamp 1792080000.",
+              "tool": "fan_in"
+            },
+            {
+              "created_at": 1792258978,
+              "id": "finding_640db48d5de54ae4a41bf093877c273a",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"cycle_0\"}",
+              "query_name": "link_to_known_bad",
+              "rejected_citations": "[]",
+              "result_json": "[]",
+              "step": 5,
+              "text": "The account \"cycle_0\" has no links to any known bad actors or accounts in the data.",
+              "tool": "link_to_known_bad"
+            },
+            {
+              "created_at": 1792258981,
+              "id": "finding_b0dd28c8be86457d8d0aa5b2651d00bd",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"cycle_1\"}",
+              "query_name": "shared_identifiers",
+              "rejected_citations": "[]",
+              "result_json": "[{\"account\": \"cycle_0\", \"identifier\": \"shared_device_1\", \"peer_edge\": 4031, \"source_edge\": 4032, \"via\": \"Device\"}, {\"account\": \"shared_1\", \"identifier\": \"shared_device_1\", \"peer_edge\": 4034, \"source_edge\": 4032, \"via\": \"Device\"}, {\"account\": \"shared_2\", \"identifier\": \"shared_phone_1\", \"peer_edge\": 6049, \"source_edge\": 6046, \"via\": \"Phone\"}, {\"account\": \"shared_3\", \"identifier\": \"shared_device_1\", \"peer_edge\": 4036, \"source_edge\": 4032, \"via\": \"Device\"}, {\"account\": \"shared_5\", \"identifier\": \"shared_device_1\", \"peer_edge\": 4038, \"source_edge\": 4032, \"via\": \"Device\"}, {\"account\": \"shared_5\", \"identifier\": \"shared_phone_1\", \"peer_edge\": 6052, \"source_edge\": 6046, \"via\": \"Phone\"}]",
+              "step": 6,
+              "text": "Account cycle_1 shares device identifier 'shared_device_1' with accounts cycle_0, shared_1, shared_3, and shared_5, and shares phone identifier 'shared_phone_1' with accounts shared_2 and shared_5. This indicates that cycle_1 is linked by device and phone usage to multiple other accounts.",
+              "tool": "shared_identifiers"
+            },
+            {
+              "created_at": 1792258983,
+              "id": "finding_a7d758225d5140ab9d7c5f5a0ce61790",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"cycle_4\"}",
+              "query_name": "shared_identifiers",
+              "rejected_citations": "[]",
+              "result_json": "[]",
+              "step": 7,
+              "text": "There is no evidence of shared identifiers with other accounts for account 'cycle_4'.",
+              "tool": "shared_identifiers"
+            },
+            {
+              "created_at": 1792258985,
+              "id": "finding_26bc7c44ee86448993f570d862dba7cb",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"cycle_2\"}",
+              "query_name": "shared_identifiers",
+              "rejected_citations": "[]",
+              "result_json": "[]",
+              "step": 8,
+              "text": "No shared identifiers were found for account 'cycle_2', indicating no direct identity overlaps with other monitored accounts in this dataset.",
+              "tool": "shared_identifiers"
+            },
+            {
+              "created_at": 1792258987,
+              "id": "finding_a69d5b81bc1c48a5b0777af5a719de18",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"cycle_3\"}",
+              "query_name": "shared_identifiers",
+              "rejected_citations": "[]",
+              "result_json": "[]",
+              "step": 9,
+              "text": "There is no evidence of shared identifiers for account cycle_3, indicating no directly linked accounts through common identifiers.",
+              "tool": "shared_identifiers"
+            },
+            {
+              "created_at": 1792258990,
+              "id": "finding_675224bfc9e34e78b5bcbc5cdad3ceb2",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"cycle_0\"}",
+              "query_name": "shared_identifiers",
+              "rejected_citations": "[]",
+              "result_json": "[{\"account\": \"cycle_1\", \"identifier\": \"shared_device_1\", \"peer_edge\": 4032, \"source_edge\": 4031, \"via\": \"Device\"}, {\"account\": \"shared_0\", \"identifier\": \"shared_device_0\", \"peer_edge\": 4033, \"source_edge\": 4030, \"via\": \"Device\"}, {\"account\": \"shared_1\", \"identifier\": \"shared_device_1\", \"peer_edge\": 4034, \"source_edge\": 4031, \"via\": \"Device\"}, {\"account\": \"shared_1\", \"identifier\": \"shared_phone_0\", \"peer_edge\": 6048, \"source_edge\": 6045, \"via\": \"Phone\"}, {\"account\": \"shared_2\", \"identifier\": \"shared_device_0\", \"peer_edge\": 4035, \"source_edge\": 4030, \"via\": \"Device\"}, {\"account\": \"shared_3\", \"identifier\": \"shared_device_1\", \"peer_edge\": 4036, \"source_edge\": 4031, \"via\": \"Device\"}, {\"account\": \"shared_4\", \"identifier\": \"shared_device_0\", \"peer_edge\": 4037, \"source_edge\": 4030, \"via\": \"Device\"}, {\"account\": \"shared_4\", \"identifier\": \"shared_phone_0\", \"peer_edge\": 6051, \"source_edge\": 6045, \"via\": \"Phone\"}, {\"account\": \"shared_5\", \"identifier\": \"shared_device_1\", \"peer_edge\": 4038, \"source_edge\": 4031, \"via\": \"Device\"}, {\"account\": \"shared_6\", \"identifier\": \"shared_device_0\", \"peer_edge\": 4039, \"source_edge\": 4030, \"via\": \"Device\"}]",
+              "step": 10,
+              "text": "Account cycle_0 shares multiple device identifiers with several accounts, including cycle_1 and shared_1, 3, and 5, indicating shared device usage. Additionally, shared_0, 2, 4, and 6 share another device identifier with cycle_0, and shared_1 and 4 share a phone identifier with cycle_0, suggesting some common device and phone use among these accounts.",
+              "tool": "shared_identifiers"
+            },
+            {
+              "created_at": 1792258990,
+              "id": "finding_1d03e0bcb0d34e339b33987459c53957",
+              "interpretation_source": "deterministic",
+              "params": "{}",
+              "query_name": "guardrails.py",
+              "result_json": "{}",
+              "step": 11,
+              "text": "Investigation step cap reached; reserving final two reads for company grounding.",
+              "tool": "guardrail"
+            },
+            {
+              "created_at": 1792258991,
+              "id": "finding_0e9c6d73da3c49abbddf94f33b413333",
+              "interpretation_source": "model",
+              "params": "{\"corridor_code\": \"US-NG\"}",
+              "query_name": "corridor_context",
+              "rejected_citations": "[]",
+              "result_json": "[{\"corridor\": \"US-NG\", \"lead\": \"Fictional employee 0\", \"lead_id\": \"emp_0\", \"policies\": [{\"id\": \"POL-AML-1\", \"rule\": \"Fictional demo: investigate connected evidence; this is not a legal threshold.\", \"source\": \"Fictional handbook 1\", \"source_id\": \"DOC-1\", \"threshold\": 500.0, \"title\": \"Synthetic review policy 1\"}, {\"id\": \"POL-AML-2\", \"rule\": \"Fictional demo: investigate connected evidence; this is not a legal threshold.\", \"source\": \"Fictional handbook 2\", \"source_id\": \"DOC-2\", \"threshold\": 500.0, \"title\": \"Synthetic review policy 2\"}, {\"id\": \"POL-AML-3\", \"rule\": \"Fictional demo: investigate connected evidence; this is not a legal threshold.\", \"source\": \"Fictional handbook 3\", \"source_id\": \"DOC-3\", \"threshold\": 500.0, \"title\": \"Synthetic review policy 3\"}, {\"id\": \"POL-AML-4\", \"rule\": \"Fictional demo: investigate connected evidence; this is not a legal threshold.\", \"source\": \"Fictional handbook 4\", \"source_id\": \"DOC-4\", \"threshold\": 500.0, \"title\": \"Synthetic review policy 4\"}], \"team\": \"Fictional team 0\", \"team_id\": \"team_0\"}]",
+              "step": 12,
+              "text": "For the US-NG corridor, all four synthetic review policies recommend investigating connected evidence when the threshold of 500.0 is met, but these are fictional demo policies and do not establish a legal threshold. The investigation lead is Fictional employee 0 from Fictional team 0.",
+              "tool": "corridor_context"
+            },
+            {
+              "created_at": 1792258993,
+              "id": "finding_69b4d2c800164fb4aeaa2ae8b1ce3f79",
+              "interpretation_source": "model",
+              "params": "{\"policy_id\": \"POL-AML-1\"}",
+              "query_name": "precedents",
+              "rejected_citations": "[]",
+              "result_json": "[{\"date\": 1791892800, \"decided_by\": \"Fictional employee 6\", \"decided_by_id\": \"emp_6\", \"decision\": \"DEC-6\", \"outcome\": \"FREEZE\", \"summary\": \"Fictional precedent 6\"}]",
+              "step": 13,
+              "text": "The result shows a precedent decision labeled DEC-6 where employee Fictional employee 6 decided on a FREEZE outcome under policy POL-AML-1.",
+              "tool": "precedents"
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "type": "opened",
+          "case_id": "case_6ee0301b40ca4ee7b98ee9e37ae294ec",
+          "account_id": "cycle_0"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_6ee0301b40ca4ee7b98ee9e37ae294ec",
+          "step": 1,
+          "tool": "prior_cases",
+          "params": {
+            "account_id": "cycle_0",
+            "exclude_case_id": "case_6ee0301b40ca4ee7b98ee9e37ae294ec"
+          },
+          "result": [
+            {
+              "case_id": "case_800970d719e940cfb5c5bc707faa73f2",
+              "verdict": "MONITOR",
+              "pattern": "circular_layering",
+              "opened_at": 1792258803,
+              "role": "member",
+              "key_findings": [
+                "No prior cases found for account cycle_0 excluding case 800970d719e940cfb5c5bc707faa73f2.",
+                "A circular flow of funds involving accounts cycle_0, cycle_1, cycle_2, cycle_3, and cycle_4 was detected with a total volume of 2350.0 USD over five transfers.",
+                "The circular flow of funds involving accounts cycle_0 to cycle_4 shows a significant pattern of fund cycling with a volume of 2350.0 USD over a short time, which could indicate synthetic remittance activity."
+              ]
+            },
+            {
+              "case_id": "case_800970d719e940cfb5c5bc707faa73f2",
+              "verdict": "MONITOR",
+              "pattern": "circular_layering",
+              "opened_at": 1792258803,
+              "role": "flagged",
+              "key_findings": [
+                "No prior cases found for account cycle_0 excluding case 800970d719e940cfb5c5bc707faa73f2.",
+                "A circular flow of funds involving accounts cycle_0, cycle_1, cycle_2, cycle_3, and cycle_4 was detected with a total volume of 2350.0 USD over five transfers.",
+                "The circular flow of funds involving accounts cycle_0 to cycle_4 shows a significant pattern of fund cycling with a volume of 2350.0 USD over a short time, which could indicate synthetic remittance activity."
+              ]
+            }
+          ],
+          "text": "No prior cases were found for account cycle_0 excluding the current case. A circular flow of funds involving accounts cycle_0 to cycle_4 was detected, with a total volume of 2350 USD over five transfers in a short time, indicating a possible synthetic remittance pattern. The account cycle_0 is involved as a member and flagged role in this circular layering pattern, and the verdict given is MONITOR, showing uncertainty without definitive fraud evidence.",
+          "cited_ids": [
+            "cycle_0"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "cycle_0"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_6ee0301b40ca4ee7b98ee9e37ae294ec",
+          "step": 2,
+          "tool": "shared_identifiers",
+          "params": {
+            "account_id": "cycle_0"
+          },
+          "result": [
+            {
+              "account": "cycle_1",
+              "via": "Device",
+              "identifier": "shared_device_1",
+              "source_edge": 4031,
+              "peer_edge": 4032
+            },
+            {
+              "account": "shared_0",
+              "via": "Device",
+              "identifier": "shared_device_0",
+              "source_edge": 4030,
+              "peer_edge": 4033
+            },
+            {
+              "account": "shared_1",
+              "via": "Device",
+              "identifier": "shared_device_1",
+              "source_edge": 4031,
+              "peer_edge": 4034
+            },
+            {
+              "account": "shared_1",
+              "via": "Phone",
+              "identifier": "shared_phone_0",
+              "source_edge": 6045,
+              "peer_edge": 6048
+            },
+            {
+              "account": "shared_2",
+              "via": "Device",
+              "identifier": "shared_device_0",
+              "source_edge": 4030,
+              "peer_edge": 4035
+            },
+            {
+              "account": "shared_3",
+              "via": "Device",
+              "identifier": "shared_device_1",
+              "source_edge": 4031,
+              "peer_edge": 4036
+            },
+            {
+              "account": "shared_4",
+              "via": "Device",
+              "identifier": "shared_device_0",
+              "source_edge": 4030,
+              "peer_edge": 4037
+            },
+            {
+              "account": "shared_4",
+              "via": "Phone",
+              "identifier": "shared_phone_0",
+              "source_edge": 6045,
+              "peer_edge": 6051
+            },
+            {
+              "account": "shared_5",
+              "via": "Device",
+              "identifier": "shared_device_1",
+              "source_edge": 4031,
+              "peer_edge": 4038
+            },
+            {
+              "account": "shared_6",
+              "via": "Device",
+              "identifier": "shared_device_0",
+              "source_edge": 4030,
+              "peer_edge": 4039
+            }
+          ],
+          "text": "The account 'cycle_0' shares device and phone identifiers with multiple other accounts, specifically sharing 'shared_device_0' and 'shared_device_1' with various accounts, and 'shared_phone_0' with accounts 'shared_1' and 'shared_4'. This indicates that these accounts are linked through common device and phone usage, which could suggest coordinated activity or synthetic identity connections.",
+          "cited_ids": [
+            "cycle_0"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "cycle_0",
+            "cycle_1",
+            "shared_0",
+            "shared_1",
+            "shared_2",
+            "shared_3",
+            "shared_4",
+            "shared_5",
+            "shared_6"
+          ],
+          "positive": true,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_6ee0301b40ca4ee7b98ee9e37ae294ec",
+          "step": 3,
+          "tool": "circular_flows",
+          "params": {
+            "account_id": "cycle_0",
+            "max_hops": 5
+          },
+          "result": [
+            {
+              "accounts": [
+                "cycle_0",
+                "cycle_1",
+                "cycle_2",
+                "cycle_3",
+                "cycle_4",
+                "cycle_0"
+              ],
+              "transfers": [
+                "tx_0026041",
+                "tx_0026042",
+                "tx_0026043",
+                "tx_0026044",
+                "tx_0026045"
+              ],
+              "amounts": [
+                480.0,
+                475.0,
+                470.0,
+                465.0,
+                460.0
+              ],
+              "timestamps": [
+                1792065600,
+                1792069200,
+                1792072800,
+                1792076400,
+                1792080000
+              ],
+              "volume": 2350.0
+            }
+          ],
+          "text": "There is a detected circular flow involving accounts cycle_0, cycle_1, cycle_2, cycle_3, cycle_4, and back to cycle_0 with a total volume of 2350 over five transfers within a short time frame, indicating potential synthetic remittance activity.",
+          "cited_ids": [
+            "cycle_0"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "cycle_0",
+            "cycle_1",
+            "cycle_2",
+            "cycle_3",
+            "cycle_4"
+          ],
+          "positive": true,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_6ee0301b40ca4ee7b98ee9e37ae294ec",
+          "step": 4,
+          "tool": "fan_in",
+          "params": {
+            "account_id": "cycle_0",
+            "since": 1791907200,
+            "max_amount": 500
+          },
+          "result": [
+            {
+              "collector": "cycle_0",
+              "senders": 1,
+              "total": 460.0,
+              "sender_ids": [
+                "cycle_4"
+              ],
+              "transfers": [
+                "tx_0026045"
+              ],
+              "first_ts": 1792080000,
+              "last_ts": 1792080000
+            }
+          ],
+          "text": "Account cycle_0 received a single transfer of $460 from account cycle_4 at timestamp 1792080000.",
+          "cited_ids": [
+            "cycle_0",
+            "cycle_4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "cycle_0",
+            "cycle_4"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_6ee0301b40ca4ee7b98ee9e37ae294ec",
+          "step": 5,
+          "tool": "link_to_known_bad",
+          "params": {
+            "account_id": "cycle_0"
+          },
+          "result": [],
+          "text": "The account \"cycle_0\" has no links to any known bad actors or accounts in the data.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_6ee0301b40ca4ee7b98ee9e37ae294ec",
+          "step": 6,
+          "tool": "shared_identifiers",
+          "params": {
+            "account_id": "cycle_1"
+          },
+          "result": [
+            {
+              "account": "cycle_0",
+              "via": "Device",
+              "identifier": "shared_device_1",
+              "source_edge": 4032,
+              "peer_edge": 4031
+            },
+            {
+              "account": "shared_1",
+              "via": "Device",
+              "identifier": "shared_device_1",
+              "source_edge": 4032,
+              "peer_edge": 4034
+            },
+            {
+              "account": "shared_2",
+              "via": "Phone",
+              "identifier": "shared_phone_1",
+              "source_edge": 6046,
+              "peer_edge": 6049
+            },
+            {
+              "account": "shared_3",
+              "via": "Device",
+              "identifier": "shared_device_1",
+              "source_edge": 4032,
+              "peer_edge": 4036
+            },
+            {
+              "account": "shared_5",
+              "via": "Device",
+              "identifier": "shared_device_1",
+              "source_edge": 4032,
+              "peer_edge": 4038
+            },
+            {
+              "account": "shared_5",
+              "via": "Phone",
+              "identifier": "shared_phone_1",
+              "source_edge": 6046,
+              "peer_edge": 6052
+            }
+          ],
+          "text": "Account cycle_1 shares device identifier 'shared_device_1' with accounts cycle_0, shared_1, shared_3, and shared_5, and shares phone identifier 'shared_phone_1' with accounts shared_2 and shared_5. This indicates that cycle_1 is linked by device and phone usage to multiple other accounts.",
+          "cited_ids": [
+            "cycle_1"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "cycle_0",
+            "cycle_1",
+            "shared_1",
+            "shared_2",
+            "shared_3",
+            "shared_5"
+          ],
+          "positive": true,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_6ee0301b40ca4ee7b98ee9e37ae294ec",
+          "step": 7,
+          "tool": "shared_identifiers",
+          "params": {
+            "account_id": "cycle_4"
+          },
+          "result": [],
+          "text": "There is no evidence of shared identifiers with other accounts for account 'cycle_4'.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_6ee0301b40ca4ee7b98ee9e37ae294ec",
+          "step": 8,
+          "tool": "shared_identifiers",
+          "params": {
+            "account_id": "cycle_2"
+          },
+          "result": [],
+          "text": "No shared identifiers were found for account 'cycle_2', indicating no direct identity overlaps with other monitored accounts in this dataset.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_6ee0301b40ca4ee7b98ee9e37ae294ec",
+          "step": 9,
+          "tool": "shared_identifiers",
+          "params": {
+            "account_id": "cycle_3"
+          },
+          "result": [],
+          "text": "There is no evidence of shared identifiers for account cycle_3, indicating no directly linked accounts through common identifiers.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_6ee0301b40ca4ee7b98ee9e37ae294ec",
+          "step": 10,
+          "tool": "shared_identifiers",
+          "params": {
+            "account_id": "cycle_0"
+          },
+          "result": [
+            {
+              "account": "cycle_1",
+              "via": "Device",
+              "identifier": "shared_device_1",
+              "source_edge": 4031,
+              "peer_edge": 4032
+            },
+            {
+              "account": "shared_0",
+              "via": "Device",
+              "identifier": "shared_device_0",
+              "source_edge": 4030,
+              "peer_edge": 4033
+            },
+            {
+              "account": "shared_1",
+              "via": "Device",
+              "identifier": "shared_device_1",
+              "source_edge": 4031,
+              "peer_edge": 4034
+            },
+            {
+              "account": "shared_1",
+              "via": "Phone",
+              "identifier": "shared_phone_0",
+              "source_edge": 6045,
+              "peer_edge": 6048
+            },
+            {
+              "account": "shared_2",
+              "via": "Device",
+              "identifier": "shared_device_0",
+              "source_edge": 4030,
+              "peer_edge": 4035
+            },
+            {
+              "account": "shared_3",
+              "via": "Device",
+              "identifier": "shared_device_1",
+              "source_edge": 4031,
+              "peer_edge": 4036
+            },
+            {
+              "account": "shared_4",
+              "via": "Device",
+              "identifier": "shared_device_0",
+              "source_edge": 4030,
+              "peer_edge": 4037
+            },
+            {
+              "account": "shared_4",
+              "via": "Phone",
+              "identifier": "shared_phone_0",
+              "source_edge": 6045,
+              "peer_edge": 6051
+            },
+            {
+              "account": "shared_5",
+              "via": "Device",
+              "identifier": "shared_device_1",
+              "source_edge": 4031,
+              "peer_edge": 4038
+            },
+            {
+              "account": "shared_6",
+              "via": "Device",
+              "identifier": "shared_device_0",
+              "source_edge": 4030,
+              "peer_edge": 4039
+            }
+          ],
+          "text": "Account cycle_0 shares multiple device identifiers with several accounts, including cycle_1 and shared_1, 3, and 5, indicating shared device usage. Additionally, shared_0, 2, 4, and 6 share another device identifier with cycle_0, and shared_1 and 4 share a phone identifier with cycle_0, suggesting some common device and phone use among these accounts.",
+          "cited_ids": [
+            "cycle_0"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "cycle_0",
+            "cycle_1",
+            "shared_0",
+            "shared_1",
+            "shared_2",
+            "shared_3",
+            "shared_4",
+            "shared_5",
+            "shared_6"
+          ],
+          "positive": true,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "guardrail",
+          "case_id": "case_6ee0301b40ca4ee7b98ee9e37ae294ec",
+          "text": "Investigation step cap reached; reserving final two reads for company grounding.",
+          "details": {}
+        },
+        {
+          "type": "finding",
+          "case_id": "case_6ee0301b40ca4ee7b98ee9e37ae294ec",
+          "step": 11,
+          "tool": "corridor_context",
+          "params": {
+            "corridor_code": "US-NG"
+          },
+          "result": [
+            {
+              "corridor": "US-NG",
+              "lead_id": "emp_0",
+              "lead": "Fictional employee 0",
+              "team_id": "team_0",
+              "team": "Fictional team 0",
+              "policies": [
+                {
+                  "id": "POL-AML-1",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 1",
+                  "source_id": "DOC-1",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 1"
+                },
+                {
+                  "id": "POL-AML-2",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 2",
+                  "source_id": "DOC-2",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 2"
+                },
+                {
+                  "id": "POL-AML-3",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 3",
+                  "source_id": "DOC-3",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 3"
+                },
+                {
+                  "id": "POL-AML-4",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 4",
+                  "source_id": "DOC-4",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 4"
+                }
+              ]
+            }
+          ],
+          "text": "For the US-NG corridor, all four synthetic review policies recommend investigating connected evidence when the threshold of 500.0 is met, but these are fictional demo policies and do not establish a legal threshold. The investigation lead is Fictional employee 0 from Fictional team 0.",
+          "cited_ids": [
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_6ee0301b40ca4ee7b98ee9e37ae294ec",
+          "step": 12,
+          "tool": "precedents",
+          "params": {
+            "policy_id": "POL-AML-1"
+          },
+          "result": [
+            {
+              "decision": "DEC-6",
+              "summary": "Fictional precedent 6",
+              "outcome": "FREEZE",
+              "date": 1791892800,
+              "decided_by_id": "emp_6",
+              "decided_by": "Fictional employee 6"
+            }
+          ],
+          "text": "The result shows a precedent decision labeled DEC-6 where employee Fictional employee 6 decided on a FREEZE outcome under policy POL-AML-1.",
+          "cited_ids": [
+            "DEC-6"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "closed",
+          "case_id": "case_6ee0301b40ca4ee7b98ee9e37ae294ec",
+          "decision": {
+            "case_id": "case_6ee0301b40ca4ee7b98ee9e37ae294ec",
+            "verdict": "MONITOR",
+            "risk": 0.6,
+            "pattern": "circular_layering",
+            "members": [
+              "cycle_0",
+              "cycle_1",
+              "cycle_2",
+              "cycle_3",
+              "cycle_4"
+            ],
+            "policy_id": "POL-AML-1",
+            "precedent_decision_id": "DEC-6",
+            "assignee_employee_id": "emp_0",
+            "rationale": "The evidence shows a significant circular flow of funds involving accounts cycle_0 through cycle_4 with a total volume of $2350 over five short transfers, indicative of a potential synthetic remittance pattern. Additionally, shared device and phone identifiers link cycle_0 with multiple accounts, suggesting possible coordinated activity or synthetic identity connections. However, there is no direct link to known bad actors and no definitive fraud evidence. The prior precedent DEC-6 under policy POL-AML-1 resulted in a FREEZE for a similar case, but current evidence supports a MONITOR due to uncertainty and absence of corroborative fraud evidence. Investigation lead Fictional employee 0 from the US-NG corridor recommends monitoring the account with heightened vigilance.",
+            "steps": 12,
+            "step_cap_reached": true,
+            "guardrail_reasons": []
+          }
+        }
+      ],
+      "persistence_verified": true
+    },
+    {
+      "account_id": "collector_0",
+      "model": "gpt-4.1-mini",
+      "decision": {
+        "case_id": "case_24d854b141f047debf5fad0627b1bac0",
+        "verdict": "FREEZE",
+        "risk": 0.85,
+        "pattern": "fan_in_mule",
+        "members": [
+          "collector_0",
+          "mule_0",
+          "mule_1",
+          "mule_2",
+          "mule_3",
+          "mule_4",
+          "mule_5",
+          "mule_6",
+          "mule_7",
+          "mule_8",
+          "mule_9",
+          "mule_10",
+          "mule_11"
+        ],
+        "policy_id": "POL-AML-1",
+        "precedent_decision_id": "DEC-6",
+        "assignee_employee_id": "emp_0",
+        "rationale": "The account 'collector_0' received 12 transfers totaling 4866 units from 12 different mule accounts, each under 1000 units, indicating a fan-in mule pattern. Furthermore, 'collector_0' is directly linked to a known bad account 'mule_0'. No prior unrelated cases, shared identifiers, or circular flows were detected, which consolidates that the suspicious activity arises from the fan-in pattern and the known fraudulent connection. The policy POL-AML-1 requires investigation of connected evidence above a $500 threshold, met by this case. The precedent DEC-6, handled by the same company corridor review process, resulted in a FREEZE decision for similar patterns. Therefore, a FREEZE is warranted in this case.",
+        "steps": 8,
+        "step_cap_reached": false,
+        "guardrail_reasons": []
+      },
+      "state": [
+        {
+          "status": "closed",
+          "verdict": "FREEZE",
+          "risk": 0.85,
+          "policy_id": "POL-AML-1",
+          "decision_id": "DEC-6",
+          "assignee_id": "emp_0",
+          "members": [
+            {
+              "id": "mule_0",
+              "role": "member"
+            },
+            {
+              "id": "mule_1",
+              "role": "member"
+            },
+            {
+              "id": "mule_2",
+              "role": "member"
+            },
+            {
+              "id": "mule_3",
+              "role": "member"
+            },
+            {
+              "id": "mule_4",
+              "role": "member"
+            },
+            {
+              "id": "mule_5",
+              "role": "member"
+            },
+            {
+              "id": "mule_6",
+              "role": "member"
+            },
+            {
+              "id": "mule_7",
+              "role": "member"
+            },
+            {
+              "id": "mule_8",
+              "role": "member"
+            },
+            {
+              "id": "mule_9",
+              "role": "member"
+            },
+            {
+              "id": "mule_10",
+              "role": "member"
+            },
+            {
+              "id": "mule_11",
+              "role": "member"
+            },
+            {
+              "id": "collector_0",
+              "role": "member"
+            },
+            {
+              "id": "mule_0",
+              "role": "member"
+            },
+            {
+              "id": "mule_1",
+              "role": "member"
+            },
+            {
+              "id": "mule_2",
+              "role": "member"
+            },
+            {
+              "id": "mule_3",
+              "role": "member"
+            },
+            {
+              "id": "mule_4",
+              "role": "member"
+            },
+            {
+              "id": "mule_5",
+              "role": "member"
+            },
+            {
+              "id": "mule_6",
+              "role": "member"
+            },
+            {
+              "id": "mule_7",
+              "role": "member"
+            },
+            {
+              "id": "mule_8",
+              "role": "member"
+            },
+            {
+              "id": "mule_9",
+              "role": "member"
+            },
+            {
+              "id": "mule_10",
+              "role": "member"
+            },
+            {
+              "id": "mule_11",
+              "role": "member"
+            },
+            {
+              "id": "collector_0",
+              "role": "flagged"
+            }
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "finding_id": "finding_d253273217eb4bccb625a84049e67fc4",
+          "step": 1,
+          "tool": "prior_cases",
+          "query_name": "prior_cases",
+          "params": "{\"account_id\": \"collector_0\", \"exclude_case_id\": \"case_24d854b141f047debf5fad0627b1bac0\"}",
+          "text": "No prior cases other than the excluded one are linked to account collector_0, indicating no additional related suspicious activity found in the database for this account.",
+          "cited": []
+        },
+        {
+          "finding_id": "finding_687444568deb45b09703cab2219eb607",
+          "step": 2,
+          "tool": "shared_identifiers",
+          "query_name": "shared_identifiers",
+          "params": "{\"account_id\": \"collector_0\"}",
+          "text": "The result shows no shared identifiers linked to account 'collector_0', indicating no evidence of network connections or alias usage to suggest synthetic remittance activity.",
+          "cited": []
+        },
+        {
+          "finding_id": "finding_82f372f26a6a4f93ba713e3f78d9c39a",
+          "step": 3,
+          "tool": "circular_flows",
+          "query_name": "circular_flows",
+          "params": "{\"account_id\": \"collector_0\", \"max_hops\": 5}",
+          "text": "No circular fund flows were detected within 5 hops of the account collector_0, indicating absence of immediate recycling or laundering in circular fashion according to flow analysis.",
+          "cited": []
+        },
+        {
+          "finding_id": "finding_ec443755c86d4396a91e70f218bbc652",
+          "step": 4,
+          "tool": "fan_in",
+          "query_name": "fan_in",
+          "params": "{\"account_id\": \"collector_0\", \"max_amount\": 1000, \"since\": 1791932400}",
+          "text": "The collector account 'collector_0' received 12 transfers from 12 different mule accounts between timestamps 1792065600 and 1792105200, totaling 4866 units, with each transfer amounting to less than 1000 units.",
+          "cited": [
+            "mule_0",
+            "mule_1",
+            "mule_2",
+            "mule_3",
+            "mule_4",
+            "mule_5",
+            "mule_6",
+            "mule_7",
+            "mule_8",
+            "mule_9",
+            "mule_10",
+            "mule_11",
+            "collector_0",
+            "mule_0",
+            "mule_1",
+            "mule_2",
+            "mule_3",
+            "mule_4",
+            "mule_5",
+            "mule_6",
+            "mule_7",
+            "mule_8",
+            "mule_9",
+            "mule_10",
+            "mule_11",
+            "collector_0"
+          ]
+        },
+        {
+          "finding_id": "finding_f0eb2931b5f248dfa396a594043135fd",
+          "step": 5,
+          "tool": "link_to_known_bad",
+          "query_name": "link_to_known_bad",
+          "params": "{\"account_id\": \"collector_0\"}",
+          "text": "The account \"collector_0\" is directly linked to the known bad account \"mule_0\" through one edge, indicating a direct relationship with a confirmed fraudulent account.",
+          "cited": [
+            "mule_0",
+            "collector_0",
+            "mule_0",
+            "collector_0"
+          ]
+        },
+        {
+          "finding_id": "finding_f0dfd4f3331a4b829c65da68d0a457f6",
+          "step": 6,
+          "tool": "who_knows",
+          "query_name": "who_knows",
+          "params": "{\"pattern\": \"fan_in_mule\"}",
+          "text": "Only one analyst, Fictional employee 6, is knowledgeable about fan-in mule patterns in this investigation.",
+          "cited": []
+        },
+        {
+          "finding_id": "finding_30ea6804ad5245f18d2bb0180147576d",
+          "step": 7,
+          "tool": "corridor_context",
+          "query_name": "corridor_context",
+          "params": "{\"corridor_code\": \"US-NG\"}",
+          "text": "The US-NG corridor is reviewed by Fictional employee 0 and Fictional team 0 under four synthetic review policies, each requiring further investigation of connected evidence above a $500 threshold; these policies are for demonstration and not legal thresholds.",
+          "cited": [
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4",
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4"
+          ]
+        },
+        {
+          "finding_id": "finding_f809298328c54aa99dc41c51c1b1db65",
+          "step": 8,
+          "tool": "precedents",
+          "query_name": "precedents",
+          "params": "{\"policy_id\": \"POL-AML-1\"}",
+          "text": "The precedent DEC-6 was decided by Fictional employee 6 on the date corresponding to 1791892800. The decision outcome was to FREEZE, based on the summary 'Fictional precedent 6'.",
+          "cited": [
+            "DEC-6",
+            "DEC-6"
+          ]
+        }
+      ],
+      "audit": [
+        {
+          "case": {
+            "closed_at": 1792259016,
+            "guardrail_reasons": [],
+            "id": "case_24d854b141f047debf5fad0627b1bac0",
+            "opened_at": 1792258996,
+            "pattern": "fan_in_mule",
+            "proposed_verdict": "FREEZE",
+            "rationale": "The account 'collector_0' received 12 transfers totaling 4866 units from 12 different mule accounts, each under 1000 units, indicating a fan-in mule pattern. Furthermore, 'collector_0' is directly linked to a known bad account 'mule_0'. No prior unrelated cases, shared identifiers, or circular flows were detected, which consolidates that the suspicious activity arises from the fan-in pattern and the known fraudulent connection. The policy POL-AML-1 requires investigation of connected evidence above a $500 threshold, met by this case. The precedent DEC-6, handled by the same company corridor review process, resulted in a FREEZE decision for similar patterns. Therefore, a FREEZE is warranted in this case.",
+            "requested_account_id": "collector_0",
+            "risk": 0.85,
+            "status": "closed",
+            "step_cap_reached": false,
+            "verdict": "FREEZE"
+          },
+          "findings": [
+            {
+              "created_at": 1792258997,
+              "id": "finding_d253273217eb4bccb625a84049e67fc4",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"collector_0\", \"exclude_case_id\": \"case_24d854b141f047debf5fad0627b1bac0\"}",
+              "query_name": "prior_cases",
+              "rejected_citations": "[]",
+              "result_json": "[]",
+              "step": 1,
+              "text": "No prior cases other than the excluded one are linked to account collector_0, indicating no additional related suspicious activity found in the database for this account.",
+              "tool": "prior_cases"
+            },
+            {
+              "created_at": 1792258999,
+              "id": "finding_687444568deb45b09703cab2219eb607",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"collector_0\"}",
+              "query_name": "shared_identifiers",
+              "rejected_citations": "[]",
+              "result_json": "[]",
+              "step": 2,
+              "text": "The result shows no shared identifiers linked to account 'collector_0', indicating no evidence of network connections or alias usage to suggest synthetic remittance activity.",
+              "tool": "shared_identifiers"
+            },
+            {
+              "created_at": 1792259001,
+              "id": "finding_82f372f26a6a4f93ba713e3f78d9c39a",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"collector_0\", \"max_hops\": 5}",
+              "query_name": "circular_flows",
+              "rejected_citations": "[]",
+              "result_json": "[]",
+              "step": 3,
+              "text": "No circular fund flows were detected within 5 hops of the account collector_0, indicating absence of immediate recycling or laundering in circular fashion according to flow analysis.",
+              "tool": "circular_flows"
+            },
+            {
+              "created_at": 1792259004,
+              "id": "finding_ec443755c86d4396a91e70f218bbc652",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"collector_0\", \"max_amount\": 1000, \"since\": 1791932400}",
+              "query_name": "fan_in",
+              "rejected_citations": "[]",
+              "result_json": "[{\"collector\": \"collector_0\", \"first_ts\": 1792065600, \"last_ts\": 1792105200, \"sender_ids\": [\"mule_0\", \"mule_1\", \"mule_2\", \"mule_3\", \"mule_4\", \"mule_5\", \"mule_6\", \"mule_7\", \"mule_8\", \"mule_9\", \"mule_10\", \"mule_11\"], \"senders\": 12, \"total\": 4866.0, \"transfers\": [\"tx_0026059\", \"tx_0026060\", \"tx_0026061\", \"tx_0026062\", \"tx_0026063\", \"tx_0026064\", \"tx_0026065\", \"tx_0026066\", \"tx_0026067\", \"tx_0026068\", \"tx_0026069\", \"tx_0026070\"]}]",
+              "step": 4,
+              "text": "The collector account 'collector_0' received 12 transfers from 12 different mule accounts between timestamps 1792065600 and 1792105200, totaling 4866 units, with each transfer amounting to less than 1000 units.",
+              "tool": "fan_in"
+            },
+            {
+              "created_at": 1792259006,
+              "id": "finding_f0eb2931b5f248dfa396a594043135fd",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"collector_0\"}",
+              "query_name": "link_to_known_bad",
+              "rejected_citations": "[]",
+              "result_json": "[{\"account\": \"collector_0\", \"edge_ids\": [26059], \"hops\": 1, \"known_bad\": \"mule_0\", \"path\": [\"collector_0\", \"mule_0\"]}]",
+              "step": 5,
+              "text": "The account \"collector_0\" is directly linked to the known bad account \"mule_0\" through one edge, indicating a direct relationship with a confirmed fraudulent account.",
+              "tool": "link_to_known_bad"
+            },
+            {
+              "created_at": 1792259008,
+              "id": "finding_f0dfd4f3331a4b829c65da68d0a457f6",
+              "interpretation_source": "model",
+              "params": "{\"pattern\": \"fan_in_mule\"}",
+              "query_name": "who_knows",
+              "rejected_citations": "[]",
+              "result_json": "[{\"cases\": 1, \"employee\": \"Fictional employee 6\", \"employee_id\": \"emp_6\", \"role\": \"analyst\"}]",
+              "step": 6,
+              "text": "Only one analyst, Fictional employee 6, is knowledgeable about fan-in mule patterns in this investigation.",
+              "tool": "who_knows"
+            },
+            {
+              "created_at": 1792259011,
+              "id": "finding_30ea6804ad5245f18d2bb0180147576d",
+              "interpretation_source": "model",
+              "params": "{\"corridor_code\": \"US-NG\"}",
+              "query_name": "corridor_context",
+              "rejected_citations": "[]",
+              "result_json": "[{\"corridor\": \"US-NG\", \"lead\": \"Fictional employee 0\", \"lead_id\": \"emp_0\", \"policies\": [{\"id\": \"POL-AML-1\", \"rule\": \"Fictional demo: investigate connected evidence; this is not a legal threshold.\", \"source\": \"Fictional handbook 1\", \"source_id\": \"DOC-1\", \"threshold\": 500.0, \"title\": \"Synthetic review policy 1\"}, {\"id\": \"POL-AML-2\", \"rule\": \"Fictional demo: investigate connected evidence; this is not a legal threshold.\", \"source\": \"Fictional handbook 2\", \"source_id\": \"DOC-2\", \"threshold\": 500.0, \"title\": \"Synthetic review policy 2\"}, {\"id\": \"POL-AML-3\", \"rule\": \"Fictional demo: investigate connected evidence; this is not a legal threshold.\", \"source\": \"Fictional handbook 3\", \"source_id\": \"DOC-3\", \"threshold\": 500.0, \"title\": \"Synthetic review policy 3\"}, {\"id\": \"POL-AML-4\", \"rule\": \"Fictional demo: investigate connected evidence; this is not a legal threshold.\", \"source\": \"Fictional handbook 4\", \"source_id\": \"DOC-4\", \"threshold\": 500.0, \"title\": \"Synthetic review policy 4\"}], \"team\": \"Fictional team 0\", \"team_id\": \"team_0\"}]",
+              "step": 7,
+              "text": "The US-NG corridor is reviewed by Fictional employee 0 and Fictional team 0 under four synthetic review policies, each requiring further investigation of connected evidence above a $500 threshold; these policies are for demonstration and not legal thresholds.",
+              "tool": "corridor_context"
+            },
+            {
+              "created_at": 1792259013,
+              "id": "finding_f809298328c54aa99dc41c51c1b1db65",
+              "interpretation_source": "model",
+              "params": "{\"policy_id\": \"POL-AML-1\"}",
+              "query_name": "precedents",
+              "rejected_citations": "[]",
+              "result_json": "[{\"date\": 1791892800, \"decided_by\": \"Fictional employee 6\", \"decided_by_id\": \"emp_6\", \"decision\": \"DEC-6\", \"outcome\": \"FREEZE\", \"summary\": \"Fictional precedent 6\"}]",
+              "step": 8,
+              "text": "The precedent DEC-6 was decided by Fictional employee 6 on the date corresponding to 1791892800. The decision outcome was to FREEZE, based on the summary 'Fictional precedent 6'.",
+              "tool": "precedents"
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "type": "opened",
+          "case_id": "case_24d854b141f047debf5fad0627b1bac0",
+          "account_id": "collector_0"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_24d854b141f047debf5fad0627b1bac0",
+          "step": 1,
+          "tool": "prior_cases",
+          "params": {
+            "account_id": "collector_0",
+            "exclude_case_id": "case_24d854b141f047debf5fad0627b1bac0"
+          },
+          "result": [],
+          "text": "No prior cases other than the excluded one are linked to account collector_0, indicating no additional related suspicious activity found in the database for this account.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_24d854b141f047debf5fad0627b1bac0",
+          "step": 2,
+          "tool": "shared_identifiers",
+          "params": {
+            "account_id": "collector_0"
+          },
+          "result": [],
+          "text": "The result shows no shared identifiers linked to account 'collector_0', indicating no evidence of network connections or alias usage to suggest synthetic remittance activity.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_24d854b141f047debf5fad0627b1bac0",
+          "step": 3,
+          "tool": "circular_flows",
+          "params": {
+            "account_id": "collector_0",
+            "max_hops": 5
+          },
+          "result": [],
+          "text": "No circular fund flows were detected within 5 hops of the account collector_0, indicating absence of immediate recycling or laundering in circular fashion according to flow analysis.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_24d854b141f047debf5fad0627b1bac0",
+          "step": 4,
+          "tool": "fan_in",
+          "params": {
+            "account_id": "collector_0",
+            "since": 1791932400,
+            "max_amount": 1000
+          },
+          "result": [
+            {
+              "collector": "collector_0",
+              "senders": 12,
+              "total": 4866.0,
+              "sender_ids": [
+                "mule_0",
+                "mule_1",
+                "mule_2",
+                "mule_3",
+                "mule_4",
+                "mule_5",
+                "mule_6",
+                "mule_7",
+                "mule_8",
+                "mule_9",
+                "mule_10",
+                "mule_11"
+              ],
+              "transfers": [
+                "tx_0026059",
+                "tx_0026060",
+                "tx_0026061",
+                "tx_0026062",
+                "tx_0026063",
+                "tx_0026064",
+                "tx_0026065",
+                "tx_0026066",
+                "tx_0026067",
+                "tx_0026068",
+                "tx_0026069",
+                "tx_0026070"
+              ],
+              "first_ts": 1792065600,
+              "last_ts": 1792105200
+            }
+          ],
+          "text": "The collector account 'collector_0' received 12 transfers from 12 different mule accounts between timestamps 1792065600 and 1792105200, totaling 4866 units, with each transfer amounting to less than 1000 units.",
+          "cited_ids": [
+            "collector_0",
+            "mule_0",
+            "mule_1",
+            "mule_10",
+            "mule_11",
+            "mule_2",
+            "mule_3",
+            "mule_4",
+            "mule_5",
+            "mule_6",
+            "mule_7",
+            "mule_8",
+            "mule_9"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "collector_0",
+            "mule_0",
+            "mule_1",
+            "mule_10",
+            "mule_11",
+            "mule_2",
+            "mule_3",
+            "mule_4",
+            "mule_5",
+            "mule_6",
+            "mule_7",
+            "mule_8",
+            "mule_9"
+          ],
+          "positive": true,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_24d854b141f047debf5fad0627b1bac0",
+          "step": 5,
+          "tool": "link_to_known_bad",
+          "params": {
+            "account_id": "collector_0"
+          },
+          "result": [
+            {
+              "account": "collector_0",
+              "known_bad": "mule_0",
+              "path": [
+                "collector_0",
+                "mule_0"
+              ],
+              "edge_ids": [
+                26059
+              ],
+              "hops": 1
+            }
+          ],
+          "text": "The account \"collector_0\" is directly linked to the known bad account \"mule_0\" through one edge, indicating a direct relationship with a confirmed fraudulent account.",
+          "cited_ids": [
+            "collector_0",
+            "mule_0"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "collector_0",
+            "mule_0"
+          ],
+          "positive": true,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_24d854b141f047debf5fad0627b1bac0",
+          "step": 6,
+          "tool": "who_knows",
+          "params": {
+            "pattern": "fan_in_mule"
+          },
+          "result": [
+            {
+              "employee_id": "emp_6",
+              "employee": "Fictional employee 6",
+              "role": "analyst",
+              "cases": 1
+            }
+          ],
+          "text": "Only one analyst, Fictional employee 6, is knowledgeable about fan-in mule patterns in this investigation.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_24d854b141f047debf5fad0627b1bac0",
+          "step": 7,
+          "tool": "corridor_context",
+          "params": {
+            "corridor_code": "US-NG"
+          },
+          "result": [
+            {
+              "corridor": "US-NG",
+              "lead_id": "emp_0",
+              "lead": "Fictional employee 0",
+              "team_id": "team_0",
+              "team": "Fictional team 0",
+              "policies": [
+                {
+                  "id": "POL-AML-1",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 1",
+                  "source_id": "DOC-1",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 1"
+                },
+                {
+                  "id": "POL-AML-2",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 2",
+                  "source_id": "DOC-2",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 2"
+                },
+                {
+                  "id": "POL-AML-3",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 3",
+                  "source_id": "DOC-3",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 3"
+                },
+                {
+                  "id": "POL-AML-4",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 4",
+                  "source_id": "DOC-4",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 4"
+                }
+              ]
+            }
+          ],
+          "text": "The US-NG corridor is reviewed by Fictional employee 0 and Fictional team 0 under four synthetic review policies, each requiring further investigation of connected evidence above a $500 threshold; these policies are for demonstration and not legal thresholds.",
+          "cited_ids": [
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_24d854b141f047debf5fad0627b1bac0",
+          "step": 8,
+          "tool": "precedents",
+          "params": {
+            "policy_id": "POL-AML-1"
+          },
+          "result": [
+            {
+              "decision": "DEC-6",
+              "summary": "Fictional precedent 6",
+              "outcome": "FREEZE",
+              "date": 1791892800,
+              "decided_by_id": "emp_6",
+              "decided_by": "Fictional employee 6"
+            }
+          ],
+          "text": "The precedent DEC-6 was decided by Fictional employee 6 on the date corresponding to 1791892800. The decision outcome was to FREEZE, based on the summary 'Fictional precedent 6'.",
+          "cited_ids": [
+            "DEC-6"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "closed",
+          "case_id": "case_24d854b141f047debf5fad0627b1bac0",
+          "decision": {
+            "case_id": "case_24d854b141f047debf5fad0627b1bac0",
+            "verdict": "FREEZE",
+            "risk": 0.85,
+            "pattern": "fan_in_mule",
+            "members": [
+              "collector_0",
+              "mule_0",
+              "mule_1",
+              "mule_2",
+              "mule_3",
+              "mule_4",
+              "mule_5",
+              "mule_6",
+              "mule_7",
+              "mule_8",
+              "mule_9",
+              "mule_10",
+              "mule_11"
+            ],
+            "policy_id": "POL-AML-1",
+            "precedent_decision_id": "DEC-6",
+            "assignee_employee_id": "emp_0",
+            "rationale": "The account 'collector_0' received 12 transfers totaling 4866 units from 12 different mule accounts, each under 1000 units, indicating a fan-in mule pattern. Furthermore, 'collector_0' is directly linked to a known bad account 'mule_0'. No prior unrelated cases, shared identifiers, or circular flows were detected, which consolidates that the suspicious activity arises from the fan-in pattern and the known fraudulent connection. The policy POL-AML-1 requires investigation of connected evidence above a $500 threshold, met by this case. The precedent DEC-6, handled by the same company corridor review process, resulted in a FREEZE decision for similar patterns. Therefore, a FREEZE is warranted in this case.",
+            "steps": 8,
+            "step_cap_reached": false,
+            "guardrail_reasons": []
+          }
+        }
+      ],
+      "persistence_verified": true
+    },
+    {
+      "account_id": "shared_0",
+      "model": "gpt-4.1-mini",
+      "decision": {
+        "case_id": "case_5aca8917e2fb4826a724a0f4aa34aa32",
+        "verdict": "MONITOR",
+        "risk": 0.3,
+        "pattern": "shared_device",
+        "members": [
+          "shared_0",
+          "cycle_0",
+          "shared_2",
+          "shared_3",
+          "shared_4",
+          "shared_6"
+        ],
+        "policy_id": "POL-AML-1",
+        "precedent_decision_id": "DEC-6",
+        "assignee_employee_id": "emp_0",
+        "rationale": "The account shared_0 shares devices and phones with multiple other accounts, indicating identifier sharing and a potential risk factor, but there is no evidence of circular flows, fan-in patterns, known bad links, or prior cases. Given this isolated positive indicator, and considering the precedent that requires corroborated evidence for freezing, a MONITOR decision is appropriate under the synthetic review policy POL-AML-1.",
+        "steps": 8,
+        "step_cap_reached": false,
+        "guardrail_reasons": []
+      },
+      "state": [
+        {
+          "status": "closed",
+          "verdict": "MONITOR",
+          "risk": 0.3,
+          "policy_id": "POL-AML-1",
+          "decision_id": "DEC-6",
+          "assignee_id": "emp_0",
+          "members": [
+            {
+              "id": "cycle_0",
+              "role": "member"
+            },
+            {
+              "id": "shared_0",
+              "role": "flagged"
+            },
+            {
+              "id": "shared_2",
+              "role": "member"
+            },
+            {
+              "id": "shared_3",
+              "role": "member"
+            },
+            {
+              "id": "shared_4",
+              "role": "member"
+            },
+            {
+              "id": "shared_6",
+              "role": "member"
+            },
+            {
+              "id": "cycle_0",
+              "role": "member"
+            },
+            {
+              "id": "shared_0",
+              "role": "member"
+            },
+            {
+              "id": "shared_2",
+              "role": "member"
+            },
+            {
+              "id": "shared_3",
+              "role": "member"
+            },
+            {
+              "id": "shared_4",
+              "role": "member"
+            },
+            {
+              "id": "shared_6",
+              "role": "member"
+            }
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "finding_id": "finding_5bf594e02fe1437593c5f53876d831ab",
+          "step": 1,
+          "tool": "prior_cases",
+          "query_name": "prior_cases",
+          "params": "{\"account_id\": \"shared_0\", \"exclude_case_id\": \"case_5aca8917e2fb4826a724a0f4aa34aa32\"}",
+          "text": "No prior cases were found for account shared_0, excluding case_id case_5aca8917e2fb4826a724a0f4aa34aa32.",
+          "cited": []
+        },
+        {
+          "finding_id": "finding_a0bcb272fc6046b7845a41fee026feea",
+          "step": 2,
+          "tool": "shared_identifiers",
+          "query_name": "shared_identifiers",
+          "params": "{\"account_id\": \"shared_0\"}",
+          "text": "The account shared_0 shares identifiers device (shared_device_0) with accounts cycle_0, shared_2, shared_4, and shared_6, and shares phone identifier (shared_phone_2) with accounts shared_3 and shared_6, indicating device and phone sharing among these accounts.",
+          "cited": [
+            "cycle_0",
+            "shared_0",
+            "shared_2",
+            "shared_3",
+            "shared_4",
+            "shared_6",
+            "shared_device_0",
+            "shared_phone_2",
+            "cycle_0",
+            "shared_0",
+            "shared_2",
+            "shared_3",
+            "shared_4",
+            "shared_6",
+            "shared_device_0",
+            "shared_phone_2"
+          ]
+        },
+        {
+          "finding_id": "finding_3f30a5b3adce4ce1b7a489f5b68472fe",
+          "step": 3,
+          "tool": "circular_flows",
+          "query_name": "circular_flows",
+          "params": "{\"account_id\": \"shared_0\", \"max_hops\": 5}",
+          "text": "There is no evidence of circular flows detected for account shared_0 within 5 hops, indicating no signs of synthetic remittance patterns via circular fund movements in this account's network.",
+          "cited": []
+        },
+        {
+          "finding_id": "finding_7f5bef7201f54ef1b88650534046765c",
+          "step": 4,
+          "tool": "fan_in",
+          "query_name": "fan_in",
+          "params": "{\"account_id\": \"shared_0\", \"max_amount\": 2000, \"since\": 1792086218}",
+          "text": "There are no incoming transfers to account shared_0 under 2000 units since the specified timestamp, indicating no evidence of small-value incoming transactions.",
+          "cited": [
+            "shared_0",
+            "shared_0"
+          ]
+        },
+        {
+          "finding_id": "finding_1810948fe2f64073bba123cce42593f9",
+          "step": 5,
+          "tool": "link_to_known_bad",
+          "query_name": "link_to_known_bad",
+          "params": "{\"account_id\": \"shared_0\"}",
+          "text": "The account 'shared_0' is not linked to any known bad entities in the database, providing no evidence of fraudulent connections.",
+          "cited": []
+        },
+        {
+          "finding_id": "finding_44a060a685c04789b873916b59915c8b",
+          "step": 6,
+          "tool": "who_knows",
+          "query_name": "who_knows",
+          "params": "{\"pattern\": \"shared_device\"}",
+          "text": "No evidence of accounts sharing devices was found in the pattern search.",
+          "cited": []
+        },
+        {
+          "finding_id": "finding_24b3e41e0f474965b448cc0a04e93e16",
+          "step": 7,
+          "tool": "corridor_context",
+          "query_name": "corridor_context",
+          "params": "{\"corridor_code\": \"US-NG\"}",
+          "text": "The investigation context for corridor US-NG is led by Fictional employee 0 and guided by four synthetic review policies, each requiring investigation of connected evidence with a threshold of 500.0, although they do not represent a legal threshold.",
+          "cited": [
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4",
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4"
+          ]
+        },
+        {
+          "finding_id": "finding_2685ae60970f424bacc22dcca22a1fc7",
+          "step": 8,
+          "tool": "precedents",
+          "query_name": "precedents",
+          "params": "{\"policy_id\": \"POL-AML-1\"}",
+          "text": "The case was decided by Fictional employee 6, resulting in a FREEZE outcome based on precedent DEC-6, summarized as Fictional precedent 6.",
+          "cited": [
+            "DEC-6",
+            "DEC-6"
+          ]
+        }
+      ],
+      "audit": [
+        {
+          "case": {
+            "closed_at": 1792259035,
+            "guardrail_reasons": [],
+            "id": "case_5aca8917e2fb4826a724a0f4aa34aa32",
+            "opened_at": 1792259016,
+            "pattern": "shared_device",
+            "proposed_verdict": "MONITOR",
+            "rationale": "The account shared_0 shares devices and phones with multiple other accounts, indicating identifier sharing and a potential risk factor, but there is no evidence of circular flows, fan-in patterns, known bad links, or prior cases. Given this isolated positive indicator, and considering the precedent that requires corroborated evidence for freezing, a MONITOR decision is appropriate under the synthetic review policy POL-AML-1.",
+            "requested_account_id": "shared_0",
+            "risk": 0.3,
+            "status": "closed",
+            "step_cap_reached": false,
+            "verdict": "MONITOR"
+          },
+          "findings": [
+            {
+              "created_at": 1792259018,
+              "id": "finding_5bf594e02fe1437593c5f53876d831ab",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"shared_0\", \"exclude_case_id\": \"case_5aca8917e2fb4826a724a0f4aa34aa32\"}",
+              "query_name": "prior_cases",
+              "rejected_citations": "[]",
+              "result_json": "[]",
+              "step": 1,
+              "text": "No prior cases were found for account shared_0, excluding case_id case_5aca8917e2fb4826a724a0f4aa34aa32.",
+              "tool": "prior_cases"
+            },
+            {
+              "created_at": 1792259020,
+              "id": "finding_a0bcb272fc6046b7845a41fee026feea",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"shared_0\"}",
+              "query_name": "shared_identifiers",
+              "rejected_citations": "[]",
+              "result_json": "[{\"account\": \"cycle_0\", \"identifier\": \"shared_device_0\", \"peer_edge\": 4030, \"source_edge\": 4033, \"via\": \"Device\"}, {\"account\": \"shared_2\", \"identifier\": \"shared_device_0\", \"peer_edge\": 4035, \"source_edge\": 4033, \"via\": \"Device\"}, {\"account\": \"shared_3\", \"identifier\": \"shared_phone_2\", \"peer_edge\": 6050, \"source_edge\": 6047, \"via\": \"Phone\"}, {\"account\": \"shared_4\", \"identifier\": \"shared_device_0\", \"peer_edge\": 4037, \"source_edge\": 4033, \"via\": \"Device\"}, {\"account\": \"shared_6\", \"identifier\": \"shared_device_0\", \"peer_edge\": 4039, \"source_edge\": 4033, \"via\": \"Device\"}, {\"account\": \"shared_6\", \"identifier\": \"shared_phone_2\", \"peer_edge\": 6053, \"source_edge\": 6047, \"via\": \"Phone\"}]",
+              "step": 2,
+              "text": "The account shared_0 shares identifiers device (shared_device_0) with accounts cycle_0, shared_2, shared_4, and shared_6, and shares phone identifier (shared_phone_2) with accounts shared_3 and shared_6, indicating device and phone sharing among these accounts.",
+              "tool": "shared_identifiers"
+            },
+            {
+              "created_at": 1792259023,
+              "id": "finding_3f30a5b3adce4ce1b7a489f5b68472fe",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"shared_0\", \"max_hops\": 5}",
+              "query_name": "circular_flows",
+              "rejected_citations": "[]",
+              "result_json": "[]",
+              "step": 3,
+              "text": "There is no evidence of circular flows detected for account shared_0 within 5 hops, indicating no signs of synthetic remittance patterns via circular fund movements in this account's network.",
+              "tool": "circular_flows"
+            },
+            {
+              "created_at": 1792259025,
+              "id": "finding_7f5bef7201f54ef1b88650534046765c",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"shared_0\", \"max_amount\": 2000, \"since\": 1792086218}",
+              "query_name": "fan_in",
+              "rejected_citations": "[]",
+              "result_json": "[{\"collector\": \"shared_0\", \"first_ts\": null, \"last_ts\": null, \"sender_ids\": [], \"senders\": 0, \"total\": 0.0, \"transfers\": []}]",
+              "step": 4,
+              "text": "There are no incoming transfers to account shared_0 under 2000 units since the specified timestamp, indicating no evidence of small-value incoming transactions.",
+              "tool": "fan_in"
+            },
+            {
+              "created_at": 1792259027,
+              "id": "finding_1810948fe2f64073bba123cce42593f9",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"shared_0\"}",
+              "query_name": "link_to_known_bad",
+              "rejected_citations": "[]",
+              "result_json": "[]",
+              "step": 5,
+              "text": "The account 'shared_0' is not linked to any known bad entities in the database, providing no evidence of fraudulent connections.",
+              "tool": "link_to_known_bad"
+            },
+            {
+              "created_at": 1792259029,
+              "id": "finding_44a060a685c04789b873916b59915c8b",
+              "interpretation_source": "model",
+              "params": "{\"pattern\": \"shared_device\"}",
+              "query_name": "who_knows",
+              "rejected_citations": "[]",
+              "result_json": "[]",
+              "step": 6,
+              "text": "No evidence of accounts sharing devices was found in the pattern search.",
+              "tool": "who_knows"
+            },
+            {
+              "created_at": 1792259032,
+              "id": "finding_24b3e41e0f474965b448cc0a04e93e16",
+              "interpretation_source": "model",
+              "params": "{\"corridor_code\": \"US-NG\"}",
+              "query_name": "corridor_context",
+              "rejected_citations": "[]",
+              "result_json": "[{\"corridor\": \"US-NG\", \"lead\": \"Fictional employee 0\", \"lead_id\": \"emp_0\", \"policies\": [{\"id\": \"POL-AML-1\", \"rule\": \"Fictional demo: investigate connected evidence; this is not a legal threshold.\", \"source\": \"Fictional handbook 1\", \"source_id\": \"DOC-1\", \"threshold\": 500.0, \"title\": \"Synthetic review policy 1\"}, {\"id\": \"POL-AML-2\", \"rule\": \"Fictional demo: investigate connected evidence; this is not a legal threshold.\", \"source\": \"Fictional handbook 2\", \"source_id\": \"DOC-2\", \"threshold\": 500.0, \"title\": \"Synthetic review policy 2\"}, {\"id\": \"POL-AML-3\", \"rule\": \"Fictional demo: investigate connected evidence; this is not a legal threshold.\", \"source\": \"Fictional handbook 3\", \"source_id\": \"DOC-3\", \"threshold\": 500.0, \"title\": \"Synthetic review policy 3\"}, {\"id\": \"POL-AML-4\", \"rule\": \"Fictional demo: investigate connected evidence; this is not a legal threshold.\", \"source\": \"Fictional handbook 4\", \"source_id\": \"DOC-4\", \"threshold\": 500.0, \"title\": \"Synthetic review policy 4\"}], \"team\": \"Fictional team 0\", \"team_id\": \"team_0\"}]",
+              "step": 7,
+              "text": "The investigation context for corridor US-NG is led by Fictional employee 0 and guided by four synthetic review policies, each requiring investigation of connected evidence with a threshold of 500.0, although they do not represent a legal threshold.",
+              "tool": "corridor_context"
+            },
+            {
+              "created_at": 1792259034,
+              "id": "finding_2685ae60970f424bacc22dcca22a1fc7",
+              "interpretation_source": "model",
+              "params": "{\"policy_id\": \"POL-AML-1\"}",
+              "query_name": "precedents",
+              "rejected_citations": "[]",
+              "result_json": "[{\"date\": 1791892800, \"decided_by\": \"Fictional employee 6\", \"decided_by_id\": \"emp_6\", \"decision\": \"DEC-6\", \"outcome\": \"FREEZE\", \"summary\": \"Fictional precedent 6\"}]",
+              "step": 8,
+              "text": "The case was decided by Fictional employee 6, resulting in a FREEZE outcome based on precedent DEC-6, summarized as Fictional precedent 6.",
+              "tool": "precedents"
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "type": "opened",
+          "case_id": "case_5aca8917e2fb4826a724a0f4aa34aa32",
+          "account_id": "shared_0"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5aca8917e2fb4826a724a0f4aa34aa32",
+          "step": 1,
+          "tool": "prior_cases",
+          "params": {
+            "account_id": "shared_0",
+            "exclude_case_id": "case_5aca8917e2fb4826a724a0f4aa34aa32"
+          },
+          "result": [],
+          "text": "No prior cases were found for account shared_0, excluding case_id case_5aca8917e2fb4826a724a0f4aa34aa32.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5aca8917e2fb4826a724a0f4aa34aa32",
+          "step": 2,
+          "tool": "shared_identifiers",
+          "params": {
+            "account_id": "shared_0"
+          },
+          "result": [
+            {
+              "account": "cycle_0",
+              "via": "Device",
+              "identifier": "shared_device_0",
+              "source_edge": 4033,
+              "peer_edge": 4030
+            },
+            {
+              "account": "shared_2",
+              "via": "Device",
+              "identifier": "shared_device_0",
+              "source_edge": 4033,
+              "peer_edge": 4035
+            },
+            {
+              "account": "shared_3",
+              "via": "Phone",
+              "identifier": "shared_phone_2",
+              "source_edge": 6047,
+              "peer_edge": 6050
+            },
+            {
+              "account": "shared_4",
+              "via": "Device",
+              "identifier": "shared_device_0",
+              "source_edge": 4033,
+              "peer_edge": 4037
+            },
+            {
+              "account": "shared_6",
+              "via": "Device",
+              "identifier": "shared_device_0",
+              "source_edge": 4033,
+              "peer_edge": 4039
+            },
+            {
+              "account": "shared_6",
+              "via": "Phone",
+              "identifier": "shared_phone_2",
+              "source_edge": 6047,
+              "peer_edge": 6053
+            }
+          ],
+          "text": "The account shared_0 shares identifiers device (shared_device_0) with accounts cycle_0, shared_2, shared_4, and shared_6, and shares phone identifier (shared_phone_2) with accounts shared_3 and shared_6, indicating device and phone sharing among these accounts.",
+          "cited_ids": [
+            "cycle_0",
+            "shared_0",
+            "shared_2",
+            "shared_3",
+            "shared_4",
+            "shared_6",
+            "shared_device_0",
+            "shared_phone_2"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "cycle_0",
+            "shared_0",
+            "shared_2",
+            "shared_3",
+            "shared_4",
+            "shared_6"
+          ],
+          "positive": true,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5aca8917e2fb4826a724a0f4aa34aa32",
+          "step": 3,
+          "tool": "circular_flows",
+          "params": {
+            "account_id": "shared_0",
+            "max_hops": 5
+          },
+          "result": [],
+          "text": "There is no evidence of circular flows detected for account shared_0 within 5 hops, indicating no signs of synthetic remittance patterns via circular fund movements in this account's network.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5aca8917e2fb4826a724a0f4aa34aa32",
+          "step": 4,
+          "tool": "fan_in",
+          "params": {
+            "account_id": "shared_0",
+            "since": 1792086218,
+            "max_amount": 2000
+          },
+          "result": [
+            {
+              "collector": "shared_0",
+              "senders": 0,
+              "total": 0.0,
+              "sender_ids": [],
+              "transfers": [],
+              "first_ts": null,
+              "last_ts": null
+            }
+          ],
+          "text": "There are no incoming transfers to account shared_0 under 2000 units since the specified timestamp, indicating no evidence of small-value incoming transactions.",
+          "cited_ids": [
+            "shared_0"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "shared_0"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5aca8917e2fb4826a724a0f4aa34aa32",
+          "step": 5,
+          "tool": "link_to_known_bad",
+          "params": {
+            "account_id": "shared_0"
+          },
+          "result": [],
+          "text": "The account 'shared_0' is not linked to any known bad entities in the database, providing no evidence of fraudulent connections.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5aca8917e2fb4826a724a0f4aa34aa32",
+          "step": 6,
+          "tool": "who_knows",
+          "params": {
+            "pattern": "shared_device"
+          },
+          "result": [],
+          "text": "No evidence of accounts sharing devices was found in the pattern search.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5aca8917e2fb4826a724a0f4aa34aa32",
+          "step": 7,
+          "tool": "corridor_context",
+          "params": {
+            "corridor_code": "US-NG"
+          },
+          "result": [
+            {
+              "corridor": "US-NG",
+              "lead_id": "emp_0",
+              "lead": "Fictional employee 0",
+              "team_id": "team_0",
+              "team": "Fictional team 0",
+              "policies": [
+                {
+                  "id": "POL-AML-1",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 1",
+                  "source_id": "DOC-1",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 1"
+                },
+                {
+                  "id": "POL-AML-2",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 2",
+                  "source_id": "DOC-2",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 2"
+                },
+                {
+                  "id": "POL-AML-3",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 3",
+                  "source_id": "DOC-3",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 3"
+                },
+                {
+                  "id": "POL-AML-4",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 4",
+                  "source_id": "DOC-4",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 4"
+                }
+              ]
+            }
+          ],
+          "text": "The investigation context for corridor US-NG is led by Fictional employee 0 and guided by four synthetic review policies, each requiring investigation of connected evidence with a threshold of 500.0, although they do not represent a legal threshold.",
+          "cited_ids": [
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5aca8917e2fb4826a724a0f4aa34aa32",
+          "step": 8,
+          "tool": "precedents",
+          "params": {
+            "policy_id": "POL-AML-1"
+          },
+          "result": [
+            {
+              "decision": "DEC-6",
+              "summary": "Fictional precedent 6",
+              "outcome": "FREEZE",
+              "date": 1791892800,
+              "decided_by_id": "emp_6",
+              "decided_by": "Fictional employee 6"
+            }
+          ],
+          "text": "The case was decided by Fictional employee 6, resulting in a FREEZE outcome based on precedent DEC-6, summarized as Fictional precedent 6.",
+          "cited_ids": [
+            "DEC-6"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "closed",
+          "case_id": "case_5aca8917e2fb4826a724a0f4aa34aa32",
+          "decision": {
+            "case_id": "case_5aca8917e2fb4826a724a0f4aa34aa32",
+            "verdict": "MONITOR",
+            "risk": 0.3,
+            "pattern": "shared_device",
+            "members": [
+              "shared_0",
+              "cycle_0",
+              "shared_2",
+              "shared_3",
+              "shared_4",
+              "shared_6"
+            ],
+            "policy_id": "POL-AML-1",
+            "precedent_decision_id": "DEC-6",
+            "assignee_employee_id": "emp_0",
+            "rationale": "The account shared_0 shares devices and phones with multiple other accounts, indicating identifier sharing and a potential risk factor, but there is no evidence of circular flows, fan-in patterns, known bad links, or prior cases. Given this isolated positive indicator, and considering the precedent that requires corroborated evidence for freezing, a MONITOR decision is appropriate under the synthetic review policy POL-AML-1.",
+            "steps": 8,
+            "step_cap_reached": false,
+            "guardrail_reasons": []
+          }
+        }
+      ],
+      "persistence_verified": true
+    },
+    {
+      "account_id": "ajo_0",
+      "model": "gpt-4.1-mini",
+      "decision": {
+        "case_id": "case_bb25ef35acd8455c992a8c804ddc6b87",
+        "verdict": "MONITOR",
+        "risk": 0.5,
+        "pattern": "ajo_abuse",
+        "members": [
+          "ajo_0",
+          "ajo_1",
+          "ajo_2",
+          "ajo_3",
+          "ajo_4"
+        ],
+        "policy_id": "POL-AML-1",
+        "precedent_decision_id": "DEC-6",
+        "assignee_employee_id": "emp_0",
+        "rationale": "Account ajo_0 shares a device with four other accounts and is central to a repeating synthetic payout pattern with these accounts, showing sequential transfers and shared device usage, indicating suspicious coordinated activity. However, the total amount involved (200 units) is below policy threshold (500 units), and no circular flows or prior cases are found. Given these mixed signals, a monitoring approach is appropriate per policy POL-AML-1, with reference to precedent DEC-6 for caution.",
+        "steps": 7,
+        "step_cap_reached": false,
+        "guardrail_reasons": []
+      },
+      "state": [
+        {
+          "status": "closed",
+          "verdict": "MONITOR",
+          "risk": 0.5,
+          "policy_id": "POL-AML-1",
+          "decision_id": "DEC-6",
+          "assignee_id": "emp_0",
+          "members": [
+            {
+              "id": "ajo_0",
+              "role": "member"
+            },
+            {
+              "id": "ajo_1",
+              "role": "member"
+            },
+            {
+              "id": "ajo_2",
+              "role": "member"
+            },
+            {
+              "id": "ajo_3",
+              "role": "member"
+            },
+            {
+              "id": "ajo_4",
+              "role": "member"
+            },
+            {
+              "id": "ajo_0",
+              "role": "flagged"
+            },
+            {
+              "id": "ajo_1",
+              "role": "member"
+            },
+            {
+              "id": "ajo_2",
+              "role": "member"
+            },
+            {
+              "id": "ajo_3",
+              "role": "member"
+            },
+            {
+              "id": "ajo_4",
+              "role": "member"
+            }
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "finding_id": "finding_47cd5246036a4d3ab849bd89d7c19d8d",
+          "step": 1,
+          "tool": "prior_cases",
+          "query_name": "prior_cases",
+          "params": "{\"account_id\": \"ajo_0\", \"exclude_case_id\": \"case_bb25ef35acd8455c992a8c804ddc6b87\"}",
+          "text": "No prior cases related to account 'ajo_0' were found, excluding the specified case 'case_bb25ef35acd8455c992a8c804ddc6b87'.",
+          "cited": []
+        },
+        {
+          "finding_id": "finding_8e45d50514be4a53ac68f12f96833408",
+          "step": 2,
+          "tool": "shared_identifiers",
+          "query_name": "shared_identifiers",
+          "params": "{\"account_id\": \"ajo_0\"}",
+          "text": "Account ajo_0 shares the same device identifier with four other accounts: ajo_1, ajo_2, ajo_3, and ajo_4, indicating these accounts have been accessed from the same device (ajo_device).",
+          "cited": [
+            "ajo_0",
+            "ajo_0"
+          ]
+        },
+        {
+          "finding_id": "finding_611edffff3bc4b78bf2a33fafda54095",
+          "step": 3,
+          "tool": "circular_flows",
+          "query_name": "circular_flows",
+          "params": "{\"account_id\": \"ajo_0\", \"max_hops\": 5}",
+          "text": "There is no evidence of circular fund flows involving account ajo_0 within five hops, indicating no detected patterns of synthetic remittance via circular transactions for this account.",
+          "cited": []
+        },
+        {
+          "finding_id": "finding_3be3b34d19c646069e356ea705776921",
+          "step": 4,
+          "tool": "fan_in",
+          "query_name": "fan_in",
+          "params": "{\"account_id\": \"ajo_0\", \"max_amount\": 200, \"since\": 1793102400}",
+          "text": "Account ajo_0 received four incoming transfers totaling 200 units exactly once at timestamp 1793275200 from four different senders: ajo_1, ajo_2, ajo_3, and ajo_4.",
+          "cited": [
+            "ajo_0",
+            "ajo_0"
+          ]
+        },
+        {
+          "finding_id": "finding_dccff7b2712d4e5294cc71a139b1f3c0",
+          "step": 5,
+          "tool": "ajo_payout_pattern",
+          "query_name": "ajo_payout_pattern",
+          "params": "{\"pool_id\": \"pool_abuse\"}",
+          "text": "The analysis reveals a repeating synthetic payout pattern involving ajo_0 as a central member and ajo_1, ajo_2, ajo_3, and ajo_4 as contributors, with transfers occurring in sequential rounds and shared device usage (ajo_device) linking the activity.",
+          "cited": [
+            "ajo_0",
+            "ajo_1",
+            "ajo_2",
+            "ajo_3",
+            "ajo_4",
+            "ajo_device",
+            "ajo_0",
+            "ajo_1",
+            "ajo_2",
+            "ajo_3",
+            "ajo_4",
+            "ajo_device"
+          ]
+        },
+        {
+          "finding_id": "finding_26473b895aac44cfbe8cc3f3eda13b66",
+          "step": 6,
+          "tool": "corridor_context",
+          "query_name": "corridor_context",
+          "params": "{\"corridor_code\": \"US-NG\"}",
+          "text": "The corridor US-NG is assigned to Fictional employee 0 from Fictional team 0, with four related synthetic review policies each having a 500.0 threshold, emphasizing investigation of connected evidence without legal thresholds.",
+          "cited": [
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4",
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4"
+          ]
+        },
+        {
+          "finding_id": "finding_ef3d0a210d3c483faf28a816037bd907",
+          "step": 7,
+          "tool": "precedents",
+          "query_name": "precedents",
+          "params": "{\"policy_id\": \"POL-AML-1\"}",
+          "text": "The case was decided with a FREEZE outcome based on precedent DEC-6 by Fictional employee 6.",
+          "cited": [
+            "DEC-6",
+            "DEC-6"
+          ]
+        }
+      ],
+      "audit": [
+        {
+          "case": {
+            "closed_at": 1792259053,
+            "guardrail_reasons": [],
+            "id": "case_bb25ef35acd8455c992a8c804ddc6b87",
+            "opened_at": 1792259036,
+            "pattern": "ajo_abuse",
+            "proposed_verdict": "MONITOR",
+            "rationale": "Account ajo_0 shares a device with four other accounts and is central to a repeating synthetic payout pattern with these accounts, showing sequential transfers and shared device usage, indicating suspicious coordinated activity. However, the total amount involved (200 units) is below policy threshold (500 units), and no circular flows or prior cases are found. Given these mixed signals, a monitoring approach is appropriate per policy POL-AML-1, with reference to precedent DEC-6 for caution.",
+            "requested_account_id": "ajo_0",
+            "risk": 0.5,
+            "status": "closed",
+            "step_cap_reached": false,
+            "verdict": "MONITOR"
+          },
+          "findings": [
+            {
+              "created_at": 1792259038,
+              "id": "finding_47cd5246036a4d3ab849bd89d7c19d8d",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"ajo_0\", \"exclude_case_id\": \"case_bb25ef35acd8455c992a8c804ddc6b87\"}",
+              "query_name": "prior_cases",
+              "rejected_citations": "[]",
+              "result_json": "[]",
+              "step": 1,
+              "text": "No prior cases related to account 'ajo_0' were found, excluding the specified case 'case_bb25ef35acd8455c992a8c804ddc6b87'.",
+              "tool": "prior_cases"
+            },
+            {
+              "created_at": 1792259041,
+              "id": "finding_8e45d50514be4a53ac68f12f96833408",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"ajo_0\"}",
+              "query_name": "shared_identifiers",
+              "rejected_citations": "[]",
+              "result_json": "[{\"account\": \"ajo_1\", \"identifier\": \"ajo_device\", \"peer_edge\": 4041, \"source_edge\": 4040, \"via\": \"Device\"}, {\"account\": \"ajo_2\", \"identifier\": \"ajo_device\", \"peer_edge\": 4042, \"source_edge\": 4040, \"via\": \"Device\"}, {\"account\": \"ajo_3\", \"identifier\": \"ajo_device\", \"peer_edge\": 4043, \"source_edge\": 4040, \"via\": \"Device\"}, {\"account\": \"ajo_4\", \"identifier\": \"ajo_device\", \"peer_edge\": 4044, \"source_edge\": 4040, \"via\": \"Device\"}]",
+              "step": 2,
+              "text": "Account ajo_0 shares the same device identifier with four other accounts: ajo_1, ajo_2, ajo_3, and ajo_4, indicating these accounts have been accessed from the same device (ajo_device).",
+              "tool": "shared_identifiers"
+            },
+            {
+              "created_at": 1792259043,
+              "id": "finding_611edffff3bc4b78bf2a33fafda54095",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"ajo_0\", \"max_hops\": 5}",
+              "query_name": "circular_flows",
+              "rejected_citations": "[]",
+              "result_json": "[]",
+              "step": 3,
+              "text": "There is no evidence of circular fund flows involving account ajo_0 within five hops, indicating no detected patterns of synthetic remittance via circular transactions for this account.",
+              "tool": "circular_flows"
+            },
+            {
+              "created_at": 1792259045,
+              "id": "finding_3be3b34d19c646069e356ea705776921",
+              "interpretation_source": "model",
+              "params": "{\"account_id\": \"ajo_0\", \"max_amount\": 200, \"since\": 1793102400}",
+              "query_name": "fan_in",
+              "rejected_citations": "[]",
+              "result_json": "[{\"collector\": \"ajo_0\", \"first_ts\": 1793275200, \"last_ts\": 1793275200, \"sender_ids\": [\"ajo_1\", \"ajo_2\", \"ajo_3\", \"ajo_4\"], \"senders\": 4, \"total\": 200.0, \"transfers\": [\"tx_0026604\", \"tx_0026605\", \"tx_0026606\", \"tx_0026607\"]}]",
+              "step": 4,
+              "text": "Account ajo_0 received four incoming transfers totaling 200 units exactly once at timestamp 1793275200 from four different senders: ajo_1, ajo_2, ajo_3, and ajo_4.",
+              "tool": "fan_in"
+            },
+            {
+              "created_at": 1792259048,
+              "id": "finding_dccff7b2712d4e5294cc71a139b1f3c0",
+              "interpretation_source": "model",
+              "params": "{\"pool_id\": \"pool_abuse\"}",
+              "query_name": "ajo_payout_pattern",
+              "rejected_citations": "[]",
+              "result_json": "[{\"contributors\": [\"ajo_1\", \"ajo_2\", \"ajo_3\", \"ajo_4\"], \"first_round\": 0, \"first_transfers\": [\"tx_0026596\", \"tx_0026597\", \"tx_0026598\", \"tx_0026599\"], \"member\": \"ajo_0\", \"next_round\": 1, \"next_transfers\": [\"tx_0026600\", \"tx_0026601\", \"tx_0026602\", \"tx_0026603\"], \"shared_devices\": [\"ajo_device\"]}, {\"contributors\": [\"ajo_1\", \"ajo_2\", \"ajo_3\", \"ajo_4\"], \"first_round\": 1, \"first_transfers\": [\"tx_0026600\", \"tx_0026601\", \"tx_0026602\", \"tx_0026603\"], \"member\": \"ajo_0\", \"next_round\": 2, \"next_transfers\": [\"tx_0026604\", \"tx_0026605\", \"tx_0026606\", \"tx_0026607\"], \"shared_devices\": [\"ajo_device\"]}]",
+              "step": 5,
+              "text": "The analysis reveals a repeating synthetic payout pattern involving ajo_0 as a central member and ajo_1, ajo_2, ajo_3, and ajo_4 as contributors, with transfers occurring in sequential rounds and shared device usage (ajo_device) linking the activity.",
+              "tool": "ajo_payout_pattern"
+            },
+            {
+              "created_at": 1792259050,
+              "id": "finding_26473b895aac44cfbe8cc3f3eda13b66",
+              "interpretation_source": "model",
+              "params": "{\"corridor_code\": \"US-NG\"}",
+              "query_name": "corridor_context",
+              "rejected_citations": "[]",
+              "result_json": "[{\"corridor\": \"US-NG\", \"lead\": \"Fictional employee 0\", \"lead_id\": \"emp_0\", \"policies\": [{\"id\": \"POL-AML-1\", \"rule\": \"Fictional demo: investigate connected evidence; this is not a legal threshold.\", \"source\": \"Fictional handbook 1\", \"source_id\": \"DOC-1\", \"threshold\": 500.0, \"title\": \"Synthetic review policy 1\"}, {\"id\": \"POL-AML-2\", \"rule\": \"Fictional demo: investigate connected evidence; this is not a legal threshold.\", \"source\": \"Fictional handbook 2\", \"source_id\": \"DOC-2\", \"threshold\": 500.0, \"title\": \"Synthetic review policy 2\"}, {\"id\": \"POL-AML-3\", \"rule\": \"Fictional demo: investigate connected evidence; this is not a legal threshold.\", \"source\": \"Fictional handbook 3\", \"source_id\": \"DOC-3\", \"threshold\": 500.0, \"title\": \"Synthetic review policy 3\"}, {\"id\": \"POL-AML-4\", \"rule\": \"Fictional demo: investigate connected evidence; this is not a legal threshold.\", \"source\": \"Fictional handbook 4\", \"source_id\": \"DOC-4\", \"threshold\": 500.0, \"title\": \"Synthetic review policy 4\"}], \"team\": \"Fictional team 0\", \"team_id\": \"team_0\"}]",
+              "step": 6,
+              "text": "The corridor US-NG is assigned to Fictional employee 0 from Fictional team 0, with four related synthetic review policies each having a 500.0 threshold, emphasizing investigation of connected evidence without legal thresholds.",
+              "tool": "corridor_context"
+            },
+            {
+              "created_at": 1792259052,
+              "id": "finding_ef3d0a210d3c483faf28a816037bd907",
+              "interpretation_source": "model",
+              "params": "{\"policy_id\": \"POL-AML-1\"}",
+              "query_name": "precedents",
+              "rejected_citations": "[]",
+              "result_json": "[{\"date\": 1791892800, \"decided_by\": \"Fictional employee 6\", \"decided_by_id\": \"emp_6\", \"decision\": \"DEC-6\", \"outcome\": \"FREEZE\", \"summary\": \"Fictional precedent 6\"}]",
+              "step": 7,
+              "text": "The case was decided with a FREEZE outcome based on precedent DEC-6 by Fictional employee 6.",
+              "tool": "precedents"
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "type": "opened",
+          "case_id": "case_bb25ef35acd8455c992a8c804ddc6b87",
+          "account_id": "ajo_0"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_bb25ef35acd8455c992a8c804ddc6b87",
+          "step": 1,
+          "tool": "prior_cases",
+          "params": {
+            "account_id": "ajo_0",
+            "exclude_case_id": "case_bb25ef35acd8455c992a8c804ddc6b87"
+          },
+          "result": [],
+          "text": "No prior cases related to account 'ajo_0' were found, excluding the specified case 'case_bb25ef35acd8455c992a8c804ddc6b87'.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_bb25ef35acd8455c992a8c804ddc6b87",
+          "step": 2,
+          "tool": "shared_identifiers",
+          "params": {
+            "account_id": "ajo_0"
+          },
+          "result": [
+            {
+              "account": "ajo_1",
+              "via": "Device",
+              "identifier": "ajo_device",
+              "source_edge": 4040,
+              "peer_edge": 4041
+            },
+            {
+              "account": "ajo_2",
+              "via": "Device",
+              "identifier": "ajo_device",
+              "source_edge": 4040,
+              "peer_edge": 4042
+            },
+            {
+              "account": "ajo_3",
+              "via": "Device",
+              "identifier": "ajo_device",
+              "source_edge": 4040,
+              "peer_edge": 4043
+            },
+            {
+              "account": "ajo_4",
+              "via": "Device",
+              "identifier": "ajo_device",
+              "source_edge": 4040,
+              "peer_edge": 4044
+            }
+          ],
+          "text": "Account ajo_0 shares the same device identifier with four other accounts: ajo_1, ajo_2, ajo_3, and ajo_4, indicating these accounts have been accessed from the same device (ajo_device).",
+          "cited_ids": [
+            "ajo_0"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "ajo_0",
+            "ajo_1",
+            "ajo_2",
+            "ajo_3",
+            "ajo_4"
+          ],
+          "positive": true,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_bb25ef35acd8455c992a8c804ddc6b87",
+          "step": 3,
+          "tool": "circular_flows",
+          "params": {
+            "account_id": "ajo_0",
+            "max_hops": 5
+          },
+          "result": [],
+          "text": "There is no evidence of circular fund flows involving account ajo_0 within five hops, indicating no detected patterns of synthetic remittance via circular transactions for this account.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_bb25ef35acd8455c992a8c804ddc6b87",
+          "step": 4,
+          "tool": "fan_in",
+          "params": {
+            "account_id": "ajo_0",
+            "since": 1793102400,
+            "max_amount": 200
+          },
+          "result": [
+            {
+              "collector": "ajo_0",
+              "senders": 4,
+              "total": 200.0,
+              "sender_ids": [
+                "ajo_1",
+                "ajo_2",
+                "ajo_3",
+                "ajo_4"
+              ],
+              "transfers": [
+                "tx_0026604",
+                "tx_0026605",
+                "tx_0026606",
+                "tx_0026607"
+              ],
+              "first_ts": 1793275200,
+              "last_ts": 1793275200
+            }
+          ],
+          "text": "Account ajo_0 received four incoming transfers totaling 200 units exactly once at timestamp 1793275200 from four different senders: ajo_1, ajo_2, ajo_3, and ajo_4.",
+          "cited_ids": [
+            "ajo_0"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "ajo_0",
+            "ajo_1",
+            "ajo_2",
+            "ajo_3",
+            "ajo_4"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_bb25ef35acd8455c992a8c804ddc6b87",
+          "step": 5,
+          "tool": "ajo_payout_pattern",
+          "params": {
+            "pool_id": "pool_abuse"
+          },
+          "result": [
+            {
+              "member": "ajo_0",
+              "first_round": 0,
+              "next_round": 1,
+              "contributors": [
+                "ajo_1",
+                "ajo_2",
+                "ajo_3",
+                "ajo_4"
+              ],
+              "first_transfers": [
+                "tx_0026596",
+                "tx_0026597",
+                "tx_0026598",
+                "tx_0026599"
+              ],
+              "next_transfers": [
+                "tx_0026600",
+                "tx_0026601",
+                "tx_0026602",
+                "tx_0026603"
+              ],
+              "shared_devices": [
+                "ajo_device"
+              ]
+            },
+            {
+              "member": "ajo_0",
+              "first_round": 1,
+              "next_round": 2,
+              "contributors": [
+                "ajo_1",
+                "ajo_2",
+                "ajo_3",
+                "ajo_4"
+              ],
+              "first_transfers": [
+                "tx_0026600",
+                "tx_0026601",
+                "tx_0026602",
+                "tx_0026603"
+              ],
+              "next_transfers": [
+                "tx_0026604",
+                "tx_0026605",
+                "tx_0026606",
+                "tx_0026607"
+              ],
+              "shared_devices": [
+                "ajo_device"
+              ]
+            }
+          ],
+          "text": "The analysis reveals a repeating synthetic payout pattern involving ajo_0 as a central member and ajo_1, ajo_2, ajo_3, and ajo_4 as contributors, with transfers occurring in sequential rounds and shared device usage (ajo_device) linking the activity.",
+          "cited_ids": [
+            "ajo_0",
+            "ajo_1",
+            "ajo_2",
+            "ajo_3",
+            "ajo_4",
+            "ajo_device"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "ajo_0",
+            "ajo_1",
+            "ajo_2",
+            "ajo_3",
+            "ajo_4"
+          ],
+          "positive": true,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_bb25ef35acd8455c992a8c804ddc6b87",
+          "step": 6,
+          "tool": "corridor_context",
+          "params": {
+            "corridor_code": "US-NG"
+          },
+          "result": [
+            {
+              "corridor": "US-NG",
+              "lead_id": "emp_0",
+              "lead": "Fictional employee 0",
+              "team_id": "team_0",
+              "team": "Fictional team 0",
+              "policies": [
+                {
+                  "id": "POL-AML-1",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 1",
+                  "source_id": "DOC-1",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 1"
+                },
+                {
+                  "id": "POL-AML-2",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 2",
+                  "source_id": "DOC-2",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 2"
+                },
+                {
+                  "id": "POL-AML-3",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 3",
+                  "source_id": "DOC-3",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 3"
+                },
+                {
+                  "id": "POL-AML-4",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 4",
+                  "source_id": "DOC-4",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 4"
+                }
+              ]
+            }
+          ],
+          "text": "The corridor US-NG is assigned to Fictional employee 0 from Fictional team 0, with four related synthetic review policies each having a 500.0 threshold, emphasizing investigation of connected evidence without legal thresholds.",
+          "cited_ids": [
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_bb25ef35acd8455c992a8c804ddc6b87",
+          "step": 7,
+          "tool": "precedents",
+          "params": {
+            "policy_id": "POL-AML-1"
+          },
+          "result": [
+            {
+              "decision": "DEC-6",
+              "summary": "Fictional precedent 6",
+              "outcome": "FREEZE",
+              "date": 1791892800,
+              "decided_by_id": "emp_6",
+              "decided_by": "Fictional employee 6"
+            }
+          ],
+          "text": "The case was decided with a FREEZE outcome based on precedent DEC-6 by Fictional employee 6.",
+          "cited_ids": [
+            "DEC-6"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "closed",
+          "case_id": "case_bb25ef35acd8455c992a8c804ddc6b87",
+          "decision": {
+            "case_id": "case_bb25ef35acd8455c992a8c804ddc6b87",
+            "verdict": "MONITOR",
+            "risk": 0.5,
+            "pattern": "ajo_abuse",
+            "members": [
+              "ajo_0",
+              "ajo_1",
+              "ajo_2",
+              "ajo_3",
+              "ajo_4"
+            ],
+            "policy_id": "POL-AML-1",
+            "precedent_decision_id": "DEC-6",
+            "assignee_employee_id": "emp_0",
+            "rationale": "Account ajo_0 shares a device with four other accounts and is central to a repeating synthetic payout pattern with these accounts, showing sequential transfers and shared device usage, indicating suspicious coordinated activity. However, the total amount involved (200 units) is below policy threshold (500 units), and no circular flows or prior cases are found. Given these mixed signals, a monitoring approach is appropriate per policy POL-AML-1, with reference to precedent DEC-6 for caution.",
+            "steps": 7,
+            "step_cap_reached": false,
+            "guardrail_reasons": []
+          }
+        }
+      ],
+      "persistence_verified": true
+    }
+  ],
+  "initial_run": {
+    "case_id": "case_800970d719e940cfb5c5bc707faa73f2",
+    "issue": "Interpretation of an empty result cited earlier findings; citations rejected and FREEZE downgraded to MONITOR. Subsequent interpretation context isolated to current result."
+  }
+}

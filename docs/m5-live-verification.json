@@ -1,0 +1,1209 @@
+{
+  "recorded_at": "2026-10-17T18:09:11.313851+00:00",
+  "transport": "real HTTP over localhost:8000",
+  "model": "configured OpenAI Responses",
+  "events": [
+    {
+      "type": "opened",
+      "case_id": "case_9993946814ce4c43b0ef37e0b34ebfb1",
+      "account_id": "collector_0"
+    },
+    {
+      "type": "finding",
+      "case_id": "case_9993946814ce4c43b0ef37e0b34ebfb1",
+      "step": 1,
+      "tool": "prior_cases",
+      "params": {
+        "account_id": "collector_0",
+        "exclude_case_id": "case_9993946814ce4c43b0ef37e0b34ebfb1"
+      },
+      "result": [
+        {
+          "case_id": "case_24d854b141f047debf5fad0627b1bac0",
+          "verdict": "FREEZE",
+          "pattern": "fan_in_mule",
+          "opened_at": 1792258996,
+          "role": "member",
+          "key_findings": [
+            "No prior cases other than the excluded one are linked to account collector_0, indicating no additional related suspicious activity found in the database for this account.",
+            "The result shows no shared identifiers linked to account 'collector_0', indicating no evidence of network connections or alias usage to suggest synthetic remittance activity.",
+            "No circular fund flows were detected within 5 hops of the account collector_0, indicating absence of immediate recycling or laundering in circular fashion according to flow analysis."
+          ]
+        },
+        {
+          "case_id": "case_24d854b141f047debf5fad0627b1bac0",
+          "verdict": "FREEZE",
+          "pattern": "fan_in_mule",
+          "opened_at": 1792258996,
+          "role": "flagged",
+          "key_findings": [
+            "No prior cases other than the excluded one are linked to account collector_0, indicating no additional related suspicious activity found in the database for this account.",
+            "The result shows no shared identifiers linked to account 'collector_0', indicating no evidence of network connections or alias usage to suggest synthetic remittance activity.",
+            "No circular fund flows were detected within 5 hops of the account collector_0, indicating absence of immediate recycling or laundering in circular fashion according to flow analysis."
+          ]
+        }
+      ],
+      "text": "The investigation found no additional prior suspicious cases linked to account collector_0 aside from the excluded one, no shared identifiers or network connections indicating synthetic remittance, and no circular fund flows within 5 hops, yet the verdict given was FREEZE under the fan_in_mule pattern with roles member and flagged.",
+      "cited_ids": [
+        "collector_0"
+      ],
+      "rejected_citations": [],
+      "account_ids": [
+        "collector_0"
+      ],
+      "positive": false,
+      "error": false,
+      "interpretation_source": "model"
+    },
+    {
+      "type": "guardrail",
+      "case_id": "case_9993946814ce4c43b0ef37e0b34ebfb1",
+      "text": "Prior FREEZE found; starting risk raised to 0.7.",
+      "details": {}
+    },
+    {
+      "type": "finding",
+      "case_id": "case_9993946814ce4c43b0ef37e0b34ebfb1",
+      "step": 2,
+      "tool": "fan_in",
+      "params": {
+        "account_id": "collector_0",
+        "since": 1791932400,
+        "max_amount": 1000
+      },
+      "result": [
+        {
+          "collector": "collector_0",
+          "senders": 12,
+          "total": 4866.0,
+          "sender_ids": [
+            "mule_0",
+            "mule_1",
+            "mule_2",
+            "mule_3",
+            "mule_4",
+            "mule_5",
+            "mule_6",
+            "mule_7",
+            "mule_8",
+            "mule_9",
+            "mule_10",
+            "mule_11"
+          ],
+          "transfers": [
+            "tx_0026059",
+            "tx_0026060",
+            "tx_0026061",
+            "tx_0026062",
+            "tx_0026063",
+            "tx_0026064",
+            "tx_0026065",
+            "tx_0026066",
+            "tx_0026067",
+            "tx_0026068",
+            "tx_0026069",
+            "tx_0026070"
+          ],
+          "first_ts": 1792065600,
+          "last_ts": 1792105200
+        }
+      ],
+      "text": "The account collector_0 received 12 separate transfers from 12 different mule accounts within a short time window, with a total amount of 4866.0, each transfer being under the 1000 maximum amount threshold.",
+      "cited_ids": [
+        "collector_0",
+        "mule_0",
+        "mule_1",
+        "mule_10",
+        "mule_11",
+        "mule_2",
+        "mule_3",
+        "mule_4",
+        "mule_5",
+        "mule_6",
+        "mule_7",
+        "mule_8",
+        "mule_9"
+      ],
+      "rejected_citations": [],
+      "account_ids": [
+        "collector_0",
+        "mule_0",
+        "mule_1",
+        "mule_10",
+        "mule_11",
+        "mule_2",
+        "mule_3",
+        "mule_4",
+        "mule_5",
+        "mule_6",
+        "mule_7",
+        "mule_8",
+        "mule_9"
+      ],
+      "positive": true,
+      "error": false,
+      "interpretation_source": "model"
+    },
+    {
+      "type": "finding",
+      "case_id": "case_9993946814ce4c43b0ef37e0b34ebfb1",
+      "step": 3,
+      "tool": "link_to_known_bad",
+      "params": {
+        "account_id": "collector_0"
+      },
+      "result": [
+        {
+          "account": "collector_0",
+          "known_bad": "mule_0",
+          "path": [
+            "collector_0",
+            "mule_0"
+          ],
+          "edge_ids": [
+            26059
+          ],
+          "hops": 1
+        },
+        {
+          "account": "collector_0",
+          "known_bad": "mule_1",
+          "path": [
+            "collector_0",
+            "mule_1"
+          ],
+          "edge_ids": [
+            26060
+          ],
+          "hops": 1
+        },
+        {
+          "account": "collector_0",
+          "known_bad": "mule_10",
+          "path": [
+            "collector_0",
+            "mule_10"
+          ],
+          "edge_ids": [
+            26069
+          ],
+          "hops": 1
+        }
+      ],
+      "text": "The account collector_0 is directly linked to multiple known mule accounts, specifically mule_0, mule_1, and mule_10, indicating potential involvement in synthetic remittance activities.",
+      "cited_ids": [
+        "collector_0",
+        "mule_0",
+        "mule_1",
+        "mule_10"
+      ],
+      "rejected_citations": [],
+      "account_ids": [
+        "collector_0",
+        "mule_0",
+        "mule_1",
+        "mule_10"
+      ],
+      "positive": true,
+      "error": false,
+      "interpretation_source": "model"
+    },
+    {
+      "type": "finding",
+      "case_id": "case_9993946814ce4c43b0ef37e0b34ebfb1",
+      "step": 4,
+      "tool": "shared_identifiers",
+      "params": {
+        "account_id": "collector_0"
+      },
+      "result": [],
+      "text": "The query for shared identifiers related to account 'collector_0' found no evidence of shared devices or identifiers connecting this account to others in the investigation.",
+      "cited_ids": [],
+      "rejected_citations": [],
+      "account_ids": [],
+      "positive": false,
+      "error": false,
+      "interpretation_source": "model"
+    },
+    {
+      "type": "finding",
+      "case_id": "case_9993946814ce4c43b0ef37e0b34ebfb1",
+      "step": 5,
+      "tool": "circular_flows",
+      "params": {
+        "account_id": "collector_0",
+        "max_hops": 5
+      },
+      "result": [],
+      "text": "No circular fund flows were found involving account collector_0 within 5 hops.",
+      "cited_ids": [],
+      "rejected_citations": [],
+      "account_ids": [],
+      "positive": false,
+      "error": false,
+      "interpretation_source": "model"
+    },
+    {
+      "type": "finding",
+      "case_id": "case_9993946814ce4c43b0ef37e0b34ebfb1",
+      "step": 6,
+      "tool": "who_knows",
+      "params": {
+        "pattern": "fan_in_mule"
+      },
+      "result": [
+        {
+          "employee_id": "emp_6",
+          "employee": "Fictional employee 6",
+          "role": "analyst",
+          "cases": 3
+        }
+      ],
+      "text": "The 'fan_in_mule' pattern was found in 3 cases investigated by an analyst named Fictional employee 6 (emp_6).",
+      "cited_ids": [],
+      "rejected_citations": [
+        "emp_6"
+      ],
+      "account_ids": [],
+      "positive": false,
+      "error": false,
+      "interpretation_source": "model"
+    },
+    {
+      "type": "finding",
+      "case_id": "case_9993946814ce4c43b0ef37e0b34ebfb1",
+      "step": 7,
+      "tool": "corridor_context",
+      "params": {
+        "corridor_code": "US-NG"
+      },
+      "result": [
+        {
+          "corridor": "US-NG",
+          "lead_id": "emp_0",
+          "lead": "Fictional employee 0",
+          "team_id": "team_0",
+          "team": "Fictional team 0",
+          "policies": [
+            {
+              "id": "POL-AML-1",
+              "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+              "source": "Fictional handbook 1",
+              "source_id": "DOC-1",
+              "threshold": 500.0,
+              "title": "Synthetic review policy 1"
+            },
+            {
+              "id": "POL-AML-2",
+              "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+              "source": "Fictional handbook 2",
+              "source_id": "DOC-2",
+              "threshold": 500.0,
+              "title": "Synthetic review policy 2"
+            },
+            {
+              "id": "POL-AML-3",
+              "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+              "source": "Fictional handbook 3",
+              "source_id": "DOC-3",
+              "threshold": 500.0,
+              "title": "Synthetic review policy 3"
+            },
+            {
+              "id": "POL-AML-4",
+              "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+              "source": "Fictional handbook 4",
+              "source_id": "DOC-4",
+              "threshold": 500.0,
+              "title": "Synthetic review policy 4"
+            }
+          ]
+        }
+      ],
+      "text": "The US-NG corridor is assigned to Fictional employee 0 from Fictional team 0, with four synthetic review policies each requiring investigation of connected evidence but not setting a legal threshold, all with a threshold amount of 500.",
+      "cited_ids": [
+        "POL-AML-1",
+        "POL-AML-2",
+        "POL-AML-3",
+        "POL-AML-4"
+      ],
+      "rejected_citations": [],
+      "account_ids": [],
+      "positive": false,
+      "error": false,
+      "interpretation_source": "model"
+    },
+    {
+      "type": "finding",
+      "case_id": "case_9993946814ce4c43b0ef37e0b34ebfb1",
+      "step": 8,
+      "tool": "precedents",
+      "params": {
+        "policy_id": "POL-AML-1"
+      },
+      "result": [
+        {
+          "decision": "DEC-6",
+          "summary": "Fictional precedent 6",
+          "outcome": "FREEZE",
+          "date": 1791892800,
+          "decided_by_id": "emp_6",
+          "decided_by": "Fictional employee 6"
+        }
+      ],
+      "text": "The precedent DEC-6 involves a decision by Fictional employee 6, resulting in a FREEZE outcome based on the fictional precedent 6, linked to policy POL-AML-1.",
+      "cited_ids": [
+        "DEC-6"
+      ],
+      "rejected_citations": [],
+      "account_ids": [],
+      "positive": false,
+      "error": false,
+      "interpretation_source": "model"
+    },
+    {
+      "type": "guardrail",
+      "case_id": "case_9993946814ce4c43b0ef37e0b34ebfb1",
+      "text": "Model or tool error requires review; automatic CLEAR/FREEZE suppressed. Prior FREEZE found; deterministic risk floor is 0.7.",
+      "details": {
+        "proposed_verdict": "FREEZE",
+        "final_verdict": "MONITOR"
+      }
+    },
+    {
+      "type": "closed",
+      "case_id": "case_9993946814ce4c43b0ef37e0b34ebfb1",
+      "decision": {
+        "case_id": "case_9993946814ce4c43b0ef37e0b34ebfb1",
+        "verdict": "MONITOR",
+        "risk": 0.7,
+        "pattern": "fan_in_mule",
+        "members": [
+          "collector_0",
+          "mule_0",
+          "mule_1",
+          "mule_10"
+        ],
+        "policy_id": "POL-AML-1",
+        "precedent_decision_id": "DEC-6",
+        "assignee_employee_id": "emp_0",
+        "rationale": "The investigation found no shared identifiers or circular fund flows indicating synthetic remittance for collector_0, but identified 12 transfers under 1000 each totaling 4866.0 from 12 mule accounts, including direct links with known mule accounts mule_0, mule_1, and mule_10. This pattern matches fan_in_mule and meets the policy threshold of 500.0. Prior precedent DEC-6 also resulted in FREEZE for similar findings. Therefore, a FREEZE decision is warranted under policy POL-AML-1, assigned to Fictional employee 0.",
+        "steps": 8,
+        "step_cap_reached": false,
+        "guardrail_reasons": [
+          "Model or tool error requires review; automatic CLEAR/FREEZE suppressed.",
+          "Prior FREEZE found; deterministic risk floor is 0.7."
+        ]
+      }
+    },
+    {
+      "type": "end",
+      "case_id": "case_9993946814ce4c43b0ef37e0b34ebfb1",
+      "live": false
+    }
+  ],
+  "flags": {
+    "flags": [
+      {
+        "account_id": "ajo_0",
+        "country": "NG",
+        "transfers": [
+          {
+            "amount": 50.0,
+            "corridor": "NG-NG",
+            "currency": "USD",
+            "id": "tx_0026604",
+            "pool_id": "pool_abuse",
+            "purpose": "ajo_payout",
+            "round": 2,
+            "ts": 1793275200
+          }
+        ],
+        "returning_account": true,
+        "open_cases": 0,
+        "corridor": "US-NG"
+      },
+      {
+        "account_id": "collector_0",
+        "country": "NG",
+        "transfers": [
+          {
+            "amount": 411.0,
+            "corridor": "US-NG",
+            "currency": "USD",
+            "id": "tx_0026070",
+            "ts": 1792105200
+          }
+        ],
+        "returning_account": true,
+        "open_cases": 0,
+        "corridor": "US-NG"
+      },
+      {
+        "account_id": "cycle_0",
+        "country": "US",
+        "transfers": [
+          {
+            "amount": 460.0,
+            "corridor": "NG-US",
+            "currency": "USD",
+            "id": "tx_0026045",
+            "ts": 1792080000
+          }
+        ],
+        "returning_account": true,
+        "open_cases": 0,
+        "corridor": "US-NG"
+      },
+      {
+        "account_id": "shared_0",
+        "country": "US",
+        "transfers": [],
+        "returning_account": true,
+        "open_cases": 0,
+        "corridor": "US-NG"
+      }
+    ]
+  },
+  "start": {
+    "case_id": "case_9993946814ce4c43b0ef37e0b34ebfb1",
+    "stream_url": "/cases/case_9993946814ce4c43b0ef37e0b34ebfb1/stream"
+  },
+  "saved": {
+    "case": {
+      "closed_at": 1792260605,
+      "guardrail_reasons": [
+        "Model or tool error requires review; automatic CLEAR/FREEZE suppressed.",
+        "Prior FREEZE found; deterministic risk floor is 0.7."
+      ],
+      "id": "case_9993946814ce4c43b0ef37e0b34ebfb1",
+      "opened_at": 1792260559,
+      "pattern": "fan_in_mule",
+      "proposed_verdict": "FREEZE",
+      "rationale": "The investigation found no shared identifiers or circular fund flows indicating synthetic remittance for collector_0, but identified 12 transfers under 1000 each totaling 4866.0 from 12 mule accounts, including direct links with known mule accounts mule_0, mule_1, and mule_10. This pattern matches fan_in_mule and meets the policy threshold of 500.0. Prior precedent DEC-6 also resulted in FREEZE for similar findings. Therefore, a FREEZE decision is warranted under policy POL-AML-1, assigned to Fictional employee 0.",
+      "requested_account_id": "collector_0",
+      "risk": 0.7,
+      "status": "closed",
+      "step_cap_reached": false,
+      "verdict": "MONITOR"
+    },
+    "findings": [
+      {
+        "created_at": 1792260564,
+        "id": "finding_f641c63575da41e6b0aed5aea37901ab",
+        "interpretation_source": "model",
+        "params": "{\"account_id\": \"collector_0\", \"exclude_case_id\": \"case_9993946814ce4c43b0ef37e0b34ebfb1\"}",
+        "query_name": "prior_cases",
+        "rejected_citations": "[]",
+        "result_json": "[{\"case_id\": \"case_24d854b141f047debf5fad0627b1bac0\", \"key_findings\": [\"No prior cases other than the excluded one are linked to account collector_0, indicating no additional related suspicious activity found in the database for this account.\", \"The result shows no shared identifiers linked to account 'collector_0', indicating no evidence of network connections or alias usage to suggest synthetic remittance activity.\", \"No circular fund flows were detected within 5 hops of the account collector_0, indicating absence of immediate recycling or laundering in circular fashion according to flow analysis.\"], \"opened_at\": 1792258996, \"pattern\": \"fan_in_mule\", \"role\": \"member\", \"verdict\": \"FREEZE\"}, {\"case_id\": \"case_24d854b141f047debf5fad0627b1bac0\", \"key_findings\": [\"No prior cases other than the excluded one are linked to account collector_0, indicating no additional related suspicious activity found in the database for this account.\", \"The result shows no shared identifiers linked to account 'collector_0', indicating no evidence of network connections or alias usage to suggest synthetic remittance activity.\", \"No circular fund flows were detected within 5 hops of the account collector_0, indicating absence of immediate recycling or laundering in circular fashion according to flow analysis.\"], \"opened_at\": 1792258996, \"pattern\": \"fan_in_mule\", \"role\": \"flagged\", \"verdict\": \"FREEZE\"}]",
+        "step": 1,
+        "text": "The investigation found no additional prior suspicious cases linked to account collector_0 aside from the excluded one, no shared identifiers or network connections indicating synthetic remittance, and no circular fund flows within 5 hops, yet the verdict given was FREEZE under the fan_in_mule pattern with roles member and flagged.",
+        "tool": "prior_cases"
+      },
+      {
+        "created_at": 1792260565,
+        "id": "finding_45d0d9d6a8ca412782ec49f03e364f87",
+        "interpretation_source": "deterministic",
+        "params": "{}",
+        "query_name": "guardrails.py",
+        "result_json": "{}",
+        "step": 2,
+        "text": "Prior FREEZE found; starting risk raised to 0.7.",
+        "tool": "guardrail"
+      },
+      {
+        "created_at": 1792260574,
+        "id": "finding_f291a43c42b74c9d8366c8fe343a2385",
+        "interpretation_source": "model",
+        "params": "{\"account_id\": \"collector_0\", \"max_amount\": 1000, \"since\": 1791932400}",
+        "query_name": "fan_in",
+        "rejected_citations": "[]",
+        "result_json": "[{\"collector\": \"collector_0\", \"first_ts\": 1792065600, \"last_ts\": 1792105200, \"sender_ids\": [\"mule_0\", \"mule_1\", \"mule_2\", \"mule_3\", \"mule_4\", \"mule_5\", \"mule_6\", \"mule_7\", \"mule_8\", \"mule_9\", \"mule_10\", \"mule_11\"], \"senders\": 12, \"total\": 4866.0, \"transfers\": [\"tx_0026059\", \"tx_0026060\", \"tx_0026061\", \"tx_0026062\", \"tx_0026063\", \"tx_0026064\", \"tx_0026065\", \"tx_0026066\", \"tx_0026067\", \"tx_0026068\", \"tx_0026069\", \"tx_0026070\"]}]",
+        "step": 3,
+        "text": "The account collector_0 received 12 separate transfers from 12 different mule accounts within a short time window, with a total amount of 4866.0, each transfer being under the 1000 maximum amount threshold.",
+        "tool": "fan_in"
+      },
+      {
+        "created_at": 1792260583,
+        "id": "finding_6d9b976b56394da6818886de3c9cc1bd",
+        "interpretation_source": "model",
+        "params": "{\"account_id\": \"collector_0\"}",
+        "query_name": "link_to_known_bad",
+        "rejected_citations": "[]",
+        "result_json": "[{\"account\": \"collector_0\", \"edge_ids\": [26059], \"hops\": 1, \"known_bad\": \"mule_0\", \"path\": [\"collector_0\", \"mule_0\"]}, {\"account\": \"collector_0\", \"edge_ids\": [26060], \"hops\": 1, \"known_bad\": \"mule_1\", \"path\": [\"collector_0\", \"mule_1\"]}, {\"account\": \"collector_0\", \"edge_ids\": [26069], \"hops\": 1, \"known_bad\": \"mule_10\", \"path\": [\"collector_0\", \"mule_10\"]}]",
+        "step": 4,
+        "text": "The account collector_0 is directly linked to multiple known mule accounts, specifically mule_0, mule_1, and mule_10, indicating potential involvement in synthetic remittance activities.",
+        "tool": "link_to_known_bad"
+      },
+      {
+        "created_at": 1792260587,
+        "id": "finding_49f5379d61374a3f9636d9ec950c8594",
+        "interpretation_source": "model",
+        "params": "{\"account_id\": \"collector_0\"}",
+        "query_name": "shared_identifiers",
+        "rejected_citations": "[]",
+        "result_json": "[]",
+        "step": 5,
+        "text": "The query for shared identifiers related to account 'collector_0' found no evidence of shared devices or identifiers connecting this account to others in the investigation.",
+        "tool": "shared_identifiers"
+      },
+      {
+        "created_at": 1792260590,
+        "id": "finding_b493273adac343e9bb91a49cd79e7f31",
+        "interpretation_source": "model",
+        "params": "{\"account_id\": \"collector_0\", \"max_hops\": 5}",
+        "query_name": "circular_flows",
+        "rejected_citations": "[]",
+        "result_json": "[]",
+        "step": 6,
+        "text": "No circular fund flows were found involving account collector_0 within 5 hops.",
+        "tool": "circular_flows"
+      },
+      {
+        "created_at": 1792260594,
+        "id": "finding_9388e2c8d0a64135add6049cb4a36a30",
+        "interpretation_source": "model",
+        "params": "{\"pattern\": \"fan_in_mule\"}",
+        "query_name": "who_knows",
+        "rejected_citations": "[\"emp_6\"]",
+        "result_json": "[{\"cases\": 3, \"employee\": \"Fictional employee 6\", \"employee_id\": \"emp_6\", \"role\": \"analyst\"}]",
+        "step": 7,
+        "text": "The 'fan_in_mule' pattern was found in 3 cases investigated by an analyst named Fictional employee 6 (emp_6).",
+        "tool": "who_knows"
+      },
+      {
+        "created_at": 1792260599,
+        "id": "finding_3e89a92a3ac14d1e8dd26801baa7dd89",
+        "interpretation_source": "model",
+        "params": "{\"corridor_code\": \"US-NG\"}",
+        "query_name": "corridor_context",
+        "rejected_citations": "[]",
+        "result_json": "[{\"corridor\": \"US-NG\", \"lead\": \"Fictional employee 0\", \"lead_id\": \"emp_0\", \"policies\": [{\"id\": \"POL-AML-1\", \"rule\": \"Fictional demo: investigate connected evidence; this is not a legal threshold.\", \"source\": \"Fictional handbook 1\", \"source_id\": \"DOC-1\", \"threshold\": 500.0, \"title\": \"Synthetic review policy 1\"}, {\"id\": \"POL-AML-2\", \"rule\": \"Fictional demo: investigate connected evidence; this is not a legal threshold.\", \"source\": \"Fictional handbook 2\", \"source_id\": \"DOC-2\", \"threshold\": 500.0, \"title\": \"Synthetic review policy 2\"}, {\"id\": \"POL-AML-3\", \"rule\": \"Fictional demo: investigate connected evidence; this is not a legal threshold.\", \"source\": \"Fictional handbook 3\", \"source_id\": \"DOC-3\", \"threshold\": 500.0, \"title\": \"Synthetic review policy 3\"}, {\"id\": \"POL-AML-4\", \"rule\": \"Fictional demo: investigate connected evidence; this is not a legal threshold.\", \"source\": \"Fictional handbook 4\", \"source_id\": \"DOC-4\", \"threshold\": 500.0, \"title\": \"Synthetic review policy 4\"}], \"team\": \"Fictional team 0\", \"team_id\": \"team_0\"}]",
+        "step": 8,
+        "text": "The US-NG corridor is assigned to Fictional employee 0 from Fictional team 0, with four synthetic review policies each requiring investigation of connected evidence but not setting a legal threshold, all with a threshold amount of 500.",
+        "tool": "corridor_context"
+      },
+      {
+        "created_at": 1792260603,
+        "id": "finding_34916ca6dca14c8cb2a7e5d7e762c575",
+        "interpretation_source": "model",
+        "params": "{\"policy_id\": \"POL-AML-1\"}",
+        "query_name": "precedents",
+        "rejected_citations": "[]",
+        "result_json": "[{\"date\": 1791892800, \"decided_by\": \"Fictional employee 6\", \"decided_by_id\": \"emp_6\", \"decision\": \"DEC-6\", \"outcome\": \"FREEZE\", \"summary\": \"Fictional precedent 6\"}]",
+        "step": 9,
+        "text": "The precedent DEC-6 involves a decision by Fictional employee 6, resulting in a FREEZE outcome based on the fictional precedent 6, linked to policy POL-AML-1.",
+        "tool": "precedents"
+      },
+      {
+        "created_at": 1792260605,
+        "id": "finding_df77e6f5ddc04b08bedab90efb018d9f",
+        "interpretation_source": "deterministic",
+        "params": "{}",
+        "query_name": "guardrails.py",
+        "result_json": "{\"proposed_verdict\": \"FREEZE\", \"final_verdict\": \"MONITOR\"}",
+        "step": 10,
+        "text": "Model or tool error requires review; automatic CLEAR/FREEZE suppressed. Prior FREEZE found; deterministic risk floor is 0.7.",
+        "tool": "guardrail"
+      }
+    ],
+    "routing": {
+      "status": "closed",
+      "verdict": "MONITOR",
+      "risk": 0.7,
+      "policy_id": "POL-AML-1",
+      "decision_id": "DEC-6",
+      "assignee_id": "emp_0",
+      "members": [
+        {
+          "id": "mule_0",
+          "role": "member"
+        },
+        {
+          "id": "mule_1",
+          "role": "member"
+        },
+        {
+          "id": "mule_10",
+          "role": "member"
+        },
+        {
+          "id": "collector_0",
+          "role": "member"
+        },
+        {
+          "id": "mule_0",
+          "role": "member"
+        },
+        {
+          "id": "mule_1",
+          "role": "member"
+        },
+        {
+          "id": "mule_10",
+          "role": "member"
+        },
+        {
+          "id": "collector_0",
+          "role": "flagged"
+        }
+      ]
+    },
+    "evidence": [
+      {
+        "finding_id": "finding_f641c63575da41e6b0aed5aea37901ab",
+        "step": 1,
+        "tool": "prior_cases",
+        "query_name": "prior_cases",
+        "params": "{\"account_id\": \"collector_0\", \"exclude_case_id\": \"case_9993946814ce4c43b0ef37e0b34ebfb1\"}",
+        "text": "The investigation found no additional prior suspicious cases linked to account collector_0 aside from the excluded one, no shared identifiers or network connections indicating synthetic remittance, and no circular fund flows within 5 hops, yet the verdict given was FREEZE under the fan_in_mule pattern with roles member and flagged.",
+        "cited": [
+          "collector_0",
+          "collector_0"
+        ]
+      },
+      {
+        "finding_id": "finding_45d0d9d6a8ca412782ec49f03e364f87",
+        "step": 2,
+        "tool": "guardrail",
+        "query_name": "guardrails.py",
+        "params": "{}",
+        "text": "Prior FREEZE found; starting risk raised to 0.7.",
+        "cited": []
+      },
+      {
+        "finding_id": "finding_f291a43c42b74c9d8366c8fe343a2385",
+        "step": 3,
+        "tool": "fan_in",
+        "query_name": "fan_in",
+        "params": "{\"account_id\": \"collector_0\", \"max_amount\": 1000, \"since\": 1791932400}",
+        "text": "The account collector_0 received 12 separate transfers from 12 different mule accounts within a short time window, with a total amount of 4866.0, each transfer being under the 1000 maximum amount threshold.",
+        "cited": [
+          "mule_0",
+          "mule_1",
+          "mule_2",
+          "mule_3",
+          "mule_4",
+          "mule_5",
+          "mule_6",
+          "mule_7",
+          "mule_8",
+          "mule_9",
+          "mule_10",
+          "mule_11",
+          "collector_0",
+          "mule_0",
+          "mule_1",
+          "mule_2",
+          "mule_3",
+          "mule_4",
+          "mule_5",
+          "mule_6",
+          "mule_7",
+          "mule_8",
+          "mule_9",
+          "mule_10",
+          "mule_11",
+          "collector_0"
+        ]
+      },
+      {
+        "finding_id": "finding_6d9b976b56394da6818886de3c9cc1bd",
+        "step": 4,
+        "tool": "link_to_known_bad",
+        "query_name": "link_to_known_bad",
+        "params": "{\"account_id\": \"collector_0\"}",
+        "text": "The account collector_0 is directly linked to multiple known mule accounts, specifically mule_0, mule_1, and mule_10, indicating potential involvement in synthetic remittance activities.",
+        "cited": [
+          "mule_0",
+          "mule_1",
+          "mule_10",
+          "collector_0",
+          "mule_0",
+          "mule_1",
+          "mule_10",
+          "collector_0"
+        ]
+      },
+      {
+        "finding_id": "finding_49f5379d61374a3f9636d9ec950c8594",
+        "step": 5,
+        "tool": "shared_identifiers",
+        "query_name": "shared_identifiers",
+        "params": "{\"account_id\": \"collector_0\"}",
+        "text": "The query for shared identifiers related to account 'collector_0' found no evidence of shared devices or identifiers connecting this account to others in the investigation.",
+        "cited": []
+      },
+      {
+        "finding_id": "finding_b493273adac343e9bb91a49cd79e7f31",
+        "step": 6,
+        "tool": "circular_flows",
+        "query_name": "circular_flows",
+        "params": "{\"account_id\": \"collector_0\", \"max_hops\": 5}",
+        "text": "No circular fund flows were found involving account collector_0 within 5 hops.",
+        "cited": []
+      },
+      {
+        "finding_id": "finding_9388e2c8d0a64135add6049cb4a36a30",
+        "step": 7,
+        "tool": "who_knows",
+        "query_name": "who_knows",
+        "params": "{\"pattern\": \"fan_in_mule\"}",
+        "text": "The 'fan_in_mule' pattern was found in 3 cases investigated by an analyst named Fictional employee 6 (emp_6).",
+        "cited": []
+      },
+      {
+        "finding_id": "finding_3e89a92a3ac14d1e8dd26801baa7dd89",
+        "step": 8,
+        "tool": "corridor_context",
+        "query_name": "corridor_context",
+        "params": "{\"corridor_code\": \"US-NG\"}",
+        "text": "The US-NG corridor is assigned to Fictional employee 0 from Fictional team 0, with four synthetic review policies each requiring investigation of connected evidence but not setting a legal threshold, all with a threshold amount of 500.",
+        "cited": [
+          "POL-AML-1",
+          "POL-AML-2",
+          "POL-AML-3",
+          "POL-AML-4",
+          "POL-AML-1",
+          "POL-AML-2",
+          "POL-AML-3",
+          "POL-AML-4"
+        ]
+      },
+      {
+        "finding_id": "finding_34916ca6dca14c8cb2a7e5d7e762c575",
+        "step": 9,
+        "tool": "precedents",
+        "query_name": "precedents",
+        "params": "{\"policy_id\": \"POL-AML-1\"}",
+        "text": "The precedent DEC-6 involves a decision by Fictional employee 6, resulting in a FREEZE outcome based on the fictional precedent 6, linked to policy POL-AML-1.",
+        "cited": [
+          "DEC-6",
+          "DEC-6"
+        ]
+      },
+      {
+        "finding_id": "finding_df77e6f5ddc04b08bedab90efb018d9f",
+        "step": 10,
+        "tool": "guardrail",
+        "query_name": "guardrails.py",
+        "params": "{}",
+        "text": "Model or tool error requires review; automatic CLEAR/FREEZE suppressed. Prior FREEZE found; deterministic risk floor is 0.7.",
+        "cited": []
+      }
+    ],
+    "subgraph": {
+      "nodes": [
+        {
+          "id": "DEC-6",
+          "labels": [
+            "Decision"
+          ],
+          "properties": {
+            "date": 1791892800,
+            "id": "DEC-6",
+            "outcome": "FREEZE",
+            "summary": "Fictional precedent 6"
+          }
+        },
+        {
+          "id": "POL-AML-1",
+          "labels": [
+            "Policy"
+          ],
+          "properties": {
+            "id": "POL-AML-1",
+            "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+            "threshold": 500.0,
+            "title": "Synthetic review policy 1"
+          }
+        },
+        {
+          "id": "POL-AML-2",
+          "labels": [
+            "Policy"
+          ],
+          "properties": {
+            "id": "POL-AML-2",
+            "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+            "threshold": 500.0,
+            "title": "Synthetic review policy 2"
+          }
+        },
+        {
+          "id": "POL-AML-3",
+          "labels": [
+            "Policy"
+          ],
+          "properties": {
+            "id": "POL-AML-3",
+            "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+            "threshold": 500.0,
+            "title": "Synthetic review policy 3"
+          }
+        },
+        {
+          "id": "POL-AML-4",
+          "labels": [
+            "Policy"
+          ],
+          "properties": {
+            "id": "POL-AML-4",
+            "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+            "threshold": 500.0,
+            "title": "Synthetic review policy 4"
+          }
+        },
+        {
+          "id": "collector_0",
+          "labels": [
+            "Account"
+          ],
+          "properties": {
+            "country": "NG",
+            "flagged": true,
+            "id": "collector_0",
+            "kyc_tier": 1,
+            "opened_at": 1760529600,
+            "type": "personal"
+          }
+        },
+        {
+          "id": "mule_0",
+          "labels": [
+            "Account"
+          ],
+          "properties": {
+            "country": "US",
+            "flagged": false,
+            "id": "mule_0",
+            "kyc_tier": 1,
+            "opened_at": 1760529600,
+            "type": "personal"
+          }
+        },
+        {
+          "id": "mule_1",
+          "labels": [
+            "Account"
+          ],
+          "properties": {
+            "country": "US",
+            "flagged": false,
+            "id": "mule_1",
+            "kyc_tier": 1,
+            "opened_at": 1760529600,
+            "type": "personal"
+          }
+        },
+        {
+          "id": "mule_10",
+          "labels": [
+            "Account"
+          ],
+          "properties": {
+            "country": "US",
+            "flagged": false,
+            "id": "mule_10",
+            "kyc_tier": 1,
+            "opened_at": 1760529600,
+            "type": "personal"
+          }
+        },
+        {
+          "id": "mule_11",
+          "labels": [
+            "Account"
+          ],
+          "properties": {
+            "country": "US",
+            "flagged": false,
+            "id": "mule_11",
+            "kyc_tier": 1,
+            "opened_at": 1760529600,
+            "type": "personal"
+          }
+        },
+        {
+          "id": "mule_2",
+          "labels": [
+            "Account"
+          ],
+          "properties": {
+            "country": "US",
+            "flagged": false,
+            "id": "mule_2",
+            "kyc_tier": 1,
+            "opened_at": 1760529600,
+            "type": "personal"
+          }
+        },
+        {
+          "id": "mule_3",
+          "labels": [
+            "Account"
+          ],
+          "properties": {
+            "country": "US",
+            "flagged": false,
+            "id": "mule_3",
+            "kyc_tier": 1,
+            "opened_at": 1760529600,
+            "type": "personal"
+          }
+        },
+        {
+          "id": "mule_4",
+          "labels": [
+            "Account"
+          ],
+          "properties": {
+            "country": "US",
+            "flagged": false,
+            "id": "mule_4",
+            "kyc_tier": 1,
+            "opened_at": 1760529600,
+            "type": "personal"
+          }
+        },
+        {
+          "id": "mule_5",
+          "labels": [
+            "Account"
+          ],
+          "properties": {
+            "country": "US",
+            "flagged": false,
+            "id": "mule_5",
+            "kyc_tier": 1,
+            "opened_at": 1760529600,
+            "type": "personal"
+          }
+        },
+        {
+          "id": "mule_6",
+          "labels": [
+            "Account"
+          ],
+          "properties": {
+            "country": "US",
+            "flagged": false,
+            "id": "mule_6",
+            "kyc_tier": 1,
+            "opened_at": 1760529600,
+            "type": "personal"
+          }
+        },
+        {
+          "id": "mule_7",
+          "labels": [
+            "Account"
+          ],
+          "properties": {
+            "country": "US",
+            "flagged": false,
+            "id": "mule_7",
+            "kyc_tier": 1,
+            "opened_at": 1760529600,
+            "type": "personal"
+          }
+        },
+        {
+          "id": "mule_8",
+          "labels": [
+            "Account"
+          ],
+          "properties": {
+            "country": "US",
+            "flagged": false,
+            "id": "mule_8",
+            "kyc_tier": 1,
+            "opened_at": 1760529600,
+            "type": "personal"
+          }
+        },
+        {
+          "id": "mule_9",
+          "labels": [
+            "Account"
+          ],
+          "properties": {
+            "country": "US",
+            "flagged": false,
+            "id": "mule_9",
+            "kyc_tier": 1,
+            "opened_at": 1760529600,
+            "type": "personal"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": 26059,
+          "source": "mule_0",
+          "target": "collector_0",
+          "type": "SENT",
+          "properties": {
+            "amount": 400.0,
+            "corridor": "US-NG",
+            "currency": "USD",
+            "id": "tx_0026059",
+            "ts": 1792065600
+          }
+        },
+        {
+          "id": 26060,
+          "source": "mule_1",
+          "target": "collector_0",
+          "type": "SENT",
+          "properties": {
+            "amount": 401.0,
+            "corridor": "US-NG",
+            "currency": "USD",
+            "id": "tx_0026060",
+            "ts": 1792069200
+          }
+        },
+        {
+          "id": 26061,
+          "source": "mule_2",
+          "target": "collector_0",
+          "type": "SENT",
+          "properties": {
+            "amount": 402.0,
+            "corridor": "US-NG",
+            "currency": "USD",
+            "id": "tx_0026061",
+            "ts": 1792072800
+          }
+        },
+        {
+          "id": 26062,
+          "source": "mule_3",
+          "target": "collector_0",
+          "type": "SENT",
+          "properties": {
+            "amount": 403.0,
+            "corridor": "US-NG",
+            "currency": "USD",
+            "id": "tx_0026062",
+            "ts": 1792076400
+          }
+        },
+        {
+          "id": 26063,
+          "source": "mule_4",
+          "target": "collector_0",
+          "type": "SENT",
+          "properties": {
+            "amount": 404.0,
+            "corridor": "US-NG",
+            "currency": "USD",
+            "id": "tx_0026063",
+            "ts": 1792080000
+          }
+        },
+        {
+          "id": 26064,
+          "source": "mule_5",
+          "target": "collector_0",
+          "type": "SENT",
+          "properties": {
+            "amount": 405.0,
+            "corridor": "US-NG",
+            "currency": "USD",
+            "id": "tx_0026064",
+            "ts": 1792083600
+          }
+        },
+        {
+          "id": 26065,
+          "source": "mule_6",
+          "target": "collector_0",
+          "type": "SENT",
+          "properties": {
+            "amount": 406.0,
+            "corridor": "US-NG",
+            "currency": "USD",
+            "id": "tx_0026065",
+            "ts": 1792087200
+          }
+        },
+        {
+          "id": 26066,
+          "source": "mule_7",
+          "target": "collector_0",
+          "type": "SENT",
+          "properties": {
+            "amount": 407.0,
+            "corridor": "US-NG",
+            "currency": "USD",
+            "id": "tx_0026066",
+            "ts": 1792090800
+          }
+        },
+        {
+          "id": 26067,
+          "source": "mule_8",
+          "target": "collector_0",
+          "type": "SENT",
+          "properties": {
+            "amount": 408.0,
+            "corridor": "US-NG",
+            "currency": "USD",
+            "id": "tx_0026067",
+            "ts": 1792094400
+          }
+        },
+        {
+          "id": 26068,
+          "source": "mule_9",
+          "target": "collector_0",
+          "type": "SENT",
+          "properties": {
+            "amount": 409.0,
+            "corridor": "US-NG",
+            "currency": "USD",
+            "id": "tx_0026068",
+            "ts": 1792098000
+          }
+        },
+        {
+          "id": 26069,
+          "source": "mule_10",
+          "target": "collector_0",
+          "type": "SENT",
+          "properties": {
+            "amount": 410.0,
+            "corridor": "US-NG",
+            "currency": "USD",
+            "id": "tx_0026069",
+            "ts": 1792101600
+          }
+        },
+        {
+          "id": 26070,
+          "source": "mule_11",
+          "target": "collector_0",
+          "type": "SENT",
+          "properties": {
+            "amount": 411.0,
+            "corridor": "US-NG",
+            "currency": "USD",
+            "id": "tx_0026070",
+            "ts": 1792105200
+          }
+        },
+        {
+          "id": 26650,
+          "source": "DEC-6",
+          "target": "POL-AML-1",
+          "type": "BASED_ON",
+          "properties": {}
+        }
+      ],
+      "possibly_truncated": false
+    }
+  },
+  "history_verified": true
+}

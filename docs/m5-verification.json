@@ -1,0 +1,33 @@
+{
+  "milestone": "M5",
+  "status": "passed",
+  "recorded_at": "2026-10-17T18:14:48.407730+00:00",
+  "tests": {
+    "passed": 53,
+    "skipped": 0,
+    "seconds": 346.004
+  },
+  "dedicated_api_tests": {
+    "passed": 7,
+    "seconds": 150.759
+  },
+  "database": "real remote FalkorDB; disposable test graphs cleaned up",
+  "model_tests": "scripted and SDK mocks in automated suite",
+  "live_http": {
+    "provider": "OpenAI Responses",
+    "case_id": "case_9993946814ce4c43b0ef37e0b34ebfb1",
+    "verdict": "MONITOR",
+    "events": 13,
+    "subgraph_nodes": 18,
+    "subgraph_edges": 13,
+    "evidence": "m5-live-verification.json",
+    "guardrail": "Disallowed employee citation rejected; prior FREEZE risk floor applied"
+  },
+  "demo_graph_reset": false,
+  "limitations": [
+    "Single worker; in-memory jobs and event replay",
+    "Restart or eviction streams durable snapshots, not original event replay",
+    "Persistent seed account flags with representative latest transfer"
+  ],
+  "next": "M6 not started"
+}

@@ -1,0 +1,28 @@
+{
+  "milestone": "M8",
+  "status": "passed",
+  "date": "2026-10-17",
+  "sdk": "mcp==1.30.0",
+  "transport": "stdio",
+  "protocol_version": "2025-11-25",
+  "unit_tests": {
+    "passed": 11,
+    "seconds": 0.034,
+    "scope": "4 MCP adapter tests and 7 existing guardrail/model adapter tests"
+  },
+  "live_protocol": {
+    "tools_passed": 12,
+    "all_returned_seeded_evidence": true,
+    "rejections_verified": [
+      "unexposed write",
+      "invalid hop limit"
+    ],
+    "graph_writes": 0,
+    "model_calls": 0
+  },
+  "dependency_check": "passed",
+  "python_compile": "passed",
+  "scope": "12 fixed read tools; no low-level case writes, arbitrary Cypher, or reset",
+  "readme_ai_disclosure": "unchanged",
+  "next_milestone": "M9 not started"
+}

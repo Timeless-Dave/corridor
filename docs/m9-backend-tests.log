@@ -1,0 +1,71 @@
+/Users/timeless/Developer/Hackathons/corridor/.venv/lib/python3.14/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+  from starlette.testclient import TestClient as TestClient  # noqa
+test_invalid_response_and_secret_errors_are_sanitized (test_agent.AdapterTests.test_invalid_response_and_secret_errors_are_sanitized) ... ok
+test_native_tool_result_round_trip (test_agent.AdapterTests.test_native_tool_result_round_trip) ... ok
+Loading isolated M3 graph; model calls are scripted.
+test_cap_and_repeated_tools_downgrade (test_agent.AgentGraphTests.test_cap_and_repeated_tools_downgrade) ... ok
+test_cli_emits_json_events (test_agent.AgentGraphTests.test_cli_emits_json_events) ... ok
+test_company_missing_is_unrouted_monitor (test_agent.AgentGraphTests.test_company_missing_is_unrouted_monitor) ... ok
+test_fabricated_citations_are_rejected (test_agent.AgentGraphTests.test_fabricated_citations_are_rejected) ... ok
+test_four_patterns_persist_and_route (test_agent.AgentGraphTests.test_four_patterns_persist_and_route) ... ok
+test_memory_first_raises_risk_without_counting_as_evidence (test_agent.AgentGraphTests.test_memory_first_raises_risk_without_counting_as_evidence) ... ok
+test_model_failure_and_invalid_output_are_monitor (test_agent.AgentGraphTests.test_model_failure_and_invalid_output_are_monitor) ... ok
+test_second_account_recalls_first_case_on_step_one (test_agent.AgentGraphTests.test_second_account_recalls_first_case_on_step_one) ... ok
+test_unknown_account_closes_clear_without_model (test_agent.AgentGraphTests.test_unknown_account_closes_clear_without_model) ... ok
+test_empty_metadata_or_uncited_finding_cannot_support_freeze (test_agent.GuardrailTests.test_empty_metadata_or_uncited_finding_cannot_support_freeze) ... ok
+test_missing_key_fails_before_database (test_agent.GuardrailTests.test_missing_key_fails_before_database) ... ok
+test_prior_risk_floor_and_model_failure (test_agent.GuardrailTests.test_prior_risk_floor_and_model_failure) ... ok
+test_two_distinct_tools_same_account_required (test_agent.GuardrailTests.test_two_distinct_tools_same_account_required) ... ok
+test_untrusted_delimiters_are_escaped (test_agent.GuardrailTests.test_untrusted_delimiters_are_escaped) ... ok
+test_database_error_is_redacted (test_api.APIErrorTests.test_database_error_is_redacted) ... ok
+test_model_preflight_creates_no_case (test_api.APIErrorTests.test_model_preflight_creates_no_case) ... ok
+test_duplicate_start_and_reset_blocked_during_work (test_api.APIGraphTests.test_duplicate_start_and_reset_blocked_during_work) ... ok
+test_investigate_stream_reconnect_and_saved_subgraph (test_api.APIGraphTests.test_investigate_stream_reconnect_and_saved_subgraph) ... ok
+test_queue_and_not_found (test_api.APIGraphTests.test_queue_and_not_found) ... ok
+test_unknown_account_stream_closes_with_error (test_api.APIGraphTests.test_unknown_account_stream_closes_with_error) ... ok
+test_z_reset_requires_exact_graph_and_restores_seed (test_api.APIGraphTests.test_z_reset_requires_exact_graph_and_restores_seed) ... ok
+test_context_sources_and_current_precedents (test_company.CompanyTests.test_context_sources_and_current_precedents) ... ok
+test_invalid_model_grounding_closes_unrouted (test_company.CompanyTests.test_invalid_model_grounding_closes_unrouted) ... ok
+test_loop_routes_both_corridors (test_company.CompanyTests.test_loop_routes_both_corridors) ... ok
+test_write_rejects_mismatched_references_without_partial_closure (test_company.CompanyTests.test_write_rejects_mismatched_references_without_partial_closure) ... ok
+test_z_supersession_after_retrieval_is_rechecked_at_write (test_company.CompanyTests.test_z_supersession_after_retrieval_is_rechecked_at_write) ... ok
+test_errors_do_not_expose_credentials (test_connection.ConnectionTests.test_errors_do_not_expose_credentials) ... ok
+test_missing_host (test_connection.ConnectionTests.test_missing_host) ... ok
+test_tls_and_timeouts (test_connection.ConnectionTests.test_tls_and_timeouts) ... ok
+test_counts_and_overlap (test_generation.GenerationTests.test_counts_and_overlap) ... ok
+test_cycle_and_fan_in (test_generation.GenerationTests.test_cycle_and_fan_in) ... ok
+test_ground_truth_not_stored (test_generation.GenerationTests.test_ground_truth_not_stored) ... ok
+test_identifiers_and_references (test_generation.GenerationTests.test_identifiers_and_references) ... ok
+test_loader_refuses_populated_graph (test_generation.GenerationTests.test_loader_refuses_populated_graph) ... ok
+test_payout_rounds (test_generation.GenerationTests.test_payout_rounds) ... ok
+test_query_registry (test_generation.GenerationTests.test_query_registry) ... ok
+test_reproducibility (test_generation.GenerationTests.test_reproducibility) ... ok
+test_round_trip (test_live.LiveTests.test_round_trip) ... Connected; loading disposable graph.
+Initial load complete; verifying evidence.
+Proofs passed; testing reset and reload.
+Reset/reload and repeated proofs passed.
+ok
+test_bad_parameters_never_reach_database (test_mcp.MCPTests.test_bad_parameters_never_reach_database) ... ok
+test_discovery_is_read_only_and_lazy (test_mcp.MCPTests.test_discovery_is_read_only_and_lazy) ... ok
+test_fixed_read_query_and_sanitized_failure (test_mcp.MCPTests.test_fixed_read_query_and_sanitized_failure) ... ok
+test_writes_and_arbitrary_queries_are_not_callable (test_mcp.MCPTests.test_writes_and_arbitrary_queries_are_not_callable) ... ok
+Loading isolated M2 query fixtures.
+test_ajo_rounds_and_legitimate_pool (test_queries.QueryTests.test_ajo_rounds_and_legitimate_pool) ... ok
+test_algorithms_filter_and_collector (test_queries.QueryTests.test_algorithms_filter_and_collector) ... ok
+test_case_finding_and_closure (test_queries.QueryTests.test_case_finding_and_closure) ... ok
+test_circular_bounds_order_and_negative_controls (test_queries.QueryTests.test_circular_bounds_order_and_negative_controls) ... ok
+test_company_context_and_seeded_memory (test_queries.QueryTests.test_company_context_and_seeded_memory) ... ok
+test_fan_in_window_and_threshold (test_queries.QueryTests.test_fan_in_window_and_threshold) ... ok
+test_shared_identifiers_and_wcc (test_queries.QueryTests.test_shared_identifiers_and_wcc) ... ok
+test_shortest_paths_both_directions_and_bound (test_queries.QueryTests.test_shortest_paths_both_directions_and_bound) ... ok
+test_unknown_account_case_receipt (test_queries.QueryTests.test_unknown_account_case_receipt) ... ok
+test_unknown_ids_and_injection_are_empty (test_queries.QueryTests.test_unknown_ids_and_injection_are_empty) ... ok
+test_bounds_and_invalid_values (test_queries.ToolContractTests.test_bounds_and_invalid_values) ... ok
+test_dispatch_excludes_arbitrary_queries_and_ingestion (test_queries.ToolContractTests.test_dispatch_excludes_arbitrary_queries_and_ingestion) ... ok
+test_invalid_write_inputs_never_reach_database (test_queries.ToolContractTests.test_invalid_write_inputs_never_reach_database) ... ok
+test_parameters_remain_data (test_queries.ToolContractTests.test_parameters_remain_data) ... ok
+
+----------------------------------------------------------------------
+Ran 58 tests in 351.086s
+
+OK

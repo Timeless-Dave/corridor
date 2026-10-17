@@ -1,0 +1,28 @@
+{
+  "recorded_at": "2026-10-17T17:45:11.911517+00:00",
+  "milestone": "M3",
+  "status": "automated M3 verification complete; manual Browser review remains user checkpoint",
+  "tests": {
+    "passed": 41,
+    "skipped": 0,
+    "seconds": 93.337
+  },
+  "database": "real remote FalkorDB; disposable test graphs",
+  "model_verification": "Four actual OpenAI Responses investigations; persistence, citations, and company links verified",
+  "credential_status": "local credential used successfully; no credentials recorded",
+  "provider": "OpenAI Responses",
+  "default_model": "gpt-4.1-mini",
+  "scenarios": [
+    "four planted patterns through CLI",
+    "citations and raw results persisted",
+    "unsupported FREEZE downgrade",
+    "12-step cap",
+    "unknown-account error closure",
+    "historical FREEZE risk floor",
+    "invalid citations",
+    "model outage and malformed output",
+    "unrouted MONITOR on invalid company grounding",
+    "M1/M2 regressions"
+  ],
+  "live_evidence": "m3-live-verification.json"
+}

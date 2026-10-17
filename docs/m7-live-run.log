@@ -1,0 +1,95 @@
+{"type": "opened", "case_id": "case_18f45514bd2744339b773d5355861dd6", "tool": null}
+{"type": "finding", "case_id": "case_18f45514bd2744339b773d5355861dd6", "tool": "prior_cases"}
+{"type": "guardrail", "case_id": "case_18f45514bd2744339b773d5355861dd6", "tool": null}
+{"type": "finding", "case_id": "case_18f45514bd2744339b773d5355861dd6", "tool": "shared_identifiers"}
+{"type": "finding", "case_id": "case_18f45514bd2744339b773d5355861dd6", "tool": "fan_in"}
+{"type": "finding", "case_id": "case_18f45514bd2744339b773d5355861dd6", "tool": "link_to_known_bad"}
+{"type": "finding", "case_id": "case_18f45514bd2744339b773d5355861dd6", "tool": "corridor_context"}
+{"type": "finding", "case_id": "case_18f45514bd2744339b773d5355861dd6", "tool": "precedents"}
+{"type": "guardrail", "case_id": "case_18f45514bd2744339b773d5355861dd6", "tool": null}
+{"type": "closed", "case_id": "case_18f45514bd2744339b773d5355861dd6", "tool": null}
+{"type": "opened", "case_id": "case_b7a56e4c6c484f40bc9f0257fa12e2ea", "tool": null}
+{"type": "finding", "case_id": "case_b7a56e4c6c484f40bc9f0257fa12e2ea", "tool": "prior_cases"}
+{"type": "guardrail", "case_id": "case_b7a56e4c6c484f40bc9f0257fa12e2ea", "tool": null}
+{"type": "finding", "case_id": "case_b7a56e4c6c484f40bc9f0257fa12e2ea", "tool": "shared_identifiers"}
+{"type": "finding", "case_id": "case_b7a56e4c6c484f40bc9f0257fa12e2ea", "tool": "circular_flows"}
+{"type": "finding", "case_id": "case_b7a56e4c6c484f40bc9f0257fa12e2ea", "tool": "fan_in"}
+{"type": "finding", "case_id": "case_b7a56e4c6c484f40bc9f0257fa12e2ea", "tool": "link_to_known_bad"}
+{"type": "finding", "case_id": "case_b7a56e4c6c484f40bc9f0257fa12e2ea", "tool": "corridor_context"}
+{"type": "finding", "case_id": "case_b7a56e4c6c484f40bc9f0257fa12e2ea", "tool": "precedents"}
+{"type": "guardrail", "case_id": "case_b7a56e4c6c484f40bc9f0257fa12e2ea", "tool": null}
+{"type": "closed", "case_id": "case_b7a56e4c6c484f40bc9f0257fa12e2ea", "tool": null}
+{
+  "verified": true,
+  "first_account": "collector_0",
+  "second_account": "mule_0",
+  "first_case": {
+    "case_id": "case_18f45514bd2744339b773d5355861dd6",
+    "verdict": "MONITOR",
+    "risk": 0.7,
+    "pattern": "fan_in_mule",
+    "members": [
+      "collector_0",
+      "mule_0",
+      "mule_1",
+      "mule_10"
+    ],
+    "policy_id": "POL-AML-1",
+    "precedent_decision_id": "DEC-6",
+    "assignee_employee_id": "emp_0",
+    "rationale": "The investigations for account collector_0 found no additional prior suspicious cases other than one excluded, no shared identifiers or network connections indicating synthetic remittance, and no circular fund flows within 5 hops. The account received 12 transfers from distinct known mule accounts totaling 4866 units, each under 1000 units, showing pattern fan_in_mule. Direct links to known bad mule accounts mule_0, mule_1, and mule_10 indicate risk but lack strong corroborating synthetic remittance evidence to justify freezing. Prior FREEZE raised risk to 0.7. Given these mixed signals, a MONITOR decision balances caution with the absence of conclusive fraud evidence, consistent with policy POL-AML-1 and precedent DEC-6, assigned to Fictional employee 0.",
+    "steps": 6,
+    "step_cap_reached": false,
+    "guardrail_reasons": [
+      "Prior FREEZE found; deterministic risk floor is 0.7."
+    ]
+  },
+  "second_case": {
+    "case_id": "case_b7a56e4c6c484f40bc9f0257fa12e2ea",
+    "verdict": "MONITOR",
+    "risk": 0.7,
+    "pattern": "fan_in_mule",
+    "members": [
+      "mule_0"
+    ],
+    "policy_id": "POL-AML-1",
+    "precedent_decision_id": "DEC-6",
+    "assignee_employee_id": "emp_0",
+    "rationale": "Investigation of account mule_0 found no strong evidence of synthetic remittance or laundering cycles, no shared identifiers, no circular flows, and no incoming transfers under $1000 since the precedent date, but there is indirect linkage to known bad accounts via collector_0. Prior precedent DEC-6 under policy POL-AML-1 resulted in a FREEZE, raising starting risk to 0.7. Considering the mixed evidence and prior freeze, the appropriate decision is MONITOR pending further review.",
+    "steps": 7,
+    "step_cap_reached": false,
+    "guardrail_reasons": [
+      "Prior FREEZE found; deterministic risk floor is 0.7."
+    ]
+  },
+  "step_one": {
+    "created_at": 1792265533,
+    "id": "finding_92c097ef17f7458f996123b65966266b",
+    "interpretation_source": "model",
+    "params": "{\"account_id\": \"mule_0\", \"exclude_case_id\": \"case_b7a56e4c6c484f40bc9f0257fa12e2ea\"}",
+    "query_name": "prior_cases",
+    "rejected_citations": "[]",
+    "result_json": "[{\"case_id\": \"case_18f45514bd2744339b773d5355861dd6\", \"key_findings\": [\"The investigations for account collector_0 reveal no additional prior suspicious cases besides one excluded, no shared identifiers or network ties indicating synthetic remittance, and no circular fund flows within 5 hops, yet the account received multiple transfers from different mule accounts totaling 4866 with each under 1000 threshold. Different verdicts of FREEZE and MONITOR were applied under the fan_in_mule pattern depending on the case and role, with prior FREEZE raising starting risk. This indicates some risk due to mule account transfers but no strong evidence of synthetic remittance or laundering cycles from the findings.\", \"The investigations for account collector_0 reveal no additional prior suspicious cases besides one excluded, no shared identifiers or network ties indicating synthetic remittance, and no circular fund flows within 5 hops, yet the account received multiple transfers from different mule accounts totaling 4866 with each under 1000 threshold. Different verdicts of FREEZE and MONITOR were applied under the fan_in_mule pattern depending on the case and role, with prior FREEZE raising starting risk. This indicates some risk due to mule account transfers but no strong evidence of synthetic remittance or laundering cycles from the findings.\", \"Prior FREEZE found; starting risk raised to 0.7.\"], \"opened_at\": 1792265495, \"pattern\": \"fan_in_mule\", \"role\": \"member\", \"verdict\": \"MONITOR\"}, {\"case_id\": \"case_9993946814ce4c43b0ef37e0b34ebfb1\", \"key_findings\": [\"The investigation found no additional prior suspicious cases linked to account collector_0 aside from the excluded one, no shared identifiers or network connections indicating synthetic remittance, and no circular fund flows within 5 hops, yet the verdict given was FREEZE under the fan_in_mule pattern with roles member and flagged.\", \"The investigation found no additional prior suspicious cases linked to account collector_0 aside from the excluded one, no shared identifiers or network connections indicating synthetic remittance, and no circular fund flows within 5 hops, yet the verdict given was FREEZE under the fan_in_mule pattern with roles member and flagged.\", \"Prior FREEZE found; starting risk raised to 0.7.\"], \"opened_at\": 1792260559, \"pattern\": \"fan_in_mule\", \"role\": \"member\", \"verdict\": \"MONITOR\"}, {\"case_id\": \"case_24d854b141f047debf5fad0627b1bac0\", \"key_findings\": [\"No prior cases other than the excluded one are linked to account collector_0, indicating no additional related suspicious activity found in the database for this account.\", \"No prior cases other than the excluded one are linked to account collector_0, indicating no additional related suspicious activity found in the database for this account.\", \"The result shows no shared identifiers linked to account 'collector_0', indicating no evidence of network connections or alias usage to suggest synthetic remittance activity.\"], \"opened_at\": 1792258996, \"pattern\": \"fan_in_mule\", \"role\": \"member\", \"verdict\": \"FREEZE\"}, {\"case_id\": \"case_history\", \"key_findings\": [\"Synthetic historical review.\"], \"opened_at\": 1791460800, \"pattern\": \"fan_in_mule\", \"role\": \"flagged\", \"verdict\": \"FREEZE\"}]",
+    "step": 1,
+    "text": "The investigations of account collector_0 found no prior suspicious cases besides one excluded, no shared identifiers or network ties indicating synthetic remittance, and no circular fund flows within 5 hops. However, the account received multiple transfers from different mule accounts totaling 4866, with individual transfers under 1000, showing some risk but no strong synthetic remittance or laundering evidence. Different verdicts of FREEZE and MONITOR under fan_in_mule pattern were applied depending on case and role, with a prior FREEZE raising starting risk to 0.7.",
+    "tool": "prior_cases"
+  },
+  "matched_prior_case": [
+    {
+      "case_id": "case_18f45514bd2744339b773d5355861dd6",
+      "key_findings": [
+        "The investigations for account collector_0 reveal no additional prior suspicious cases besides one excluded, no shared identifiers or network ties indicating synthetic remittance, and no circular fund flows within 5 hops, yet the account received multiple transfers from different mule accounts totaling 4866 with each under 1000 threshold. Different verdicts of FREEZE and MONITOR were applied under the fan_in_mule pattern depending on the case and role, with prior FREEZE raising starting risk. This indicates some risk due to mule account transfers but no strong evidence of synthetic remittance or laundering cycles from the findings.",
+        "The investigations for account collector_0 reveal no additional prior suspicious cases besides one excluded, no shared identifiers or network ties indicating synthetic remittance, and no circular fund flows within 5 hops, yet the account received multiple transfers from different mule accounts totaling 4866 with each under 1000 threshold. Different verdicts of FREEZE and MONITOR were applied under the fan_in_mule pattern depending on the case and role, with prior FREEZE raising starting risk. This indicates some risk due to mule account transfers but no strong evidence of synthetic remittance or laundering cycles from the findings.",
+        "Prior FREEZE found; starting risk raised to 0.7."
+      ],
+      "opened_at": 1792265495,
+      "pattern": "fan_in_mule",
+      "role": "member",
+      "verdict": "MONITOR"
+    }
+  ],
+  "browser_paths": [
+    "/cases/case_18f45514bd2744339b773d5355861dd6",
+    "/cases/case_b7a56e4c6c484f40bc9f0257fa12e2ea"
+  ]
+}

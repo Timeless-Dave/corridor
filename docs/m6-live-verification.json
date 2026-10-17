@@ -1,0 +1,110 @@
+{
+  "recorded_at": "2026-10-17T19:25:19.110Z",
+  "case_id": "case_6c73c20d954d4c39a7039167c31ed8ae",
+  "verdict": "MONITOR",
+  "events": [
+    {
+      "type": "opened",
+      "at": 1792265078417
+    },
+    {
+      "type": "finding",
+      "at": 1792265080006
+    },
+    {
+      "type": "finding",
+      "at": 1792265082416
+    },
+    {
+      "type": "finding",
+      "at": 1792265084626
+    },
+    {
+      "type": "finding",
+      "at": 1792265087239
+    },
+    {
+      "type": "finding",
+      "at": 1792265089449
+    },
+    {
+      "type": "finding",
+      "at": 1792265091658
+    },
+    {
+      "type": "finding",
+      "at": 1792265093065
+    },
+    {
+      "type": "finding",
+      "at": 1792265095277
+    },
+    {
+      "type": "guardrail",
+      "at": 1792265096885
+    },
+    {
+      "type": "closed",
+      "at": 1792265097086
+    },
+    {
+      "type": "end",
+      "at": 1792265097086
+    }
+  ],
+  "reviewed": [
+    {
+      "account": "cycle_0",
+      "case_id": "case_6ee0301b40ca4ee7b98ee9e37ae294ec"
+    },
+    {
+      "account": "collector_0",
+      "case_id": "case_24d854b141f047debf5fad0627b1bac0"
+    },
+    {
+      "account": "shared_0",
+      "case_id": "case_5aca8917e2fb4826a724a0f4aa34aa32"
+    },
+    {
+      "account": "ajo_0",
+      "case_id": "case_bb25ef35acd8455c992a8c804ddc6b87"
+    }
+  ],
+  "grounding": [
+    {
+      "policy": {
+        "id": "POL-AML-1",
+        "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+        "threshold": 500,
+        "title": "Synthetic review policy 1"
+      },
+      "source": {
+        "id": "DOC-1",
+        "source": "synthetic",
+        "title": "Fictional handbook 1",
+        "updated_at": 1792065600
+      },
+      "precedent": {
+        "date": 1791892800,
+        "id": "DEC-6",
+        "outcome": "FREEZE",
+        "summary": "Fictional precedent 6"
+      },
+      "author": {
+        "id": "emp_6",
+        "name": "Fictional employee 6",
+        "role": "analyst"
+      },
+      "assignee": {
+        "id": "emp_0",
+        "name": "Fictional employee 0",
+        "role": "corridor lead"
+      },
+      "team": {
+        "id": "team_0",
+        "name": "Fictional team 0"
+      }
+    }
+  ],
+  "errors": []
+}

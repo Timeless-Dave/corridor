@@ -1,0 +1,419 @@
+{
+  "verified": true,
+  "protocol_version": "2025-11-25",
+  "tool_count": 12,
+  "results": {
+    "shared_identifiers": {
+      "result": [
+        {
+          "account": "cycle_0",
+          "via": "Device",
+          "identifier": "shared_device_0",
+          "source_edge": 4033,
+          "peer_edge": 4030
+        },
+        {
+          "account": "shared_2",
+          "via": "Device",
+          "identifier": "shared_device_0",
+          "source_edge": 4033,
+          "peer_edge": 4035
+        },
+        {
+          "account": "shared_3",
+          "via": "Phone",
+          "identifier": "shared_phone_2",
+          "source_edge": 6047,
+          "peer_edge": 6050
+        },
+        {
+          "account": "shared_4",
+          "via": "Device",
+          "identifier": "shared_device_0",
+          "source_edge": 4033,
+          "peer_edge": 4037
+        },
+        {
+          "account": "shared_6",
+          "via": "Device",
+          "identifier": "shared_device_0",
+          "source_edge": 4033,
+          "peer_edge": 4039
+        },
+        {
+          "account": "shared_6",
+          "via": "Phone",
+          "identifier": "shared_phone_2",
+          "source_edge": 6047,
+          "peer_edge": 6053
+        }
+      ]
+    },
+    "circular_flows": {
+      "result": [
+        {
+          "accounts": [
+            "cycle_0",
+            "cycle_1",
+            "cycle_2",
+            "cycle_3",
+            "cycle_4",
+            "cycle_0"
+          ],
+          "transfers": [
+            "tx_0026041",
+            "tx_0026042",
+            "tx_0026043",
+            "tx_0026044",
+            "tx_0026045"
+          ],
+          "amounts": [
+            480.0,
+            475.0,
+            470.0,
+            465.0,
+            460.0
+          ],
+          "timestamps": [
+            1792065600,
+            1792069200,
+            1792072800,
+            1792076400,
+            1792080000
+          ],
+          "volume": 2350.0
+        }
+      ]
+    },
+    "fan_in": {
+      "result": [
+        {
+          "collector": "collector_0",
+          "senders": 12,
+          "total": 4866.0,
+          "sender_ids": [
+            "mule_0",
+            "mule_1",
+            "mule_2",
+            "mule_3",
+            "mule_4",
+            "mule_5",
+            "mule_6",
+            "mule_7",
+            "mule_8",
+            "mule_9",
+            "mule_10",
+            "mule_11"
+          ],
+          "transfers": [
+            "tx_0026059",
+            "tx_0026060",
+            "tx_0026061",
+            "tx_0026062",
+            "tx_0026063",
+            "tx_0026064",
+            "tx_0026065",
+            "tx_0026066",
+            "tx_0026067",
+            "tx_0026068",
+            "tx_0026069",
+            "tx_0026070"
+          ],
+          "first_ts": 1792065600,
+          "last_ts": 1792105200
+        }
+      ]
+    },
+    "ajo_payout_pattern": {
+      "result": [
+        {
+          "member": "ajo_0",
+          "first_round": 0,
+          "next_round": 1,
+          "contributors": [
+            "ajo_1",
+            "ajo_2",
+            "ajo_3",
+            "ajo_4"
+          ],
+          "first_transfers": [
+            "tx_0026596",
+            "tx_0026597",
+            "tx_0026598",
+            "tx_0026599"
+          ],
+          "next_transfers": [
+            "tx_0026600",
+            "tx_0026601",
+            "tx_0026602",
+            "tx_0026603"
+          ],
+          "shared_devices": [
+            "ajo_device"
+          ]
+        },
+        {
+          "member": "ajo_0",
+          "first_round": 1,
+          "next_round": 2,
+          "contributors": [
+            "ajo_1",
+            "ajo_2",
+            "ajo_3",
+            "ajo_4"
+          ],
+          "first_transfers": [
+            "tx_0026600",
+            "tx_0026601",
+            "tx_0026602",
+            "tx_0026603"
+          ],
+          "next_transfers": [
+            "tx_0026604",
+            "tx_0026605",
+            "tx_0026606",
+            "tx_0026607"
+          ],
+          "shared_devices": [
+            "ajo_device"
+          ]
+        }
+      ]
+    },
+    "ring_communities": {
+      "result": [
+        {
+          "community_id": 4025,
+          "members": [
+            "cycle_0",
+            "cycle_1"
+          ],
+          "size": 2
+        }
+      ]
+    },
+    "connected_cluster": {
+      "result": [
+        {
+          "component_id": 4025,
+          "members": [
+            "cycle_0",
+            "cycle_1",
+            "shared_0",
+            "shared_1",
+            "shared_2",
+            "shared_3",
+            "shared_4",
+            "shared_5",
+            "shared_6",
+            "shared_device_0",
+            "shared_device_1",
+            "shared_phone_0",
+            "shared_phone_1",
+            "shared_phone_2"
+          ],
+          "size": 14
+        }
+      ]
+    },
+    "collector_rank": {
+      "result": [
+        {
+          "account": "collector_0",
+          "score": 0.000592114112805575
+        },
+        {
+          "account": "mule_0",
+          "score": 5.28667114849668e-05
+        }
+      ]
+    },
+    "link_to_known_bad": {
+      "result": [
+        {
+          "account": "collector_0",
+          "known_bad": "mule_0",
+          "path": [
+            "collector_0",
+            "mule_0"
+          ],
+          "edge_ids": [
+            26059
+          ],
+          "hops": 1
+        },
+        {
+          "account": "collector_0",
+          "known_bad": "mule_1",
+          "path": [
+            "collector_0",
+            "mule_1"
+          ],
+          "edge_ids": [
+            26060
+          ],
+          "hops": 1
+        },
+        {
+          "account": "collector_0",
+          "known_bad": "mule_10",
+          "path": [
+            "collector_0",
+            "mule_10"
+          ],
+          "edge_ids": [
+            26069
+          ],
+          "hops": 1
+        }
+      ]
+    },
+    "corridor_context": {
+      "result": [
+        {
+          "corridor": "US-NG",
+          "lead_id": "emp_0",
+          "lead": "Fictional employee 0",
+          "team_id": "team_0",
+          "team": "Fictional team 0",
+          "policies": [
+            {
+              "id": "POL-AML-1",
+              "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+              "source": "Fictional handbook 1",
+              "source_id": "DOC-1",
+              "threshold": 500.0,
+              "title": "Synthetic review policy 1"
+            },
+            {
+              "id": "POL-AML-2",
+              "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+              "source": "Fictional handbook 2",
+              "source_id": "DOC-2",
+              "threshold": 500.0,
+              "title": "Synthetic review policy 2"
+            },
+            {
+              "id": "POL-AML-3",
+              "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+              "source": "Fictional handbook 3",
+              "source_id": "DOC-3",
+              "threshold": 500.0,
+              "title": "Synthetic review policy 3"
+            },
+            {
+              "id": "POL-AML-4",
+              "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+              "source": "Fictional handbook 4",
+              "source_id": "DOC-4",
+              "threshold": 500.0,
+              "title": "Synthetic review policy 4"
+            }
+          ]
+        }
+      ]
+    },
+    "precedents": {
+      "result": [
+        {
+          "decision": "DEC-6",
+          "summary": "Fictional precedent 6",
+          "outcome": "FREEZE",
+          "date": 1791892800,
+          "decided_by_id": "emp_6",
+          "decided_by": "Fictional employee 6"
+        }
+      ]
+    },
+    "who_knows": {
+      "result": [
+        {
+          "employee_id": "emp_6",
+          "employee": "Fictional employee 6",
+          "role": "analyst",
+          "cases": 9
+        }
+      ]
+    },
+    "prior_cases": {
+      "result": [
+        {
+          "case_id": "case_b7a56e4c6c484f40bc9f0257fa12e2ea",
+          "verdict": "MONITOR",
+          "pattern": "fan_in_mule",
+          "opened_at": 1792265530,
+          "role": "flagged",
+          "key_findings": [
+            "The investigations of account collector_0 found no prior suspicious cases besides one excluded, no shared identifiers or network ties indicating synthetic remittance, and no circular fund flows within 5 hops. However, the account received multiple transfers from different mule accounts totaling 4866, with individual transfers under 1000, showing some risk but no strong synthetic remittance or laundering evidence. Different verdicts of FREEZE and MONITOR under fan_in_mule pattern were applied depending on case and role, with a prior FREEZE raising starting risk to 0.7.",
+            "Prior FREEZE found; starting risk raised to 0.7.",
+            "The account 'mule_0' has no shared identifiers linking it to other accounts, indicating no direct identifiable relationships through this method."
+          ]
+        },
+        {
+          "case_id": "case_b7a56e4c6c484f40bc9f0257fa12e2ea",
+          "verdict": "MONITOR",
+          "pattern": "fan_in_mule",
+          "opened_at": 1792265530,
+          "role": "member",
+          "key_findings": [
+            "The investigations of account collector_0 found no prior suspicious cases besides one excluded, no shared identifiers or network ties indicating synthetic remittance, and no circular fund flows within 5 hops. However, the account received multiple transfers from different mule accounts totaling 4866, with individual transfers under 1000, showing some risk but no strong synthetic remittance or laundering evidence. Different verdicts of FREEZE and MONITOR under fan_in_mule pattern were applied depending on case and role, with a prior FREEZE raising starting risk to 0.7.",
+            "Prior FREEZE found; starting risk raised to 0.7.",
+            "The account 'mule_0' has no shared identifiers linking it to other accounts, indicating no direct identifiable relationships through this method."
+          ]
+        },
+        {
+          "case_id": "case_18f45514bd2744339b773d5355861dd6",
+          "verdict": "MONITOR",
+          "pattern": "fan_in_mule",
+          "opened_at": 1792265495,
+          "role": "member",
+          "key_findings": [
+            "The investigations for account collector_0 reveal no additional prior suspicious cases besides one excluded, no shared identifiers or network ties indicating synthetic remittance, and no circular fund flows within 5 hops, yet the account received multiple transfers from different mule accounts totaling 4866 with each under 1000 threshold. Different verdicts of FREEZE and MONITOR were applied under the fan_in_mule pattern depending on the case and role, with prior FREEZE raising starting risk. This indicates some risk due to mule account transfers but no strong evidence of synthetic remittance or laundering cycles from the findings.",
+            "The investigations for account collector_0 reveal no additional prior suspicious cases besides one excluded, no shared identifiers or network ties indicating synthetic remittance, and no circular fund flows within 5 hops, yet the account received multiple transfers from different mule accounts totaling 4866 with each under 1000 threshold. Different verdicts of FREEZE and MONITOR were applied under the fan_in_mule pattern depending on the case and role, with prior FREEZE raising starting risk. This indicates some risk due to mule account transfers but no strong evidence of synthetic remittance or laundering cycles from the findings.",
+            "Prior FREEZE found; starting risk raised to 0.7."
+          ]
+        },
+        {
+          "case_id": "case_9993946814ce4c43b0ef37e0b34ebfb1",
+          "verdict": "MONITOR",
+          "pattern": "fan_in_mule",
+          "opened_at": 1792260559,
+          "role": "member",
+          "key_findings": [
+            "The investigation found no additional prior suspicious cases linked to account collector_0 aside from the excluded one, no shared identifiers or network connections indicating synthetic remittance, and no circular fund flows within 5 hops, yet the verdict given was FREEZE under the fan_in_mule pattern with roles member and flagged.",
+            "The investigation found no additional prior suspicious cases linked to account collector_0 aside from the excluded one, no shared identifiers or network connections indicating synthetic remittance, and no circular fund flows within 5 hops, yet the verdict given was FREEZE under the fan_in_mule pattern with roles member and flagged.",
+            "Prior FREEZE found; starting risk raised to 0.7."
+          ]
+        },
+        {
+          "case_id": "case_24d854b141f047debf5fad0627b1bac0",
+          "verdict": "FREEZE",
+          "pattern": "fan_in_mule",
+          "opened_at": 1792258996,
+          "role": "member",
+          "key_findings": [
+            "No prior cases other than the excluded one are linked to account collector_0, indicating no additional related suspicious activity found in the database for this account.",
+            "No prior cases other than the excluded one are linked to account collector_0, indicating no additional related suspicious activity found in the database for this account.",
+            "The result shows no shared identifiers linked to account 'collector_0', indicating no evidence of network connections or alias usage to suggest synthetic remittance activity."
+          ]
+        },
+        {
+          "case_id": "case_history",
+          "verdict": "FREEZE",
+          "pattern": "fan_in_mule",
+          "opened_at": 1791460800,
+          "role": "flagged",
+          "key_findings": [
+            "Synthetic historical review."
+          ]
+        }
+      ]
+    }
+  },
+  "rejected": [
+    "unexposed write",
+    "invalid hop limit"
+  ],
+  "model_calls": 0,
+  "graph_writes": 0
+}

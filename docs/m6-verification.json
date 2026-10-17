@@ -1,0 +1,63 @@
+{
+  "milestone": "M6",
+  "status": "passed",
+  "date": "2026-10-17",
+  "scope": "Local investigation workspace; M7 not started",
+  "checks": {
+    "typescript": "passed",
+    "production_build": "passed; Next.js 16.4.2",
+    "frontend_unit_tests": {
+      "passed": 5
+    },
+    "mocked_browser_tests": {
+      "passed": 4,
+      "coverage": [
+        "queue, investigation, verdict override, replay, saved reload, history",
+        "unavailable services and active-case errors",
+        "mobile and tablet overflow, keyboard focus, reduced motion, WebGL fallback",
+        "SSE reconnect and restart snapshot"
+      ]
+    },
+    "backend_api_tests": {
+      "passed": 7,
+      "duration_seconds": 280.211,
+      "note": "Full API suite before final response deduplication fix; targeted integration rerun after that fix passed."
+    },
+    "final_backend_targeted_test": {
+      "passed": 1,
+      "duration_seconds": 28.901,
+      "coverage": "additive grounding/query text, unique citations and members, flagged-role preservation, streaming/reconnect"
+    },
+    "live_browser": {
+      "passed": 1,
+      "suite_seconds": 45.8,
+      "case_id": "case_6c73c20d954d4c39a7039167c31ed8ae",
+      "verdict": "MONITOR",
+      "sse_event_count": 12,
+      "sse_span_ms": 18669,
+      "saved_patterns_reviewed": 4,
+      "browser_errors": []
+    },
+    "contrast": "Five representative text/background token pairs exceed 4.5:1; see m6-contrast-check.json",
+    "readme_ai_disclosure": "preserved verbatim"
+  },
+  "artifacts": {
+    "live": "m6-live-verification.json",
+    "screenshots": [
+      "m6-evidence-replay.png",
+      "m6-live-investigation.png",
+      "m6-mobile-queue.png",
+      "m6-mobile-verdict.png",
+      "m6-queue-desktop.png",
+      "m6-queue-review.png",
+      "m6-tablet-graph.png",
+      "m6-verdict-desktop.png"
+    ]
+  },
+  "limitations": [
+    "Local demo deployment with one FastAPI worker and in-memory SSE replay",
+    "No production load or Core Web Vitals measurement",
+    "Model outcomes are recorded, not asserted to match planted ground truth",
+    "Citation validation does not establish every sentence of model rationale"
+  ]
+}

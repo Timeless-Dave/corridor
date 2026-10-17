@@ -1,0 +1,27 @@
+# Optional one-click API host for M9. Set env vars in the Render dashboard;
+# do not commit secrets. Graph must already be loaded on FalkorDB Cloud.
+services:
+  - type: web
+    name: corridor-api
+    runtime: docker
+    dockerfilePath: ./api/Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /flags
+    envVars:
+      - key: FALKORDB_HOST
+        sync: false
+      - key: FALKORDB_PORT
+        sync: false
+      - key: FALKORDB_USERNAME
+        sync: false
+      - key: FALKORDB_PASSWORD
+        sync: false
+      - key: FALKORDB_TLS
+        value: "false"
+      - key: GRAPH_NAME
+        value: corridor
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4.1-mini

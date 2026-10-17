@@ -1,0 +1,155 @@
+{
+  "verified": true,
+  "company": {
+    "US-NG": {
+      "context": {
+        "corridor": "US-NG",
+        "lead_id": "emp_0",
+        "lead": "Fictional employee 0",
+        "team_id": "team_0",
+        "team": "Fictional team 0",
+        "policies": [
+          {
+            "id": "POL-AML-1",
+            "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+            "source": "Fictional handbook 1",
+            "source_id": "DOC-1",
+            "threshold": 500.0,
+            "title": "Synthetic review policy 1"
+          },
+          {
+            "id": "POL-AML-2",
+            "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+            "source": "Fictional handbook 2",
+            "source_id": "DOC-2",
+            "threshold": 500.0,
+            "title": "Synthetic review policy 2"
+          },
+          {
+            "id": "POL-AML-3",
+            "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+            "source": "Fictional handbook 3",
+            "source_id": "DOC-3",
+            "threshold": 500.0,
+            "title": "Synthetic review policy 3"
+          },
+          {
+            "id": "POL-AML-4",
+            "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+            "source": "Fictional handbook 4",
+            "source_id": "DOC-4",
+            "threshold": 500.0,
+            "title": "Synthetic review policy 4"
+          }
+        ]
+      },
+      "precedents": {
+        "POL-AML-1": [
+          {
+            "decision": "DEC-6",
+            "summary": "Fictional precedent 6",
+            "outcome": "FREEZE",
+            "date": 1791892800,
+            "decided_by_id": "emp_6",
+            "decided_by": "Fictional employee 6"
+          }
+        ],
+        "POL-AML-2": [
+          {
+            "decision": "DEC-7",
+            "summary": "Fictional precedent 7",
+            "outcome": "MONITOR",
+            "date": 1791979200,
+            "decided_by_id": "emp_7",
+            "decided_by": "Fictional employee 7"
+          },
+          {
+            "decision": "DEC-1",
+            "summary": "Fictional precedent 1",
+            "outcome": "MONITOR",
+            "date": 1791460800,
+            "decided_by_id": "emp_1",
+            "decided_by": "Fictional employee 1"
+          }
+        ],
+        "POL-AML-3": [
+          {
+            "decision": "DEC-2",
+            "summary": "Fictional precedent 2",
+            "outcome": "MONITOR",
+            "date": 1791547200,
+            "decided_by_id": "emp_2",
+            "decided_by": "Fictional employee 2"
+          }
+        ],
+        "POL-AML-4": [
+          {
+            "decision": "DEC-3",
+            "summary": "Fictional precedent 3",
+            "outcome": "MONITOR",
+            "date": 1791633600,
+            "decided_by_id": "emp_3",
+            "decided_by": "Fictional employee 3"
+          }
+        ]
+      }
+    },
+    "NG-US": {
+      "context": {
+        "corridor": "NG-US",
+        "lead_id": "emp_1",
+        "lead": "Fictional employee 1",
+        "team_id": "team_1",
+        "team": "Fictional team 1",
+        "policies": [
+          {
+            "id": "POL-AML-5",
+            "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+            "source": "Fictional handbook 5",
+            "source_id": "DOC-5",
+            "threshold": 500.0,
+            "title": "Synthetic review policy 5"
+          },
+          {
+            "id": "POL-AML-6",
+            "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+            "source": "Fictional handbook 6",
+            "source_id": "DOC-6",
+            "threshold": 500.0,
+            "title": "Synthetic review policy 6"
+          }
+        ]
+      },
+      "precedents": {
+        "POL-AML-5": [
+          {
+            "decision": "DEC-4",
+            "summary": "Fictional precedent 4",
+            "outcome": "MONITOR",
+            "date": 1791720000,
+            "decided_by_id": "emp_4",
+            "decided_by": "Fictional employee 4"
+          }
+        ],
+        "POL-AML-6": [
+          {
+            "decision": "DEC-5",
+            "summary": "Fictional precedent 5",
+            "outcome": "MONITOR",
+            "date": 1791806400,
+            "decided_by_id": "emp_5",
+            "decided_by": "Fictional employee 5"
+          }
+        ]
+      }
+    },
+    "experts": [
+      {
+        "employee_id": "emp_6",
+        "employee": "Fictional employee 6",
+        "role": "analyst",
+        "cases": 3
+      }
+    ]
+  }
+}
