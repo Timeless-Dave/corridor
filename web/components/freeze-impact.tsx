@@ -24,6 +24,12 @@ type Plan = {
   method: string;
   scope: string;
   scratch_deleted: boolean;
+  min_cut?: {
+    size: number | null;
+    accounts: string[];
+    max_flow: number;
+    verified?: boolean;
+  };
 };
 type Order = {
   order: { id: string; status: string };
@@ -166,6 +172,18 @@ export function FreezeImpact({ data }: { data: CaseData }) {
               </li>
             ))}
           </ol>
+          {plan.min_cut &&
+            plan.min_cut.size !== null &&
+            plan.min_cut.size > 0 && (
+              <p className="mono">
+                Exact minimum cut (FalkorDB max-flow):{" "}
+                {plan.min_cut.accounts.join(", ")} ({plan.min_cut.size} account
+                {plan.min_cut.size === 1 ? "" : "s"})
+                {plan.min_cut.verified
+                  ? " · verified on a fresh copy: 0 senders reach the target"
+                  : " · verification on a fresh copy did not reach 0"}
+              </p>
+            )}
           <p>
             <strong>
               {last?.outside_community_counterparties.length ?? 0}

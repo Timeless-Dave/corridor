@@ -6,7 +6,7 @@ Corridor can measure a proposed account block on a disposable FalkorDB copy befo
 
 - Fixed `sim_*.cypher` queries are loaded through `agent/tools.py`.
 - `Graph.copy()` issues FalkorDB `GRAPH.COPY`. A unique scratch name prevents different requests sharing state. Cleanup runs on success and measurement failure; failed cleanup is an error, not a successful plan.
-- The model can call `simulate_freeze` for specified candidates or `min_freeze_set` for a **PageRank-ordered greedy heuristic**. The name is a tool identifier, not a guarantee of minimum cardinality or minimum disruption.
+- The model can call `simulate_freeze` for specified candidates or `min_freeze_set` for a **PageRank-ordered greedy heuristic**. The greedy order is a heuristic. Every plan also carries `min_cut`: an exact minimum vertex cut from FalkorDB `algo.maxFlow` on a node-split flow network in the scratch copy (candidate capacity 1, others 100,000), read from the residual graph and re-verified by blocking it on a second fresh copy. Minimum cardinality is proven by max-flow = cut size within the bounded scope; minimum disruption is not claimed.
 - Candidates must be accounts already cited in that case. The measurement neighborhood adds their one-hop transfer neighbors and refuses scopes larger than 200 accounts.
 - Measurements cover up to five directed hops, within 72 hours ending at the target account's latest transfer. All transfer paths counted must remain inside that neighborhood.
 - Before/after measurements report accounts reaching the target, direct historical inflow to the target, and cycle paths through it. Inflow is not a forecast or a savings estimate. A cycle target is not necessarily a cash-out account.

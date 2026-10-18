@@ -447,7 +447,7 @@ The 3-minute film ([scripts/film](scripts/film/README.md)) follows one real case
    payout pattern, then a scratch-graph freeze measurement. Code lets FREEZE stand because
    two independent evidence tools cite `ajo_0`.
 3. Freeze impact: `GRAPH.COPY`, block in the copy, re-measure (4 → 0 senders, $200 → $0
-   historical inflow, 0 outside-community counterparties). Greedy candidate, not a proven minimum.
+   historical inflow, 0 outside-community counterparties). Exact minimum cut via `algo.maxFlow`, verified on a fresh copy.
 4. Human approval with an operator token and explicit confirmation → modeled block applied →
    re-measured receipt that matches the projection.
 5. Traceability: cited accounts light up in the graph; technical details show the fixed Cypher
@@ -525,9 +525,15 @@ records under [docs/](docs/) carry their own timestamps. No code predates kickof
 
 Corridor now tests candidate account blocks on a disposable FalkorDB graph copy.
 The impact panel compares reachable senders, historical inflow and cycle paths,
-then shows affected counterparties. A PageRank-ordered greedy plan is **not** a
-proven minimum freeze set. A separate operator approval applies modeled blocks
-and records a before/after receipt; no real funds are frozen.
+then shows affected counterparties. Alongside the PageRank-ordered greedy plan, it computes
+the **exact minimum freeze set** with FalkorDB `algo.maxFlow`: every in-scope account is split
+into `in → out` (capacity 1 for cited candidates, effectively infinite otherwise), max-flow runs
+from the reachable senders to the collector, and the min vertex cut is read from the residual
+graph. The cut is then blocked on a second fresh copy and re-measured, so "minimum" is proven
+(max-flow = cut size) and "disconnects every sender" is measured, not assumed
+(`api/queries/sim_flow_*.cypher`, `sim_max_flow.cypher`). Scope stays the bounded 72-hour
+neighborhood. A separate operator approval applies modeled blocks and records a before/after
+receipt; no real funds are frozen.
 
 See [scope, approval controls, evidence and review wording](docs/IMPACT.md).
 

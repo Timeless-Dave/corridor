@@ -56,6 +56,7 @@ class SimulationLiveTests(unittest.TestCase):
         self.assertEqual(self.scratch_keys(),keys)
         self.assertEqual(result['before']['senders_reaching_collector'],12)
         self.assertEqual(result['after']['senders_reaching_collector'],0)
+        self.assertEqual((result['min_cut']['accounts'],result['min_cut']['max_flow'],result['min_cut']['verified']),(['collector_0'],1.0,True))
         self.assertEqual(measure(self.graph,result['params']),result['before'])
         self.assertEqual(get_plan(self.graph,cid)['plan_id'],result['plan_id'])
         with self.assertRaisesRegex(ValueError,'closed FREEZE'): approve(self.graph,cid,result['plan_id'])

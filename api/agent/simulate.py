@@ -66,6 +66,33 @@ def scope(graph, case_id, account_ids):
     return ring, params, snapshot
 
 
+def min_cut(scratch, params, candidates, senders):
+    """Exact minimum vertex cut between reachable senders and the collector (max-flow on a node-split network)."""
+    if not senders: return {'size': 0, 'accounts': [], 'max_flow': 0.0}
+    query_records(scratch, 'sim_flow_nodes', {'scope_ids': params['scope_ids'], 'candidate_ids': candidates}, readonly=False)
+    query_records(scratch, 'sim_flow_edges', params, readonly=False)
+    row = query_records(scratch, 'sim_max_flow', {'sender_ids': senders, 'collector': params['collector']})[0]
+    flows = {tuple(e): f for e, f in zip(row['edges'], row['edgeFlows'])}
+    net = query_records(scratch, 'sim_flow_network')
+    forward, backward = {}, {}
+    for e in net:
+        u, v = (e['source'], e['source_side']), (e['target'], e['target_side'])
+        f = flows.get((*u, *v), 0.0)
+        if f < e['cap'] - 1e-9: forward.setdefault(u, []).append(v)
+        if f > 1e-9: backward.setdefault(v, []).append(u)
+    # Residual reachability from every source; split edges leaving it form the cut.
+    seen = {(s, 'in') for s in senders}
+    stack = list(seen)
+    while stack:
+        u = stack.pop()
+        for v in forward.get(u, []) + backward.get(u, []):
+            if v not in seen: seen.add(v); stack.append(v)
+    cut = sorted(e['source'] for e in net if e['source_side'] == 'in' and e['target_side'] == 'out'
+                 and (e['source'], 'in') in seen and (e['source'], 'out') not in seen)
+    feasible = row['maxFlow'] < 100000.0
+    return {'size': len(cut) if feasible else None, 'accounts': cut if feasible else [], 'max_flow': row['maxFlow']}
+
+
 def plan(graph, case_id, account_ids, *, freeze_ids=None, k=4):
     if type(k) is not int or not 1 <= k <= 4: raise ValueError('Freeze budget must be between 1 and 4.')
     with INTERVENTION_LOCK:
@@ -81,6 +108,7 @@ def plan(graph, case_id, account_ids, *, freeze_ids=None, k=4):
             by_id = {r['account']: r['community_id'] for r in communities}
             community = {a for a, c in by_id.items() if c == by_id.get(params['collector'])}
             before = measure(scratch, params)
+            exact = min_cut(scratch, params, ring, before['reachable_sender_ids'])
             order = specified if specified is not None else [r['account'] for r in ranks][:k]
             selected, steps = [], []
             for account in order:
@@ -101,6 +129,13 @@ def plan(graph, case_id, account_ids, *, freeze_ids=None, k=4):
                       'method': 'Specified candidates' if specified is not None else 'PageRank-ordered greedy heuristic; not a minimum-set guarantee',
                       'scope': 'Up to 5 directed hops inside the cited accounts and their one-hop transfer neighbors, over 72 hours. Historical flows model blocked routes, not future savings.',
                       'synthetic': True, 'scratch_deleted': True}
+        if exact['accounts']:
+            # Prove the exact cut on its own fresh copy rather than trusting the max-flow value.
+            with copy_graph(graph, case_id) as check:
+                query_records(check, 'sim_remove', {'freeze_ids': exact['accounts']}, readonly=False)
+                exact['after'] = measure(check, params)
+            exact['verified'] = exact['after']['senders_reaching_collector'] == 0
+        result['min_cut'] = exact
         # Saving happens only after successful cleanup; failures cannot claim deletion.
         query_records(graph, 'sim_save_plan', {'case_id': case_id, 'plan_id': result['plan_id'],
             'payload': json.dumps(result, sort_keys=True), 'fingerprint': result['fingerprint'], 'now': int(time.time())}, readonly=False)

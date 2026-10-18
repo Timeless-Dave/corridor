@@ -81,7 +81,7 @@ class Investigation:
                 plan=rows[0]
                 before,after=plan['before'],plan['after']
                 frozen=', '.join(plan['freeze_ids']) or 'no accounts'
-                interpretation={'text':f"Observed exposure (live graph): {before['senders_reaching_collector']} accounts reach {plan['collector']} with {before['inflow_volume']:,.0f} USD historical inflow and {before['cycles_remaining']} cycle paths. Hypothetical, in a disposable copy only: blocking {frozen} leaves {after['senders_reaching_collector']} accounts, {after['inflow_volume']:,.0f} USD, {after['cycles_remaining']} cycle paths. The live graph is unchanged. Greedy heuristic, not a minimum-set proof; bounded to 5 hops and 72 hours.",
+                interpretation={'text':f"Observed exposure (live graph): {before['senders_reaching_collector']} accounts reach {plan['collector']} with {before['inflow_volume']:,.0f} USD historical inflow and {before['cycles_remaining']} cycle paths. Hypothetical, in a disposable copy only: blocking {frozen} leaves {after['senders_reaching_collector']} accounts, {after['inflow_volume']:,.0f} USD, {after['cycles_remaining']} cycle paths. The live graph is unchanged. Greedy heuristic; bounded to 5 hops and 72 hours." + (f" Exact minimum vertex cut by FalkorDB max-flow: {', '.join(plan['min_cut']['accounts'])} ({plan['min_cut']['size']}), {'verified' if plan['min_cut'].get('verified') else 'not verified'} on a fresh copy." if plan.get('min_cut', {}).get('accounts') else ''),
                                 'cited_ids':sorted(allowed)}
             elif name=='collector_rank' and rows:
                 source='deterministic'
