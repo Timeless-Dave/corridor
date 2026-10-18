@@ -15,7 +15,9 @@ Company Brain.
 
 **Live app:** https://corridor-eosin.vercel.app/
 
-**Video:** https://github.com/Timeless-Dave/corridor/releases/tag/submission-demo-v2
+**Video:** https://github.com/Timeless-Dave/corridor/releases/tag/submission-demo-v3
+
+**Submitted** to Graph Hacks. This draft is the public record of the filed project.
 
 **Run locally:** Follow the root README. The app uses remote FalkorDB with verified
 TLS, one FastAPI worker, and a Next.js investigation workspace. Docker is optional

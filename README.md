@@ -5,7 +5,7 @@
 Corridor investigates flagged money transfers on US ↔ Nigeria remittance corridors. It walks the transaction graph to find mule rings, applies the company's own policies, routes the case to the person who owns that corridor, and shows the exact path of nodes and edges behind every decision.
 
 > Built for **Graph Hacks: Context for AI Agents** (WeMakeDevs × FalkorDB, Oct 14–18, 2026)
-> **Tracks entered:** Track 01: Agents That Act on Connected Data · Track 03: Company Brain
+> **Tracks entered:** Track 01: Agents That Act on Connected Data · Agent Memory and Coordination · Track 03: Company Brain
 
 ---
 
@@ -13,12 +13,20 @@ Corridor investigates flagged money transfers on US ↔ Nigeria remittance corri
 
 ## Status
 
-All nine milestones (M1–M9) are built and deployed; per-milestone evidence is in [docs/](docs/).
-New on October 18: **freeze-impact simulation**. Before any freeze, the agent copies the graph
-(`GRAPH.COPY`), removes candidate accounts' transfers in the copy, and measures what stops
-reaching the ring's collector. A human approves the plan, and Corridor applies it to the demo
-graph and writes a before/after receipt. See [Measured freeze impact](#measured-freeze-impact)
-and the [synthetic evaluation](#evaluation-on-synthetic-data).
+All nine milestones (M1–M9) are built, deployed, and submitted. Evidence is in [docs/](docs/).
+
+**What a returning judge can check in this repo**
+
+| Rubric | Where it lives |
+|---|---|
+| FalkorDB is the system of record | Transactions, company knowledge, and case memory are one graph. Removing it removes detection, routing, and recall. |
+| The model cannot write Cypher | Fixed files in [`api/queries/`](api/queries/). The agent only picks a tool name and parameters. |
+| Memory survives the chat | `prior_cases` walks `Account ← INVOLVES — Case` in FalkorDB. A second account retrieves the earlier case on step one. |
+| Company knowledge is graph data | Policy, source document, current precedent (superseded decisions excluded), and corridor owner. |
+| A freeze is measured before it is applied | `GRAPH.COPY`, then FalkorDB `algo.maxFlow` for an exact minimum vertex cut, re-measured on a second copy. A person approves; the receipt records whether the outcome matches the projection. |
+| Negative controls exist | [`eval/results.json`](eval/results.json): 4/4 planted rings alerted, 0/8 decoys, on `gpt-4.1-mini`. Synthetic smoke test, not a production accuracy claim. |
+
+Live app, video, and API are linked above. Wake the free Render instance via `/flags` before opening the app.
 
 Approved spec corrections: the circular ring contains five distinct accounts;
 ajo transfers carry pool/round/purpose metadata. Thresholds are fictional demo rules.
@@ -221,7 +229,7 @@ Patterns 1 and 3 overlap on two accounts, so the agent has to connect findings a
 
 ## Agent tools: Cypher and algorithms
 
-M2 implements fifteen fixed tools as methods on `agent.tools.CorridorTools`. All query
+The agent dispatches fixed tools on `agent.tools.CorridorTools`: twelve investigation reads, two scratch-graph measurements (`simulate_freeze`, `min_freeze_set`), and three case writers. All query
 text lives in `api/queries/` and is loaded by `tools.py`. The model-facing dispatch
 allowlist excludes raw query helpers and ingestion. OpenAI exposure is implemented in M3; MCP exposes the twelve read tools; raw case writers stay internal to preserve verdict guardrails.
 
@@ -577,7 +585,7 @@ Ordered for the hackathon window. Each milestone must be working before the next
 - [x] **M6: Frontend.** Queue, live investigation view with graph panel, verdict card, "Why?" replay.
 - [x] **M7: Memory demo.** Second flag in the same ring hits the earlier case on step one.
 - [x] **M8: MCP server.** Tools callable from an MCP client.
-- [ ] **M9: Ship.** Deployed (FalkorDB Cloud + API host + Vercel), demo video recorded, README finalized with the AI disclosure filled in.
+- [x] **M9: Ship.** FalkorDB Cloud + Render API + Vercel, narrated demo, README and AI disclosure. Submitted to Graph Hacks.
 
 **Cut line:** if time runs short, drop M8 first, then M4 (submit for Track 01 only).
 
