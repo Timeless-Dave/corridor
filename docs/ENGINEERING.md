@@ -23,7 +23,7 @@ funds, contact customers, or create external tickets.
   The interface deduplicates stream events and labels recovered snapshots.
 - **Controlled reset.** Reset requires a server-side admin token and the exact
   configured graph name; it is disabled without that token. There is no reset UI.
-- **Proven intervention bound.** Freeze plans copy the graph, compute an exact minimum vertex cut with FalkorDB `algo.maxFlow`, and re-measure that cut on a second disposable copy before a human can approve a modeled block.
+- **Proven intervention bound.** Freeze plans copy the graph, compute an exact minimum vertex cut with FalkorDB `algo.maxFlow`, and re-measure that cut on a second disposable copy before a human can approve a modeled block. A rejected simulation call is stored as a failed tool call and does not, by itself, cancel a freeze the evidence rules already support.
 - **Negative controls.** A synthetic eval runs four planted rings and eight decoys (shared family devices, legitimate pools, one-way business flow). Ground truth is not given to the model. Results are in `eval/results.json`.
 - **Reviewable interface.** Text accompanies status colors. Keyboard controls,
   reduced motion, mobile layouts, and the accessible graph list have browser tests.

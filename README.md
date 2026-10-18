@@ -28,6 +28,14 @@ All nine milestones (M1–M9) are built, deployed, and submitted. Evidence is in
 
 Live app, video, and API are linked above. Wake the free Render instance via `/flags` before opening the app.
 
+**What the live product already proves**
+
+- The model selects the next fixed tool. Application code accepts or downgrades the verdict. A freeze still needs two independent positive evidence tools, recorded PageRank or community results, and a completed scratch plan.
+- `algo.maxFlow` returns an exact minimum vertex cut inside the 72-hour neighborhood. A second disposable copy blocks that cut and checks that zero senders still reach the collector. The impact panel prints that line on a closed case.
+- A rejected scratch-graph call is recorded as “Tool call rejected” and does not, by itself, cancel a freeze that the evidence rules already support.
+- Case memory, policy, precedent, and the corridor owner are graph reads. The workspace replays each finding with its parameters, raw result, and fixed Cypher.
+- The seeded graph is synthetic and small on purpose. The decoy eval is a smoke test. Scale claims belong to projects that loaded public transaction corpora; Corridor’s claim is a closed loop a judge can click: investigate, inspect the path, measure the cut, approve, read the receipt.
+
 Approved spec corrections: the circular ring contains five distinct accounts;
 ajo transfers carry pool/round/purpose metadata. Thresholds are fictional demo rules.
 The seed creates 2,000 background accounts plus 30 planted accounts, 20,000 background
