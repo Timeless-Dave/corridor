@@ -30,7 +30,7 @@
       "content": "real saved cases; not a fresh live investigation"
     },
     "shell_syntax": "passed",
-    "credential_value_scan": "no configured secret values found in 191 release candidate files",
+    "credential_value_scan": "No configured secret values found in 194 tracked release files",
     "docker": "not run; Docker unavailable",
     "backend_regression": {
       "passed": 58,
@@ -40,15 +40,15 @@
   },
   "publication": {
     "source_repository": "https://github.com/Timeless-Dave/corridor",
-    "source_pushed": false,
+    "source_pushed": true,
     "initial_commit": "80f3b97 on main (local; push pending participant approval)",
     "vercel_authenticated": true,
     "application_deployed": false,
-    "api_host": "awaiting selection/configuration"
+    "api_host": "awaiting selection/configuration",
+    "branch": "main"
   },
   "remaining": [
     "API hosting and hosted SSE verification",
-    "Source publication",
     "Participant narration and video publication",
     "Participant-owned AI disclosure update and manual query review",
     "Final submission URLs"
