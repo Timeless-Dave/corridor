@@ -32,7 +32,11 @@
     "shell_syntax": "passed",
     "credential_value_scan": "no configured secret values found in 191 release candidate files",
     "docker": "not run; Docker unavailable",
-    "backend_regression": "58 passed, 30 skipped (live/CORRIDOR_LIVE_TESTS=0) on 2026-10-17"
+    "backend_regression": {
+      "passed": 58,
+      "seconds": 351.086,
+      "skipped": 0
+    }
   },
   "publication": {
     "source_repository": "https://github.com/Timeless-Dave/corridor",
