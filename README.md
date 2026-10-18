@@ -9,7 +9,7 @@ Corridor investigates flagged money transfers on US ↔ Nigeria remittance corri
 
 ---
 
-[Live app](https://corridor-eosin.vercel.app/) · [Demo video](https://github.com/Timeless-Dave/corridor/releases/tag/submission-demo-v2) · [API](https://corridor-api.onrender.com/flags)
+[Live app](https://corridor-eosin.vercel.app/) · [Demo video](https://github.com/Timeless-Dave/corridor/releases/tag/submission-demo-v3) · [API](https://corridor-api.onrender.com/flags)
 
 ## Status
 
