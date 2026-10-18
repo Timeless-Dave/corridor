@@ -95,7 +95,7 @@ test("queue, start, saved verdict, replay, history and reload", async ({
   ).toBeVisible();
   await page.locator(".back-link").click();
   await page
-    .getByRole("button", { name: /Returning account/ })
+    .getByRole("button", { name: /View history for/ })
     .first()
     .click();
   await expect(page.getByRole("dialog")).toBeVisible();
@@ -193,4 +193,24 @@ test("browser reconnect resumes stream and accepts restart snapshot", async ({
     timeout: 20000,
   });
   expect(attempts).toBeGreaterThan(1);
+});
+
+test("queue search is case-insensitive and history identifies its account", async ({
+  page,
+}) => {
+  await mock(page);
+  await page.goto("/");
+  await page
+    .getByRole("textbox", { name: "Find an account" })
+    .fill("  COLLECTOR_0  ");
+  await expect(
+    page.getByRole("button", { name: "Investigate collector_0", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByText("No matching accounts. Try another ID."),
+  ).toHaveCount(0);
+  await page
+    .getByRole("button", { name: "View history for collector_0" })
+    .click();
+  await expect(page.getByRole("dialog")).toContainText("collector_0");
 });

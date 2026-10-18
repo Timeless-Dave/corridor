@@ -7,7 +7,6 @@ import {
   ArrowRight,
   ArrowUpRight,
   ClockCounterClockwise,
-  ArrowsLeftRight,
   MagnifyingGlass,
   X,
   ArrowClockwise,
@@ -82,6 +81,9 @@ export function Queue() {
       setPending("");
     }
   };
+  const visibleFlags = flags.filter((flag) =>
+    flag.account_id.toLowerCase().includes(search.trim().toLowerCase()),
+  );
   return (
     <Shell>
       <main className="queue-page">
@@ -164,93 +166,96 @@ export function Queue() {
                     </td>
                   </tr>
                 ) : (
-                  flags
-                    .filter((f) =>
-                      f.account_id.toLowerCase().includes(search.toLowerCase()),
-                    )
-                    .map((f, i) => {
-                      const tx = f.transfers[0];
-                      return (
-                        <tr key={f.account_id}>
-                          <td>
-                            <div className="account-cell">
-                              <span className="account-avatar">
-                                <UserCircle size={24} />
-                              </span>
-                              <span>
-                                <strong className="mono">{f.account_id}</strong>
-                                <small>
-                                  Flagged for review{" "}
-                                  <span className="row-index">
-                                    {String(i + 1).padStart(2, "0")}
-                                  </span>
-                                </small>
-                              </span>
-                            </div>
-                          </td>
-                          <td>
-                            <strong className="amount">
-                              {money(tx?.amount, tx?.currency)}
-                            </strong>
-                            <small>{date(tx?.ts)}</small>
-                          </td>
-                          <td>
-                            <span className="route-code">
-                              US <ArrowsLeftRight size={15} /> NG
+                  visibleFlags.map((f, i) => {
+                    const tx = f.transfers[0];
+                    return (
+                      <tr key={f.account_id}>
+                        <td>
+                          <div className="account-cell">
+                            <span className="account-avatar">
+                              <UserCircle size={24} />
                             </span>
-                            <small>Cross-border remittance</small>
-                          </td>
-                          <td>
-                            <button
-                              className="history-button"
-                              onClick={() => setAccount(f.account_id)}
-                            >
-                              <ClockCounterClockwise size={16} />
-                              {f.returning_account
-                                ? "Returning account"
-                                : "No prior cases"}
-                              <ArrowUpRight size={13} />
-                            </button>
-                            {f.open_cases > 0 && (
-                              <small className="amber">
-                                {f.open_cases} active case
-                                {f.open_cases === 1 ? "" : "s"}
+                            <span>
+                              <strong className="mono">{f.account_id}</strong>
+                              <small>
+                                Flagged for review{" "}
+                                <span className="row-index">
+                                  {String(i + 1).padStart(2, "0")}
+                                </span>
                               </small>
-                            )}
-                          </td>
-                          <td>
-                            <Button
-                              variant="primary"
-                              disabled={!!pending || f.open_cases > 0}
-                              onClick={() => start(f)}
-                              aria-label={"Investigate " + f.account_id}
-                            >
-                              {pending === f.account_id
-                                ? "Starting…"
-                                : f.open_cases
-                                  ? "In progress"
-                                  : "Investigate"}
-                              <ArrowRight size={16} />
-                            </Button>
-                          </td>
-                        </tr>
-                      );
-                    })
+                            </span>
+                          </div>
+                        </td>
+                        <td>
+                          <strong className="amount">
+                            {tx
+                              ? money(tx.amount, tx.currency)
+                              : "No transfer in view"}
+                          </strong>
+                          <small>
+                            {tx
+                              ? `${date(tx.ts)} · ${String(tx.corridor ?? "Route unavailable")}`
+                              : "Review connected account activity"}
+                          </small>
+                        </td>
+                        <td>
+                          <span className="route-code">
+                            {f.corridor.replaceAll("-", " → ")}
+                          </span>
+                          <small>Review corridor</small>
+                        </td>
+                        <td>
+                          <button
+                            className="history-button"
+                            aria-label={`View history for ${f.account_id}`}
+                            onClick={() => setAccount(f.account_id)}
+                          >
+                            <ClockCounterClockwise size={16} />
+                            {f.returning_account
+                              ? "Returning account"
+                              : "No prior cases"}
+                            <ArrowUpRight size={13} />
+                          </button>
+                          {f.open_cases > 0 && (
+                            <small className="amber">
+                              {f.open_cases} active case
+                              {f.open_cases === 1 ? "" : "s"}
+                            </small>
+                          )}
+                        </td>
+                        <td>
+                          <Button
+                            variant="primary"
+                            disabled={!!pending || f.open_cases > 0}
+                            onClick={() => start(f)}
+                            aria-label={"Investigate " + f.account_id}
+                          >
+                            {pending === f.account_id
+                              ? "Starting…"
+                              : f.open_cases
+                                ? "In progress"
+                                : "Investigate"}
+                            <ArrowRight size={16} />
+                          </Button>
+                        </td>
+                      </tr>
+                    );
+                  })
                 )}
               </tbody>
             </table>
-            {!loading &&
-              !flags.filter((f) => f.account_id.includes(search)).length && (
-                <div className="empty-state">
-                  {flags.length
-                    ? "No matching accounts. Try another ID."
-                    : "No flags are available."}
-                </div>
-              )}
+            {!loading && !visibleFlags.length && (
+              <div className="empty-state">
+                {flags.length
+                  ? "No matching accounts. Try another ID."
+                  : "No flags are available."}
+              </div>
+            )}
           </div>
           <div className="queue-caption">
             <span>
-              Seeded review flags remain available for repeat investigations.
+              Explore four realistic payment scenarios. You can investigate each
+              again.
             </span>
             <span>
               Powered by FalkorDB <ArrowUpRight size={13} />
@@ -262,8 +267,8 @@ export function Queue() {
           <div>
             <h3>From a flag to a traceable decision.</h3>
             <p>
-              The agent follows connected accounts, grounds its findings in
-              policy, and records the evidence behind every verdict.
+              See who is connected, which policy applies, and who owns the next
+              step. Every saved decision keeps its supporting evidence.
             </p>
           </div>
           <span className="quiet-label">
