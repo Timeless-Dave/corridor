@@ -39,7 +39,7 @@ export function Shell({
           </span>
           <a
             className="docs-link"
-            href="http://127.0.0.1:8000/docs"
+            href="/api-docs"
             target="_blank"
             rel="noreferrer"
           >

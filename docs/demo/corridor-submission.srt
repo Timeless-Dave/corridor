@@ -1,0 +1,189 @@
+1
+00:00:00,000 --> 00:00:02,670
+A payment can look ordinary on its own.
+
+2
+00:00:02,980 --> 00:00:04,730
+The pattern appears in the relationships.
+
+3
+00:00:05,520 --> 00:00:09,420
+Corridor follows those connections,
+turning a synthetic payment flag into an
+
+4
+00:00:09,460 --> 00:00:12,830
+investigation you can inspect, explain, and revisit.
+
+5
+00:00:14,820 --> 00:00:19,170
+FalkorDB connects three layers: transactions and shared identifiers;
+
+6
+00:00:19,900 --> 00:00:24,510
+company policies, documents, and owners; and memory from past cases.
+
+7
+00:00:25,020 --> 00:00:27,830
+The graph does the retrieval and preserves the evidence.
+
+8
+00:00:28,500 --> 00:00:32,510
+Remove it, and Corridor loses both
+its reasoning context and its memory.
+
+9
+00:00:33,160 --> 00:00:37,670
+Here is the deployed workspace, running on Vercel with a Render API.
+
+10
+00:00:38,280 --> 00:00:41,810
+These four flags come from seeded, fully synthetic data.
+
+11
+00:00:42,380 --> 00:00:45,890
+An analyst can inspect account history, then start an investigation.
+
+12
+00:00:46,500 --> 00:00:49,110
+Each run gets its own case and evidence trail.
+
+13
+00:00:49,440 --> 00:00:52,190
+This is a new investigation on the hosted app.
+
+14
+00:00:52,700 --> 00:00:54,060
+Findings arrive as server sent events.
+
+15
+00:00:54,100 --> 00:00:56,370
+The first tool checks prior cases.
+
+16
+00:00:56,800 --> 00:01:00,240
+The agent then chooses from fixed graph
+tools, while the application records
+
+17
+00:01:00,280 --> 00:01:03,570
+results and citations. The model never writes Cypher.
+
+18
+00:01:04,280 --> 00:01:06,410
+The graph is an inspection surface.
+
+19
+00:01:07,160 --> 00:01:09,290
+Select a finding to highlight its cited nodes.
+
+20
+00:01:10,040 --> 00:01:12,990
+Orbit, zoom, or switch to a flat view.
+
+21
+00:01:13,300 --> 00:01:17,490
+Exact transfer edges are highlighted only
+when the raw result identifies them;
+
+22
+00:01:17,980 --> 00:01:22,300
+other connections remain context. Shared devices alone do not
+
+23
+00:01:22,340 --> 00:01:25,610
+establish fraud. The model proposes a verdict.
+
+24
+00:01:26,340 --> 00:01:30,860
+Deterministic code checks it. Freeze requires
+two distinct positive evidence tools
+
+25
+00:01:30,900 --> 00:01:34,850
+corroborating the same account. Repeating one tool is not enough.
+
+26
+00:01:35,620 --> 00:01:38,310
+Unsupported proposals and model failures require review.
+
+27
+00:01:38,920 --> 00:01:42,530
+The actual outcome can be Monitor, even for a planted pattern.
+
+28
+00:01:42,720 --> 00:01:45,710
+The decision stays connected to company context:
+
+29
+00:01:46,080 --> 00:01:50,230
+an applicable policy and its source document,
+a current precedent and its author,
+
+30
+00:01:50,600 --> 00:01:52,570
+and the employee responsible for this corridor.
+
+31
+00:01:53,400 --> 00:01:57,030
+Superseded precedents are excluded. These
+are fictional demonstration policies,
+
+32
+00:01:57,360 --> 00:02:01,590
+not regulatory advice. Why this decision opens the saved trail,
+
+33
+00:02:02,000 --> 00:02:06,630
+step by step. Technical details reveal the parameters, raw results,
+
+34
+00:02:06,900 --> 00:02:11,270
+and allowlisted query. A reviewer can inspect what the tool returned
+
+35
+00:02:11,620 --> 00:02:13,790
+instead of relying only on the model's explanation.
+
+36
+00:02:14,360 --> 00:02:16,670
+Now a different account: mule zero.
+
+37
+00:02:17,180 --> 00:02:20,780
+Its first lookup retrieves the earlier
+collector case, through the graph's case
+
+38
+00:02:20,820 --> 00:02:25,000
+membership relationships. The exact
+earlier case identifier appears in the raw
+
+39
+00:02:25,040 --> 00:02:28,170
+result. This was verified across separate investigations.
+
+40
+00:02:28,980 --> 00:02:32,410
+Memory survives the conversation because it lives in FalkorDB.
+
+41
+00:02:33,660 --> 00:02:37,010
+Corridor also exposes twelve read tools over MCP.
+
+42
+00:02:37,440 --> 00:02:41,620
+It brings connected-data investigation,
+agent memory, and company context
+
+43
+00:02:41,660 --> 00:02:44,610
+into one workspace. All data is synthetic;
+
+44
+00:02:44,940 --> 00:02:49,270
+no real funds are frozen. Explore the deployed app and public source.
+
+45
+00:02:49,920 --> 00:02:53,010
+This narration uses an AI-generated OpenAI voice.

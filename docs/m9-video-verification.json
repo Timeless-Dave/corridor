@@ -1,0 +1,59 @@
+{
+  "status": "verified",
+  "video": "docs/demo/corridor-submission.mp4",
+  "sha256": "ca64f46596ebbe495ae1095f71f1adf850e7ca51b0df29c3ed6745b14a99e5e5",
+  "media": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "r_frame_rate": "30/1"
+      },
+      {
+        "codec_name": "aac",
+        "sample_rate": "48000",
+        "r_frame_rate": "0/0"
+      }
+    ],
+    "format": {
+      "duration": "173.900000",
+      "size": "48879278"
+    }
+  },
+  "audio": {
+    "model": "gpt-4o-mini-tts",
+    "voice": "cedar",
+    "ai_voice_disclosed": true,
+    "measured_lufs": -16.04,
+    "measured_true_peak_dbfs": -1.38,
+    "loudness_range_lu": 3.4
+  },
+  "captions": {
+    "cues": 45,
+    "alignment_ratio": 0.9790382244143033,
+    "differences": "Formatting/tokenization of names, numerals, and compounds; script retained",
+    "burned_in": true,
+    "srt": "docs/demo/corridor-submission.srt"
+  },
+  "editorial": {
+    "scenes": 10,
+    "transitions": "0.5-second crossfades",
+    "zooms": "Smooth subject-focused zooms returning to full view",
+    "clicks": "Recorded UI clicks with teal pointer rings",
+    "motion_graphics": "Original HTML/SVG typography and graph-model cards",
+    "live_scene": "Real hosted investigation, condensed for time",
+    "saved_scenes": "Explicitly labeled saved evidence/replay/memory",
+    "outcome": "Actual MONITOR verdict retained"
+  },
+  "checks": [
+    "Full video/audio decode during loudness analysis",
+    "Frame inspection: intro, graph, company, memory, closing",
+    "Memory case ID remains above caption band after corrected zoom",
+    "Narration transcribed and aligned to source script",
+    "Hosted streamed case and saved memory verified"
+  ],
+  "release": "https://github.com/Timeless-Dave/corridor/releases/tag/submission-demo-v1"
+}

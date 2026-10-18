@@ -9,9 +9,11 @@ Corridor investigates flagged money transfers on US ↔ Nigeria remittance corri
 
 ---
 
-## Implementation status — M9 release preparation
+[Live app](https://corridor-eosin.vercel.app/) · [Demo video](https://github.com/Timeless-Dave/corridor/releases/tag/submission-demo-v1) · [API](https://corridor-api.onrender.com/flags)
 
-M1 and M2 are complete: all 26 tests passed, including live remote validation. The seeded demo graph is loaded and the fifteen fixed query tools are implemented. See [M2 evidence](docs/m2-verification.json) and [the Browser review guide](docs/M2.md). M3 is implemented and live-verified with OpenAI: all four planted patterns produced persisted cases, and all 41 regression tests passed. See [M3 setup and guardrails](docs/M3.md). M4 adds a read-only company verifier and tests both corridor routes, invalid references, and supersession changes before closure. See [M4 verification and Browser guide](docs/M4.md). M5 implements all seven API endpoints and SSE streaming; 53 tests passed and a real OpenAI investigation completed over HTTP. See [M5 API guide](docs/M5.md). M6 adds the dark Three.js investigation workspace; unit, browser, production-build, and live OpenAI verification passed. See [M6 setup and verification](docs/M6.md). M7 verifies cross-account memory: a second account retrieves the earlier case on step one. Live OpenAI, isolated graph, and browser checks passed. See [M7 memory demo](docs/M7.md). M8 exposes the twelve read tools over local stdio MCP; protocol verification against FalkorDB passed. See [M8 client setup](docs/M8.md). M9 source is published and local release checks passed (58 backend tests, frontend build, and browser checks); deployment and participant-owned submission gates remain. See [release status](docs/M9.md).
+## Implementation status — hosted demo and video ready
+
+M1 and M2 are complete: all 26 tests passed, including live remote validation. The seeded demo graph is loaded and the fifteen fixed query tools are implemented. See [M2 evidence](docs/m2-verification.json) and [the Browser review guide](docs/M2.md). M3 is implemented and live-verified with OpenAI: all four planted patterns produced persisted cases, and all 41 regression tests passed. See [M3 setup and guardrails](docs/M3.md). M4 adds a read-only company verifier and tests both corridor routes, invalid references, and supersession changes before closure. See [M4 verification and Browser guide](docs/M4.md). M5 implements all seven API endpoints and SSE streaming; 53 tests passed and a real OpenAI investigation completed over HTTP. See [M5 API guide](docs/M5.md). M6 adds the dark Three.js investigation workspace; unit, browser, production-build, and live OpenAI verification passed. See [M6 setup and verification](docs/M6.md). M7 verifies cross-account memory: a second account retrieves the earlier case on step one. Live OpenAI, isolated graph, and browser checks passed. See [M7 memory demo](docs/M7.md). M8 exposes the twelve read tools over local stdio MCP; protocol verification against FalkorDB passed. See [M8 client setup](docs/M8.md). M9 is deployed and a hosted OpenAI investigation passed through Vercel/Render; the narrated submission video is available. Local release checks passed (58 backend tests, frontend build, and browser checks). The participant-owned AI disclosure and final submission remain open. See [release status](docs/M9.md).
 The remaining architecture and setup sections describe the planned M9 product,
 not functionality already shipped. Follow [the M1 runbook](docs/M1.md) for current setup,
 tests, remote connection instructions, and Browser proofs. No API key is needed for M1.
@@ -450,8 +452,8 @@ corridor/
    the earlier `collector_0` case. Use the exact paths in `docs/m7-live-verification.json`.
 7. Explain the corresponding Cypher in Browser or demonstrate the MCP read tools.
 
-A silent saved-case walkthrough is generated locally by the M9 recording command;
-it requires participant narration and final publication before submission.
+The final narrated video combines a real hosted investigation with labeled saved-case replay,
+original motion graphics, and AI-generated OpenAI narration. See [M9 video details](docs/M9.md).
 
 ---
 

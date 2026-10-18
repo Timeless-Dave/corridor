@@ -1,0 +1,75 @@
+{
+  "frontend": "https://corridor-eosin.vercel.app",
+  "api": "https://corridor-api.onrender.com",
+  "case_id": "case_f22330513c684e158488ecd6f3f033f0",
+  "verdict": "MONITOR",
+  "events": [
+    {
+      "type": "opened",
+      "id": "1",
+      "at": 1792286167993
+    },
+    {
+      "type": "finding",
+      "id": "2",
+      "at": 1792286172586
+    },
+    {
+      "type": "guardrail",
+      "id": "3",
+      "at": 1792286172586
+    },
+    {
+      "type": "finding",
+      "id": "4",
+      "at": 1792286178258
+    },
+    {
+      "type": "finding",
+      "id": "5",
+      "at": 1792286180607
+    },
+    {
+      "type": "finding",
+      "id": "6",
+      "at": 1792286183816
+    },
+    {
+      "type": "finding",
+      "id": "7",
+      "at": 1792286185423
+    },
+    {
+      "type": "finding",
+      "id": "8",
+      "at": 1792286186648
+    },
+    {
+      "type": "finding",
+      "id": "9",
+      "at": 1792286188649
+    },
+    {
+      "type": "guardrail",
+      "id": "10",
+      "at": 1792286190314
+    },
+    {
+      "type": "closed",
+      "id": "11",
+      "at": 1792286190314
+    },
+    {
+      "type": "end",
+      "id": "12",
+      "at": 1792286190314
+    }
+  ],
+  "errors": [],
+  "memory": {
+    "first": "case_18f45514bd2744339b773d5355861dd6",
+    "second": "case_b7a56e4c6c484f40bc9f0257fa12e2ea",
+    "matched": true
+  },
+  "recorded_at": "2026-10-18T01:15:33.534Z"
+}

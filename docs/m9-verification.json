@@ -36,21 +36,23 @@
       "passed": 58,
       "seconds": 351.086,
       "skipped": 0
-    }
+    },
+    "hosted_browser": "passed; see m9-hosted-verification.json"
   },
   "publication": {
     "source_repository": "https://github.com/Timeless-Dave/corridor",
     "source_pushed": true,
     "initial_commit": "80f3b97 on main (local; push pending participant approval)",
     "vercel_authenticated": true,
-    "application_deployed": false,
-    "api_host": "awaiting selection/configuration",
-    "branch": "main"
+    "application_deployed": true,
+    "api_host": "Render",
+    "branch": "main",
+    "frontend": "https://corridor-eosin.vercel.app",
+    "api": "https://corridor-api.onrender.com",
+    "video_release": "https://github.com/Timeless-Dave/corridor/releases/tag/submission-demo-v1"
   },
   "remaining": [
-    "API hosting and hosted SSE verification",
-    "Participant narration and video publication",
     "Participant-owned AI disclosure update and manual query review",
-    "Final submission URLs"
+    "Final hackathon submission"
   ]
 }
