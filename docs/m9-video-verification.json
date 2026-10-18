@@ -1,7 +1,8 @@
 {
   "status": "verified",
+  "version": 2,
   "video": "docs/demo/corridor-submission.mp4",
-  "sha256": "ca64f46596ebbe495ae1095f71f1adf850e7ca51b0df29c3ed6745b14a99e5e5",
+  "sha256": "a0ecad4240b1b277bc1c4941e3170c54fdacb33ff9cb9029637406882be784ab",
   "media": {
     "programs": [],
     "stream_groups": [],
@@ -19,41 +20,92 @@
       }
     ],
     "format": {
-      "duration": "173.900000",
-      "size": "48879278"
+      "duration": "163.100000",
+      "size": "13732206"
     }
   },
   "audio": {
     "model": "gpt-4o-mini-tts",
     "voice": "cedar",
-    "ai_voice_disclosed": true,
-    "measured_lufs": -16.04,
-    "measured_true_peak_dbfs": -1.38,
-    "loudness_range_lu": 3.4
+    "ai_voice_disclosed": "Closing card",
+    "measured_lufs": -16.13,
+    "measured_true_peak_dbfs": -1.49
   },
   "captions": {
-    "cues": 45,
-    "alignment_ratio": 0.9790382244143033,
-    "differences": "Formatting/tokenization of names, numerals, and compounds; script retained",
-    "burned_in": true,
-    "srt": "docs/demo/corridor-submission.srt"
+    "alignment_ratio": 0.9940405244338498,
+    "script_words": 420,
+    "recognized_words": 419,
+    "differences": [
+      {
+        "kind": "replace",
+        "script": "Twelve",
+        "heard": "12"
+      },
+      {
+        "kind": "replace",
+        "script": "mule zero.",
+        "heard": "Mule0"
+      }
+    ],
+    "caption_cues": 42
   },
+  "capture": {
+    "03-queue": {
+      "usable_seconds": 20.503,
+      "frames": 29,
+      "capture": "Chrome continuous screencast / JPEG quality 100 / native 1920\u00d71080"
+    },
+    "04-live": {
+      "usable_seconds": 40.942,
+      "frames": 86,
+      "capture": "Chrome continuous screencast / JPEG quality 100 / native 1920\u00d71080"
+    },
+    "05-graph": {
+      "usable_seconds": 28.026,
+      "frames": 238,
+      "capture": "Chrome continuous screencast / JPEG quality 100 / native 1920\u00d71080"
+    },
+    "07-company": {
+      "usable_seconds": 22.055,
+      "frames": 2,
+      "capture": "Chrome continuous screencast / JPEG quality 100 / native 1920\u00d71080"
+    },
+    "08-replay": {
+      "usable_seconds": 23.817,
+      "frames": 135,
+      "capture": "Chrome continuous screencast / JPEG quality 100 / native 1920\u00d71080"
+    },
+    "09-memory": {
+      "usable_seconds": 20.236,
+      "frames": 31,
+      "capture": "Chrome continuous screencast / JPEG quality 100 / native 1920\u00d71080"
+    }
+  },
+  "hosted_case": "case_391426b1c7f74ea48f9060c50dc81c24",
+  "verdict": "MONITOR",
   "editorial": {
-    "scenes": 10,
-    "transitions": "0.5-second crossfades",
-    "zooms": "Smooth subject-focused zooms returning to full view",
-    "clicks": "Recorded UI clicks with teal pointer rings",
-    "motion_graphics": "Original HTML/SVG typography and graph-model cards",
-    "live_scene": "Real hosted investigation, condensed for time",
-    "saved_scenes": "Explicitly labeled saved evidence/replay/memory",
-    "outcome": "Actual MONITOR verdict retained"
+    "transitions": "0.5-second fades",
+    "focus": "Two 1.32\u00d7 ease/hold/return moves only, company and memory",
+    "footage": "Native 1920\u00d71080 continuous Chrome screencast with timestamped frames",
+    "speed": "Live investigation condensed; other interactions fitted to narration",
+    "data": "Realistic synthetic fixtures; saved cases labeled"
   },
   "checks": [
-    "Full video/audio decode during loudness analysis",
-    "Frame inspection: intro, graph, company, memory, closing",
-    "Memory case ID remains above caption band after corrected zoom",
-    "Narration transcribed and aligned to source script",
-    "Hosted streamed case and saved memory verified"
+    "Full audio/video decode passed",
+    "Inspected final memory and replay caption frames and focus/queue frames",
+    "Inspected completed company and memory panels",
+    "Caption alignment differences limited to numerals and mule-zero spelling",
+    "Actual hosted case completed and stream ended",
+    "Cross-account saved memory matched",
+    "History segment rerecorded after duplicate-card fix"
   ],
-  "release": "https://github.com/Timeless-Dave/corridor/releases/tag/submission-demo-v1"
+  "regression": {
+    "browser": 6,
+    "frontend_unit": 5,
+    "targeted_backend": 10,
+    "typecheck": "passed",
+    "production_build": "passed",
+    "note": "Stale dev server caused initial rerun failures; restarted and all six browser checks passed."
+  },
+  "release": "https://github.com/Timeless-Dave/corridor/releases/tag/submission-demo-v2"
 }

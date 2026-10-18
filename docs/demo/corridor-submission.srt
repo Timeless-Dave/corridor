@@ -1,189 +1,183 @@
 1
-00:00:00,000 --> 00:00:02,670
-A payment can look ordinary on its own.
+00:00:00,000 --> 00:00:04,460
+Twelve small payments. One collector. Look at each transfer alone,
 
 2
-00:00:02,980 --> 00:00:04,730
-The pattern appears in the relationships.
+00:00:04,500 --> 00:00:08,880
+and you miss the connection. Corridor
+helps a payments analyst follow the wider
 
 3
-00:00:05,520 --> 00:00:09,420
-Corridor follows those connections,
-turning a synthetic payment flag into an
+00:00:08,920 --> 00:00:12,050
+story, then explain what needs attention and why.
 
 4
-00:00:09,460 --> 00:00:12,830
-investigation you can inspect, explain, and revisit.
+00:00:12,780 --> 00:00:15,710
+Three kinds of context live together in FalkorDB:
 
 5
-00:00:14,820 --> 00:00:19,170
-FalkorDB connects three layers: transactions and shared identifiers;
+00:00:16,300 --> 00:00:19,630
+payment relationships, company knowledge, and previous investigations.
 
 6
-00:00:19,900 --> 00:00:24,510
-company policies, documents, and owners; and memory from past cases.
+00:00:19,940 --> 00:00:23,560
+That means the analyst can follow the
+money, find the relevant policy, and see
 
 7
-00:00:25,020 --> 00:00:27,830
-The graph does the retrieval and preserves the evidence.
+00:00:23,600 --> 00:00:27,450
+what the team already knows, without
+piecing together separate conversations.
 
 8
-00:00:28,500 --> 00:00:32,510
-Remove it, and Corridor loses both
-its reasoning context and its memory.
+00:00:28,080 --> 00:00:29,950
+Let's start in the working app.
 
 9
-00:00:33,160 --> 00:00:37,670
-Here is the deployed workspace, running on Vercel with a Render API.
+00:00:30,580 --> 00:00:34,210
+The demo uses realistic, fully synthetic payment scenarios.
 
 10
-00:00:38,280 --> 00:00:41,810
-These four flags come from seeded, fully synthetic data.
+00:00:35,160 --> 00:00:38,920
+Open an account's history to see earlier
+decisions, or investigate directly from
 
 11
-00:00:42,380 --> 00:00:45,890
-An analyst can inspect account history, then start an investigation.
+00:00:38,960 --> 00:00:42,670
+the queue. Each new investigation keeps its own record.
 
 12
-00:00:46,500 --> 00:00:49,110
-Each run gets its own case and evidence trail.
+00:00:43,460 --> 00:00:47,430
+Here, we're investigating the collector. This is a live run,
 
 13
-00:00:49,440 --> 00:00:52,190
-This is a new investigation on the hosted app.
+00:00:47,700 --> 00:00:50,130
+shortened for the demo. History comes first.
 
 14
-00:00:52,700 --> 00:00:54,060
-Findings arrive as server sent events.
+00:00:50,400 --> 00:00:53,230
+Then findings arrive as the agent checks connected accounts.
 
 15
-00:00:54,100 --> 00:00:56,370
-The first tool checks prior cases.
+00:00:53,460 --> 00:00:55,430
+It chooses from fixed graph tools;
 
 16
-00:00:56,800 --> 00:01:00,240
-The agent then chooses from fixed graph
-tools, while the application records
+00:00:55,820 --> 00:00:59,840
+it cannot invent a query. You can watch
+the evidence build instead of waiting for
 
 17
-00:01:00,280 --> 00:01:03,570
-results and citations. The model never writes Cypher.
+00:00:59,880 --> 00:01:03,970
+an unexplained answer. Select a finding and its accounts light up.
 
 18
-00:01:04,280 --> 00:01:06,410
-The graph is an inspection surface.
+00:01:04,320 --> 00:01:07,680
+Switch to a flat view to read the
+connections, or explore the graph in three
 
 19
-00:01:07,160 --> 00:01:09,290
-Select a finding to highlight its cited nodes.
+00:01:07,720 --> 00:01:11,070
+dimensions. The useful part is the link back to evidence:
 
 20
-00:01:10,040 --> 00:01:12,990
-Orbit, zoom, or switch to a flat view.
+00:01:11,540 --> 00:01:13,710
+you can inspect the relationships behind a claim.
 
 21
-00:01:13,300 --> 00:01:17,490
-Exact transfer edges are highlighted only
-when the raw result identifies them;
+00:01:14,380 --> 00:01:17,330
+Sharing a device, on its own, is not proof of fraud.
 
 22
-00:01:17,980 --> 00:01:22,300
-other connections remain context. Shared devices alone do not
+00:01:17,940 --> 00:01:20,810
+The model recommends; code checks the recommendation.
 
 23
-00:01:22,340 --> 00:01:25,610
-establish fraud. The model proposes a verdict.
+00:01:21,480 --> 00:01:24,720
+A freeze requires two different positive
+evidence tools to corroborate the same
 
 24
-00:01:26,340 --> 00:01:30,860
-Deterministic code checks it. Freeze requires
-two distinct positive evidence tools
+00:01:24,760 --> 00:01:28,330
+account. Repeating a check doesn't count twice.
 
 25
-00:01:30,900 --> 00:01:34,850
-corroborating the same account. Repeating one tool is not enough.
+00:01:28,860 --> 00:01:31,750
+When support is insufficient, the case stays under review.
 
 26
-00:01:35,620 --> 00:01:38,310
-Unsupported proposals and model failures require review.
+00:01:32,480 --> 00:01:36,550
+These are demo decisions: Corridor does not move or freeze real money.
 
 27
-00:01:38,920 --> 00:01:42,530
-The actual outcome can be Monitor, even for a planted pattern.
+00:01:37,340 --> 00:01:39,130
+A decision also needs an owner.
 
 28
-00:01:42,720 --> 00:01:45,710
-The decision stays connected to company context:
+00:01:39,900 --> 00:01:44,440
+The saved case brings together its policy,
+source document, current precedent, and
 
 29
-00:01:46,080 --> 00:01:50,230
-an applicable policy and its source document,
-a current precedent and its author,
+00:01:44,480 --> 00:01:48,680
+responsible employee. An analyst can
+see the basis for the decision and who
 
 30
-00:01:50,600 --> 00:01:52,570
-and the employee responsible for this corridor.
+00:01:48,720 --> 00:01:52,370
+should take it. The policies in this demonstration are fictional.
 
 31
-00:01:53,400 --> 00:01:57,030
-Superseded precedents are excluded. These
-are fictional demonstration policies,
+00:01:53,160 --> 00:01:56,050
+And when someone asks why, replay the investigation.
 
 32
-00:01:57,360 --> 00:02:01,590
-not regulatory advice. Why this decision opens the saved trail,
+00:01:56,960 --> 00:02:00,940
+Step through the findings and open the
+underlying parameters, results, and fixed
 
 33
-00:02:02,000 --> 00:02:06,630
-step by step. Technical details reveal the parameters, raw results,
+00:02:00,980 --> 00:02:03,890
+query. That makes the conversation concrete:
 
 34
-00:02:06,900 --> 00:02:11,270
-and allowlisted query. A reviewer can inspect what the tool returned
+00:02:04,720 --> 00:02:09,100
+which evidence supports this decision,
+and what still needs a person's judgment?
 
 35
-00:02:11,620 --> 00:02:13,790
-instead of relying only on the model's explanation.
+00:02:09,140 --> 00:02:12,210
+Now open a different account: mule zero.
 
 36
-00:02:14,360 --> 00:02:16,670
-Now a different account: mule zero.
+00:02:12,560 --> 00:02:16,400
+Its history lookup finds the earlier
+collector investigation because both accounts
 
 37
-00:02:17,180 --> 00:02:20,780
-Its first lookup retrieves the earlier
-collector case, through the graph's case
+00:02:16,440 --> 00:02:20,650
+belong to that case. The previous case
+identifier is right here in the result.
 
 38
-00:02:20,820 --> 00:02:25,000
-membership relationships. The exact
-earlier case identifier appears in the raw
+00:02:21,420 --> 00:02:25,220
+The next investigation starts with context
+the team has already built, rather than
 
 39
-00:02:25,040 --> 00:02:28,170
-result. This was verified across separate investigations.
+00:02:25,260 --> 00:02:29,130
+starting from scratch. Corridor brings connected evidence,
 
 40
-00:02:28,980 --> 00:02:32,410
-Memory survives the conversation because it lives in FalkorDB.
+00:02:29,580 --> 00:02:33,090
+company context, and lasting case memory into one workspace.
 
 41
-00:02:33,660 --> 00:02:37,010
-Corridor also exposes twelve read tools over MCP.
+00:02:33,640 --> 00:02:37,340
+Built for explaining decisions, reviewing
+them, and carrying what you learn into
 
 42
-00:02:37,440 --> 00:02:41,620
-It brings connected-data investigation,
-agent memory, and company context
-
-43
-00:02:41,660 --> 00:02:44,610
-into one workspace. All data is synthetic;
-
-44
-00:02:44,940 --> 00:02:49,270
-no real funds are frozen. Explore the deployed app and public source.
-
-45
-00:02:49,920 --> 00:02:53,010
-This narration uses an AI-generated OpenAI voice.
+00:02:37,380 --> 00:02:42,130
+the next case. Try the app, explore the
+source, and follow the evidence yourself.

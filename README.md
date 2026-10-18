@@ -9,7 +9,7 @@ Corridor investigates flagged money transfers on US ↔ Nigeria remittance corri
 
 ---
 
-[Live app](https://corridor-eosin.vercel.app/) · [Demo video](https://github.com/Timeless-Dave/corridor/releases/tag/submission-demo-v1) · [API](https://corridor-api.onrender.com/flags)
+[Live app](https://corridor-eosin.vercel.app/) · [Demo video](https://github.com/Timeless-Dave/corridor/releases/tag/submission-demo-v2) · [API](https://corridor-api.onrender.com/flags)
 
 ## Implementation status — hosted demo and video ready
 
@@ -470,6 +470,14 @@ original motion graphics, and AI-generated OpenAI narration. See [M9 video detai
 | 11: AI disclosure | See below |
 
 ---
+
+## Project direction and engineering
+
+Timeless-Dave led the product direction, supplied the milestone specifications and
+design requirements, configured deployment services, and reviewed the evolving
+workspace and demo. The project was developed with substantial AI assistance;
+automated verification is recorded separately from participant manual review.
+See [implemented engineering measures and review boundaries](docs/ENGINEERING.md).
 
 ## AI assistance disclosure
 

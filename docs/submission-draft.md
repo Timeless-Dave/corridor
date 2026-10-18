@@ -1,7 +1,12 @@
 # Corridor — submission draft
 
-**One sentence:** A graph-native investigation agent for synthetic cross-border
-payments, with traceable evidence, company context, and persisted case memory.
+**One sentence:** An investigation workspace that helps payment teams follow connected
+activity, explain decisions, and carry what they learn into the next case.
+
+**Project direction:** Timeless-Dave — product brief, milestone specifications,
+design direction, deployment setup, and iterative review. Implementation, testing,
+and demo production used AI assistance; personal code/query review remains for
+the participant to confirm.
 
 **Tracks:** Agents That Act on Connected Data; Agent Memory and Coordination;
 Company Brain.
@@ -10,11 +15,16 @@ Company Brain.
 
 **Live app:** https://corridor-eosin.vercel.app/
 
-**Video:** https://github.com/Timeless-Dave/corridor/releases/tag/submission-demo-v1
+**Video:** https://github.com/Timeless-Dave/corridor/releases/tag/submission-demo-v2
 
 **Run locally:** Follow the root README. The app uses remote FalkorDB with verified
 TLS, one FastAPI worker, and a Next.js investigation workspace. Docker is optional
 for a local database. No private or real payment records are included.
+
+**Why it matters:** A transfer-level alert leaves an analyst to assemble the wider
+story. Corridor puts connected accounts, supporting evidence, relevant company
+context, and previous cases in one review flow. The demo shows those interactions;
+it does not claim measured time savings or superiority over commercial systems.
 
 **What the graph does:** Parameterized Cypher traces transfers, shared identifiers,
 rotating savings pools, prior cases, policies, document provenance, decision

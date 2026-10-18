@@ -3,7 +3,7 @@ import json,re,textwrap,difflib,subprocess
 from pathlib import Path
 from dotenv import load_dotenv
 from openai import OpenAI
-ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'docs/demo/production';load_dotenv(ROOT/'.env')
+ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'docs/demo/production-v2';load_dotenv(ROOT/'.env')
 cache=OUT/'transcription.json'
 if not cache.exists():
     with (OUT/'narration-master.wav').open('rb') as file:
@@ -37,7 +37,7 @@ for w in aligned:
     chunk.append(w)
     if len(chunk)>=6 and w['text'][-1:] in '.;:?!':groups.append(chunk);chunk=[]
 if chunk:groups.append(chunk)
-srt=[];ass=['[Script Info]','ScriptType: v4.00+','PlayResX: 1920','PlayResY: 1080','WrapStyle: 0','','[V4+ Styles]','Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding','Style: Default,Arial,38,&H00F4F8F6,&H00F4F8F6,&H000C1214,&H000C1214,0,0,0,0,100,100,0,0,1,1,0,2,170,170,38,1','','[Events]','Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text']
+srt=[];ass=['[Script Info]','ScriptType: v4.00+','PlayResX: 1920','PlayResY: 1080','WrapStyle: 0','','[V4+ Styles]','Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding','Style: Default,Arial,32,&H00F4F8F6,&H00F4F8F6,&H000C1214,&H000C1214,0,0,0,0,100,100,0,0,1,1,0,2,170,170,38,1','','[Events]','Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text']
 for i,g in enumerate(groups):
     start=max(0,g[0]['start']-.04);end=g[-1]['end']+.13
     if i+1<len(groups):end=min(end,groups[i+1][0]['start']-.08)
@@ -46,7 +46,7 @@ for i,g in enumerate(groups):
         split=min((i for i,c in enumerate(text) if c==' '),key=lambda i:abs(i-len(text)/2))
         lines=[text[:split],text[split+1:]]
     srt.append(f'{i+1}\n{stamp(start)} --> {stamp(end)}\n'+ '\n'.join(lines)+'\n')
-    ass.append(f'Dialogue: 0,{stamp(start,True)},{stamp(end,True)},Default,,0,0,0,,'+r'{\an2\pos(960,1042)}'+'\\N'.join(lines))
+    ass.append(f'Dialogue: 0,{stamp(start,True)},{stamp(end,True)},Default,,0,0,0,,'+r'{\an2\pos(960,1064)}'+'\\N'.join(lines))
 (ROOT/'docs/demo/corridor-submission.srt').write_text('\n'.join(srt))
 (OUT/'captions.ass').write_text('\n'.join(ass)+'\n')
 (OUT/'caption-verification.json').write_text(json.dumps({'alignment_ratio':match.ratio(),'script_words':len(script),'recognized_words':len(words),'differences':diff,'caption_cues':len(groups)},indent=2))

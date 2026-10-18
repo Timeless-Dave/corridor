@@ -1,68 +1,73 @@
 {
   "frontend": "https://corridor-eosin.vercel.app",
   "api": "https://corridor-api.onrender.com",
-  "case_id": "case_f22330513c684e158488ecd6f3f033f0",
+  "case_id": "case_391426b1c7f74ea48f9060c50dc81c24",
   "verdict": "MONITOR",
   "events": [
     {
       "type": "opened",
       "id": "1",
-      "at": 1792286167993
+      "at": 1792288122494
     },
     {
       "type": "finding",
       "id": "2",
-      "at": 1792286172586
+      "at": 1792288127881
     },
     {
       "type": "guardrail",
       "id": "3",
-      "at": 1792286172586
+      "at": 1792288128076
     },
     {
       "type": "finding",
       "id": "4",
-      "at": 1792286178258
+      "at": 1792288130698
     },
     {
       "type": "finding",
       "id": "5",
-      "at": 1792286180607
+      "at": 1792288133103
     },
     {
       "type": "finding",
       "id": "6",
-      "at": 1792286183816
+      "at": 1792288135940
     },
     {
       "type": "finding",
       "id": "7",
-      "at": 1792286185423
+      "at": 1792288138110
     },
     {
       "type": "finding",
       "id": "8",
-      "at": 1792286186648
+      "at": 1792288139516
     },
     {
       "type": "finding",
       "id": "9",
-      "at": 1792286188649
+      "at": 1792288141733
+    },
+    {
+      "type": "finding",
+      "id": "10",
+      "at": 1792288144142
     },
     {
       "type": "guardrail",
-      "id": "10",
-      "at": 1792286190314
+      "id": "11",
+      "at": 1792288145761
     },
     {
       "type": "closed",
-      "id": "11",
-      "at": 1792286190314
+      "id": "12",
+      "at": 1792288145761
     },
     {
       "type": "end",
-      "id": "12",
-      "at": 1792286190314
+      "id": "13",
+      "at": 1792288145761
     }
   ],
   "errors": [],
@@ -71,5 +76,5 @@
     "second": "case_b7a56e4c6c484f40bc9f0257fa12e2ea",
     "matched": true
   },
-  "recorded_at": "2026-10-18T01:15:33.534Z"
+  "recorded_at": "2026-10-18T01:48:01.840Z"
 }

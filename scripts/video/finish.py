@@ -1,7 +1,7 @@
 """Burn readable captions, master audio, and produce the upload-ready MP4."""
 import json,re,subprocess
 from pathlib import Path
-ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'docs/demo/production'
+ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'docs/demo/production-v2'
 log=(OUT/'loudness-analysis.log').read_text();measure=json.loads(re.findall(r'\{[^{}]+\}',log)[-1])
 duration=float(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','default=nw=1:nk=1',str(OUT/'master-uncaptioned.mp4')]))
 fade_start=max(0,duration-.48)

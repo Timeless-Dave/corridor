@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 ROOT=Path(__file__).resolve().parents[2]
-OUT=ROOT/'docs/demo/production'
+OUT=ROOT/'docs/demo/production-v2'
 load_dotenv(ROOT/'.env')
 scenes=json.loads((ROOT/'scripts/video/storyboard.json').read_text())
 

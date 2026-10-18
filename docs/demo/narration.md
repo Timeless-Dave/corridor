@@ -1,44 +1,43 @@
-# Corridor submission narration
+# Corridor — revised demo narration
 
-AI-generated voice: OpenAI `gpt-4o-mini-tts`, built-in `cedar` voice.
-The live section is condensed; saved case scenes are labeled. All data is synthetic.
+AI-generated OpenAI Cedar voice. Transcribed wording verified against the recording.
 
-## CORRIDOR / GRAPH HACKS
+## Follow the money. Keep the context.
 
-A payment can look ordinary on its own. The pattern appears in the relationships. Corridor follows those connections, turning a synthetic payment flag into an investigation you can inspect, explain, and revisit.
+Twelve small payments. One collector. Look at each transfer alone, and you miss the connection. Corridor helps a payments analyst follow the wider story, then explain what needs attention and why.
 
-## 01 / THE GRAPH MODEL
+## Three layers. One investigation.
 
-FalkorDB connects three layers: transactions and shared identifiers; company policies, documents, and owners; and memory from past cases. The graph does the retrieval and preserves the evidence. Remove it, and Corridor loses both its reasoning context and its memory.
+Three kinds of context live together in FalkorDB: payment relationships, company knowledge, and previous investigations. That means the analyst can follow the money, find the relevant policy, and see what the team already knows, without piecing together separate conversations.
 
-## 02 / HOSTED WORKSPACE
+## Start with an account flag
 
-Here is the deployed workspace, running on Vercel with a Render API. These four flags come from seeded, fully synthetic data. An analyst can inspect account history, then start an investigation. Each run gets its own case and evidence trail.
+Let's start in the working app. The demo uses realistic, fully synthetic payment scenarios. Open an account's history to see earlier decisions, or investigate directly from the queue. Each new investigation keeps its own record.
 
-## 03 / LIVE INVESTIGATION · EDITED FOR TIME
+## Watch the evidence arrive
 
-This is a new investigation on the hosted app. Findings arrive as server sent events. The first tool checks prior cases. The agent then chooses from fixed graph tools, while the application records results and citations. The model never writes Cypher.
+Here, we're investigating the collector. This is a live run, shortened for the demo. History comes first. Then findings arrive as the agent checks connected accounts. It chooses from fixed graph tools; it cannot invent a query. You can watch the evidence build instead of waiting for an unexplained answer.
 
-## 04 / SAVED EVIDENCE · INTERACTIVE GRAPH
+## Inspect the relationships
 
-The graph is an inspection surface. Select a finding to highlight its cited nodes. Orbit, zoom, or switch to a flat view. Exact transfer edges are highlighted only when the raw result identifies them; other connections remain context. Shared devices alone do not establish fraud.
+Select a finding and its accounts light up. Switch to a flat view to read the connections, or explore the graph in three dimensions. The useful part is the link back to evidence: you can inspect the relationships behind a claim. Sharing a device, on its own, is not proof of fraud.
 
-## 05 / DETERMINISTIC GUARDRAILS
+## A proposal is not a final decision.
 
-The model proposes a verdict. Deterministic code checks it. Freeze requires two distinct positive evidence tools corroborating the same account. Repeating one tool is not enough. Unsupported proposals and model failures require review. The actual outcome can be Monitor, even for a planted pattern.
+The model recommends; code checks the recommendation. A freeze requires two different positive evidence tools to corroborate the same account. Repeating a check doesn't count twice. When support is insufficient, the case stays under review. These are demo decisions: Corridor does not move or freeze real money.
 
-## 06 / COMPANY CONTEXT · SAVED CASE
+## A decision needs an owner
 
-The decision stays connected to company context: an applicable policy and its source document, a current precedent and its author, and the employee responsible for this corridor. Superseded precedents are excluded. These are fictional demonstration policies, not regulatory advice.
+A decision also needs an owner. The saved case brings together its policy, source document, current precedent, and responsible employee. An analyst can see the basis for the decision and who should take it. The policies in this demonstration are fictional.
 
-## 07 / STEP-BY-STEP REPLAY
+## Ask why. Replay the evidence.
 
-Why this decision opens the saved trail, step by step. Technical details reveal the parameters, raw results, and allowlisted query. A reviewer can inspect what the tool returned instead of relying only on the model's explanation.
+And when someone asks why, replay the investigation. Step through the findings and open the underlying parameters, results, and fixed query. That makes the conversation concrete: which evidence supports this decision, and what still needs a person's judgment?
 
-## 08 / CROSS-ACCOUNT MEMORY · SAVED CASE
+## Different account. Same remembered case.
 
-Now a different account: mule zero. Its first lookup retrieves the earlier collector case, through the graph's case membership relationships. The exact earlier case identifier appears in the raw result. This was verified across separate investigations. Memory survives the conversation because it lives in FalkorDB.
+Now open a different account: mule zero. Its history lookup finds the earlier collector investigation because both accounts belong to that case. The previous case identifier is right here in the result. The next investigation starts with context the team has already built, rather than starting from scratch.
 
-## CORRIDOR / BUILT TO BE EXPLAINED
+## Connected evidence. Accountable decisions.
 
-Corridor also exposes twelve read tools over MCP. It brings connected-data investigation, agent memory, and company context into one workspace. All data is synthetic; no real funds are frozen. Explore the deployed app and public source. This narration uses an AI-generated OpenAI voice.
+Corridor brings connected evidence, company context, and lasting case memory into one workspace. Built for explaining decisions, reviewing them, and carrying what you learn into the next case. Try the app, explore the source, and follow the evidence yourself.

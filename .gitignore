@@ -15,3 +15,5 @@ api/data/dataset.json
 /docs/demo/*.webm
 /docs/demo/*.mp4
 /docs/demo/production/
+
+/docs/demo/production-v2/
