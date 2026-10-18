@@ -50,7 +50,12 @@ export function Queue() {
       `/accounts/${encodeURIComponent(account)}/history`,
     )
       .then((r) => {
-        if (active) setHistory(r.cases);
+        if (active) {
+          // An account can have multiple membership roles in the same case.
+          setHistory(
+            Array.from(new Map(r.cases.map((c) => [c.case_id, c])).values()),
+          );
+        }
       })
       .catch((e) => {
         if (active) setHistoryError(e.message);

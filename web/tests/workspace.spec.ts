@@ -214,3 +214,24 @@ test("queue search is case-insensitive and history identifies its account", asyn
     .click();
   await expect(page.getByRole("dialog")).toContainText("collector_0");
 });
+
+test("history shows one card when a case has multiple account roles", async ({
+  page,
+}) => {
+  await mock(page);
+  await page.route("**/accounts/*/history", (route) =>
+    route.fulfill({
+      json: {
+        cases: [
+          { case_id: "same-case", verdict: "MONITOR", role: "flagged" },
+          { case_id: "same-case", verdict: "MONITOR", role: "collector" },
+        ],
+      },
+    }),
+  );
+  await page.goto("/");
+  await page
+    .getByRole("button", { name: "View history for collector_0" })
+    .click();
+  await expect(page.locator(".history-card")).toHaveCount(1);
+});
