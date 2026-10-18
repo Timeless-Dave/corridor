@@ -11,6 +11,8 @@ def obj(properties):
 
 
 READ_SCHEMAS = {
+    'simulate_freeze': obj({'account_ids':IDS,'freeze_ids':IDS}),
+    'min_freeze_set': obj({'account_ids':IDS,'k':{'type':'integer','minimum':1,'maximum':4}}),
     'shared_identifiers': obj({'account_id':ID}),
     'circular_flows': obj({'account_id':ID,'max_hops':{'type':'integer','minimum':2,'maximum':5}}),
     'fan_in': obj({'account_id':ID,'since':{'type':'integer','minimum':0},'max_amount':{'type':'number','exclusiveMinimum':0}}),
@@ -22,6 +24,8 @@ READ_SCHEMAS = {
     'who_knows': obj({'pattern':{'type':'string','enum':PATTERNS}}),
 }
 DESCRIPTIONS = {
+    'simulate_freeze':'Measure specified observed accounts on a disposable graph copy. No live intervention; bounded historical routes only.',
+    'min_freeze_set':'Measure a PageRank-ordered greedy freeze set on a disposable graph copy. Not a global minimum. Required before proposing FREEZE. Supply only accounts cited in this case.',
     'shared_identifiers':'Find accounts sharing devices or phones. Family sharing alone is not fraud.',
     'circular_flows':'Find chronological skimming cycles of 2–5 accounts within 72 hours.',
     'fan_in':'Count transfers below max_amount to a collector in the 48 hours after since.',

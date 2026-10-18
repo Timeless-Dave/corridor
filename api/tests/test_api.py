@@ -27,6 +27,12 @@ class APIErrorTests(unittest.TestCase):
             self.assertEqual(response.status_code, 503)
             self.assertNotIn('secret', response.text)
 
+    def test_approval_is_disabled_without_operator_secret(self):
+        def forbidden(): self.fail('Unauthorized approval must not access graph')
+        with patch.dict(os.environ,{'CORRIDOR_APPROVAL_TOKEN':''}), TestClient(create_app(graph_factory=forbidden)) as client:
+            response=client.post('/cases/a/approve-freeze',json={'plan_id':'p','confirm_simulated_freeze':True})
+            self.assertEqual(response.status_code,403)
+
     def test_model_preflight_creates_no_case(self):
         def unavailable(): raise ModelError('secret API key')
         def forbidden(): self.fail('Database accessed before model preflight')
@@ -60,7 +66,7 @@ class APIGraphTests(unittest.TestCase):
             response = client.get('/flags')
             self.assertEqual(response.status_code, 200, response.text)
             flags = response.json()['flags']
-            self.assertEqual({r['account_id'] for r in flags}, {'cycle_0','collector_0','shared_0','ajo_0'})
+            self.assertEqual({r['account_id'] for r in flags}, {r['account_id'] for r in generate(42)[1]['evaluation_flags']})
             self.assertTrue(all(r['corridor'] == 'US-NG' for r in flags))
             for path in ['/cases/missing', '/cases/missing/subgraph', '/cases/missing/stream']:
                 self.assertEqual(client.get(path).status_code, 404)
@@ -95,7 +101,7 @@ class APIGraphTests(unittest.TestCase):
                 if finding['tool'] == 'guardrail':
                     self.assertIsNone(finding['query_text'])
                 else:
-                    self.assertIn('MATCH', finding['query_text'])
+                    self.assertTrue(finding['query_text'])
             graph = client.get(f'/cases/{cid}/subgraph').json()
             self.assertEqual(graph, saved['subgraph'])
             ids = {n['id'] for n in graph['nodes']}
@@ -140,4 +146,4 @@ class APIGraphTests(unittest.TestCase):
             response = client.post('/admin/reset', json={'confirm_graph':self.graph.name}, headers=headers)
             self.assertEqual(response.status_code, 200, response.text)
             self.assertEqual(response.json()['seed'], 42)
-            self.assertEqual(query_records(self.graph, 'count_nodes')[0]['count'], 8121)
+            self.assertEqual(query_records(self.graph, 'count_nodes')[0]['count'], len(generate(42)[0]['nodes']))

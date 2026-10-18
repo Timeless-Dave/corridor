@@ -14,5 +14,5 @@ SET c.status = 'closed', c.verdict = $verdict, c.risk = $risk,
 CREATE (c)-[:APPLIED]->(pol), (c)-[:PRECEDENT]->(decision), (c)-[:ASSIGNED_TO]->(employee)
 WITH c, accounts UNWIND accounts AS member
 MERGE (c)-[r:INVOLVES]->(member)
-ON CREATE SET r.role = 'member'
+ON CREATE SET r.role = CASE WHEN member.id = c.requested_account_id THEN 'flagged' ELSE 'member' END
 RETURN c.id AS case_id, c.verdict AS verdict, count(member) AS members

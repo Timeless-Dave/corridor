@@ -3,7 +3,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 const readPaths = [
   /^flags$/,
-  /^cases\/[^/]+(?:\/stream|\/subgraph)?$/,
+  /^cases\/[^/]+(?:\/stream|\/subgraph|\/freeze-impact)?$/,
   /^accounts\/[^/]+\/history$/,
 ];
 async function proxy(
@@ -21,7 +21,8 @@ async function proxy(
   const allowed =
     request.method === "GET"
       ? readPaths.some((r) => r.test(path))
-      : /^investigate\/[^/]+$/.test(path);
+      : /^investigate\/[^/]+$/.test(path) ||
+        /^cases\/[^/]+\/(simulate-freeze|approve-freeze)$/.test(path);
   if (!allowed) return new Response(null, { status: 404 });
   const origin = process.env.CORRIDOR_API_URL ?? "http://127.0.0.1:8000";
   const headers = new Headers({
@@ -31,6 +32,11 @@ async function proxy(
     headers.set("Last-Event-ID", request.headers.get("last-event-id")!);
   if (request.method === "POST")
     headers.set("Content-Type", "application/json");
+  if (path.endsWith("/approve-freeze")) {
+    // Forward operator-entered credential only to the dedicated approval endpoint.
+    const token = request.headers.get("x-approval-token");
+    if (token) headers.set("X-Approval-Token", token);
+  }
   try {
     const upstream = await fetch(
       `${origin.replace(/\/$/, "")}/${parts.map(encodeURIComponent).join("/")}${request.nextUrl.search}`,

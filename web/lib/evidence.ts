@@ -31,6 +31,8 @@ export function exactEdge(edge: GraphEdge, ids: Set<string>) {
   return typeof edge.properties.id === "string" && ids.has(edge.properties.id);
 }
 export const toolNames: Record<string, string> = {
+  min_freeze_set: "Measure a greedy freeze set",
+  simulate_freeze: "Compare a proposed freeze",
   prior_cases: "Review account history",
   shared_identifiers: "Trace shared identifiers",
   circular_flows: "Follow circular transfers",

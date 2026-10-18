@@ -1,0 +1,46 @@
+{
+  "base": "http://localhost:3010",
+  "account": "ajo_0",
+  "recorded_at": "2026-10-18T15:35:09.219Z",
+  "attempts": [
+    {
+      "case_id": "case_efa75e3b6d0c4cc981748998fce0d7fa",
+      "proposed": "MONITOR",
+      "verdict": "MONITOR"
+    },
+    {
+      "case_id": "case_6630ff282c9d4f6e9f6c404a8c001f85",
+      "proposed": "FREEZE",
+      "verdict": "MONITOR",
+      "note": "downgraded: no account had two independent positive evidence tools"
+    },
+    {
+      "case_id": "case_f75268cea13e447d8af21d8601c877d2",
+      "proposed": "MONITOR",
+      "verdict": "MONITOR"
+    },
+    {
+      "case_id": "case_d4c8d7c2e7334e33990d7a67f208daf5",
+      "proposed": "MONITOR",
+      "verdict": "MONITOR"
+    },
+    {
+      "case_id": "case_a6f3be789aa04896a2b77380875a28f8",
+      "proposed": "FREEZE",
+      "verdict": "FREEZE",
+      "note": "shown in the film"
+    }
+  ],
+  "live": {
+    "case_id": "case_a6f3be789aa04896a2b77380875a28f8",
+    "verdict": "FREEZE",
+    "proposed": "FREEZE",
+    "reasons": [
+      "Prior FREEZE found; deterministic risk floor is 0.7."
+    ]
+  },
+  "case_id": "case_a6f3be789aa04896a2b77380875a28f8",
+  "receipt": "Modeled intervention receipt\n\nfreeze_a02200a113f34e64b55deed5d0afe425\n\nMeasured outcome matches the projection.\n\nSenders reaching target: 4 \u2192 0",
+  "graph": "corridor_film (disposable GRAPH.COPY of the demo graph)",
+  "note": "Live ajo_0 runs recorded in corridor_film, in order (one further attempt stalled on page navigation and is not shown). The film shows the first run that reached FREEZE; the live run, simulation, approval and receipt are all the same case."
+}

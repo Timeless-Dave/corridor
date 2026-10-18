@@ -12,7 +12,7 @@ from pydantic import BaseModel, ConfigDict
 from dotenv import load_dotenv
 from agent.loop import Investigation
 from agent.model import OpenAIModel, ModelError
-from agent.tools import CorridorTools, query_records, QUERIES, READ_TOOLS
+from agent.tools import CorridorTools, query_records, QUERIES, READ_TOOLS, SIMULATION_TOOLS
 from data.generate import generate
 from data.load import load
 from db import connect, DatabaseError
@@ -21,6 +21,18 @@ from db import connect, DatabaseError
 class StartRequest(BaseModel):
     model_config = ConfigDict(extra='forbid')
     corridor: Literal['US-NG', 'NG-US'] = 'US-NG'
+
+
+class SimulationRequest(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    account_ids: list[str]
+    k: int = 4
+
+
+class ApprovalRequest(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    plan_id: str
+    confirm_simulated_freeze: bool
 
 
 class ResetRequest(BaseModel):
@@ -99,9 +111,48 @@ def create_app(graph_factory=connect, model_factory=OpenAIModel):
             finding['cited'] = list(dict.fromkeys(finding['cited']))
             name = finding.get('query_name')
             finding['query_text'] = QUERIES.get(name) if name in READ_TOOLS else None
+            if name in SIMULATION_TOOLS:
+                finding['query_text'] = '\n\n'.join('// '+q+'\n'+QUERIES[q] for q in
+                    ('collector_rank','sim_communities','sim_scope','sim_edges','sim_reach','sim_inflow','sim_cycles','sim_remove'))
         result['grounding'] = query_records(graph, 'api_case_grounding', {'case_id': case_id})
         result['subgraph'] = subgraph(graph, case_id)
         return result
+
+    @app.get('/cases/{case_id}/freeze-impact')
+    def freeze_impact(case_id: str):
+        from agent.simulate import get_plan
+        graph = graph_factory()
+        case(graph, case_id)
+        return {'plan': get_plan(graph, case_id), 'orders': query_records(graph, 'sim_orders', {'case_id': case_id})}
+
+    @app.post('/cases/{case_id}/simulate-freeze')
+    async def simulate_case(case_id: str, body: SimulationRequest):
+        from agent.simulate import plan
+        async with lock:
+            if resetting: raise HTTPException(409, 'Graph reset in progress.')
+            graph = graph_factory()
+            state = case(graph, case_id)
+            if state['case']['status'] != 'closed': raise HTTPException(409, 'Wait for the investigation to complete.')
+            try:
+                result = await asyncio.to_thread(plan, graph, case_id, body.account_ids, k=body.k)
+                return result[0]
+            except ValueError as error:
+                raise HTTPException(409, str(error)) from None
+
+    @app.post('/cases/{case_id}/approve-freeze')
+    async def approve_case(case_id: str, body: ApprovalRequest, x_approval_token: str = Header('')):
+        from agent.simulate import approve
+        expected = os.getenv('CORRIDOR_APPROVAL_TOKEN', '')
+        if not expected or not hmac.compare_digest(expected, x_approval_token):
+            raise HTTPException(403, 'Demo approval disabled or unauthorized.')
+        if body.confirm_simulated_freeze is not True: raise HTTPException(422, 'Explicit modeled-freeze confirmation required.')
+        async with lock:
+            if resetting or any(not j['done'] for j in jobs.values()):
+                raise HTTPException(409, 'Wait for active investigations or reset to finish.')
+            try:
+                return await asyncio.to_thread(approve, graph_factory(), identifier(case_id), identifier(body.plan_id))
+            except ValueError as error:
+                raise HTTPException(409, str(error)) from None
 
     async def execute(job, investigation, account_id, corridor):
         try:

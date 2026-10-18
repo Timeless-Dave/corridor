@@ -1,0 +1,5226 @@
+{
+  "seed": 42,
+  "started_at": 1792335206,
+  "model": "gpt-4.1-mini",
+  "scope": "12 synthetic flags (4 planted patterns, 8 decoys), single run, no real-world accuracy claim.",
+  "positive_definition": "FREEZE or MONITOR compared with planted ring membership; shared identifiers alone do not establish fraud.",
+  "isolation": "Each case starts from its own copy of the same seed graph, including one seeded historical case.",
+  "results": [
+    {
+      "account_id": "cycle_0",
+      "expected_ring_member": true,
+      "case_id": "case_39a242d3effa46cbbbfdefeb6e0bee4f",
+      "verdict": "FREEZE",
+      "risk": 0.75,
+      "pattern": "circular_layering",
+      "members": [
+        "cycle_0",
+        "cycle_1",
+        "cycle_2",
+        "cycle_3",
+        "cycle_4"
+      ],
+      "policy_id": "POL-AML-1",
+      "precedent_decision_id": "DEC-6",
+      "assignee_employee_id": "emp_0",
+      "rationale": "The investigation identified a circular flow of funds between accounts cycle_0 through cycle_4 with a total volume exceeding the threshold of 500 units, indicating layering behavior. The min_freeze_set analysis shows freezing cycle_0 disrupts the entire circular flow. Shared device and phone IDs suggest coordination among these accounts, supporting the suspicion of layering. Policy POL-AML-1 requires investigation of connected evidence at this threshold. A relevant precedent (DEC-6) mandates freezing in similar cases. Therefore, freezing the involved accounts is justified to prevent further illicit layering activity.",
+      "steps": 9,
+      "step_cap_reached": false,
+      "guardrail_reasons": [],
+      "trace": [
+        {
+          "type": "opened",
+          "case_id": "case_39a242d3effa46cbbbfdefeb6e0bee4f",
+          "account_id": "cycle_0"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_39a242d3effa46cbbbfdefeb6e0bee4f",
+          "step": 1,
+          "tool": "prior_cases",
+          "params": {
+            "account_id": "cycle_0",
+            "exclude_case_id": "case_39a242d3effa46cbbbfdefeb6e0bee4f"
+          },
+          "result": [],
+          "text": "No prior cases were found for account cycle_0 excluding case 39a242d3effa46cbbbfdefeb6e0bee4f.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_39a242d3effa46cbbbfdefeb6e0bee4f",
+          "step": 2,
+          "tool": "circular_flows",
+          "params": {
+            "account_id": "cycle_0",
+            "max_hops": 5
+          },
+          "result": [
+            {
+              "accounts": [
+                "cycle_0",
+                "cycle_1",
+                "cycle_2",
+                "cycle_3",
+                "cycle_4",
+                "cycle_0"
+              ],
+              "transfers": [
+                "tx_0026041",
+                "tx_0026042",
+                "tx_0026043",
+                "tx_0026044",
+                "tx_0026045"
+              ],
+              "amounts": [
+                480.0,
+                475.0,
+                470.0,
+                465.0,
+                460.0
+              ],
+              "timestamps": [
+                1792065600,
+                1792069200,
+                1792072800,
+                1792076400,
+                1792080000
+              ],
+              "volume": 2350.0
+            }
+          ],
+          "text": "A circular flow of funds was detected involving accounts cycle_0, cycle_1, cycle_2, cycle_3, and cycle_4, returning to cycle_0 through five sequential transfers with a cumulative volume of 2350.0 units over a short time period.",
+          "cited_ids": [
+            "cycle_0"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "cycle_0",
+            "cycle_1",
+            "cycle_2",
+            "cycle_3",
+            "cycle_4"
+          ],
+          "positive": true,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_39a242d3effa46cbbbfdefeb6e0bee4f",
+          "step": 3,
+          "tool": "collector_rank",
+          "params": {
+            "account_ids": [
+              "cycle_0",
+              "cycle_1",
+              "cycle_2",
+              "cycle_3",
+              "cycle_4"
+            ]
+          },
+          "result": [
+            {
+              "account": "cycle_0",
+              "score": 0.00035289756488055
+            },
+            {
+              "account": "cycle_1",
+              "score": 0.00035289756488055
+            },
+            {
+              "account": "cycle_2",
+              "score": 0.00035289756488055
+            },
+            {
+              "account": "cycle_3",
+              "score": 0.00035289756488055
+            },
+            {
+              "account": "cycle_4",
+              "score": 0.00035289756488055
+            }
+          ],
+          "text": "The accounts cycle_0, cycle_1, cycle_2, cycle_3, and cycle_4 all have identical, very low collector rank scores around 0.00035, indicating no significant centrality or influence in a collector or mule network context.",
+          "cited_ids": [
+            "cycle_0",
+            "cycle_1",
+            "cycle_2",
+            "cycle_3",
+            "cycle_4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "cycle_0",
+            "cycle_1",
+            "cycle_2",
+            "cycle_3",
+            "cycle_4"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_39a242d3effa46cbbbfdefeb6e0bee4f",
+          "step": 4,
+          "tool": "ring_communities",
+          "params": {
+            "account_ids": [
+              "cycle_0",
+              "cycle_1",
+              "cycle_2",
+              "cycle_3",
+              "cycle_4"
+            ]
+          },
+          "result": [
+            {
+              "community_id": 4057,
+              "members": [
+                "cycle_0",
+                "cycle_1",
+                "cycle_2",
+                "cycle_3",
+                "cycle_4"
+              ],
+              "size": 5
+            }
+          ],
+          "text": "Accounts cycle_0, cycle_1, cycle_2, cycle_3, and cycle_4 form a single ring community of size 5, indicating a tightly connected group potentially involved in circular activity, which can be a sign of layering in money laundering cases.",
+          "cited_ids": [
+            "cycle_0",
+            "cycle_1",
+            "cycle_2",
+            "cycle_3",
+            "cycle_4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "cycle_0",
+            "cycle_1",
+            "cycle_2",
+            "cycle_3",
+            "cycle_4"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_39a242d3effa46cbbbfdefeb6e0bee4f",
+          "step": 5,
+          "tool": "min_freeze_set",
+          "params": {
+            "account_ids": [
+              "cycle_0",
+              "cycle_1",
+              "cycle_2",
+              "cycle_3",
+              "cycle_4"
+            ],
+            "k": 1
+          },
+          "result": [
+            {
+              "plan_id": "plan_71542c439ba045639ce7b740e3f1331f",
+              "case_id": "case_39a242d3effa46cbbbfdefeb6e0bee4f",
+              "collector": "cycle_0",
+              "accounts": [
+                "cycle_0",
+                "cycle_1",
+                "cycle_2",
+                "cycle_3",
+                "cycle_4"
+              ],
+              "freeze_ids": [
+                "cycle_0"
+              ],
+              "before": {
+                "transfers": 1,
+                "inflow_volume": 460.0,
+                "cycles_remaining": 1,
+                "senders_reaching_collector": 4,
+                "reachable_sender_ids": [
+                  "cycle_1",
+                  "cycle_2",
+                  "cycle_3",
+                  "cycle_4"
+                ]
+              },
+              "after": {
+                "transfers": 0,
+                "inflow_volume": 0.0,
+                "cycles_remaining": 0,
+                "senders_reaching_collector": 0,
+                "reachable_sender_ids": []
+              },
+              "steps": [
+                {
+                  "account": "cycle_0",
+                  "after": {
+                    "transfers": 0,
+                    "inflow_volume": 0.0,
+                    "cycles_remaining": 0,
+                    "senders_reaching_collector": 0,
+                    "reachable_sender_ids": []
+                  },
+                  "outside_community_counterparties": [],
+                  "outside_candidate_counterparties": []
+                }
+              ],
+              "ranking": [
+                {
+                  "account": "cycle_0",
+                  "score": 0.000352668634150177
+                },
+                {
+                  "account": "cycle_1",
+                  "score": 0.000352668634150177
+                },
+                {
+                  "account": "cycle_2",
+                  "score": 0.000352668634150177
+                },
+                {
+                  "account": "cycle_3",
+                  "score": 0.000352668634150177
+                },
+                {
+                  "account": "cycle_4",
+                  "score": 0.000352668634150177
+                }
+              ],
+              "community_members": [
+                "cycle_0",
+                "cycle_1",
+                "cycle_2",
+                "cycle_3",
+                "cycle_4",
+                "shared_0",
+                "shared_1",
+                "shared_2",
+                "shared_3",
+                "shared_4",
+                "shared_5",
+                "shared_6"
+              ],
+              "params": {
+                "account_ids": [
+                  "cycle_0",
+                  "cycle_1",
+                  "cycle_2",
+                  "cycle_3",
+                  "cycle_4"
+                ],
+                "since": 1791820800,
+                "until": 1792080000,
+                "collector": "cycle_0",
+                "scope_ids": [
+                  "cycle_0",
+                  "cycle_1",
+                  "cycle_2",
+                  "cycle_3",
+                  "cycle_4"
+                ],
+                "sender_ids": [
+                  "cycle_1",
+                  "cycle_2",
+                  "cycle_3",
+                  "cycle_4"
+                ]
+              },
+              "fingerprint": "6856700d0e812b29b28d5b0b03c8a7eaf74f44c6f9ed89e855fb3d63baa485a0",
+              "method": "PageRank-ordered greedy heuristic; not a minimum-set guarantee",
+              "scope": "Up to 5 directed hops inside the cited accounts and their one-hop transfer neighbors, over 72 hours. Historical flows model blocked routes, not future savings.",
+              "synthetic": true,
+              "scratch_deleted": true
+            }
+          ],
+          "text": "The min_freeze_set tool indicates that freezing the single account 'cycle_0' would eliminate all remaining cycles and disrupt the inflow volume of 460.0, effectively stopping transfer activity among the related accounts 'cycle_0', 'cycle_1', 'cycle_2', 'cycle_3', and 'cycle_4'. This suggests 'cycle_0' is a critical node in the transfer network.",
+          "cited_ids": [
+            "cycle_0",
+            "cycle_1",
+            "cycle_2",
+            "cycle_3",
+            "cycle_4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "cycle_0",
+            "cycle_1",
+            "cycle_2",
+            "cycle_3",
+            "cycle_4"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_39a242d3effa46cbbbfdefeb6e0bee4f",
+          "step": 6,
+          "tool": "shared_identifiers",
+          "params": {
+            "account_id": "cycle_0"
+          },
+          "result": [
+            {
+              "account": "cycle_1",
+              "via": "Device",
+              "identifier": "shared_device_1",
+              "source_edge": 4063,
+              "peer_edge": 4064
+            },
+            {
+              "account": "shared_0",
+              "via": "Device",
+              "identifier": "shared_device_0",
+              "source_edge": 4062,
+              "peer_edge": 4065
+            },
+            {
+              "account": "shared_1",
+              "via": "Device",
+              "identifier": "shared_device_1",
+              "source_edge": 4063,
+              "peer_edge": 4066
+            },
+            {
+              "account": "shared_1",
+              "via": "Phone",
+              "identifier": "shared_phone_0",
+              "source_edge": 6089,
+              "peer_edge": 6092
+            },
+            {
+              "account": "shared_2",
+              "via": "Device",
+              "identifier": "shared_device_0",
+              "source_edge": 4062,
+              "peer_edge": 4067
+            },
+            {
+              "account": "shared_3",
+              "via": "Device",
+              "identifier": "shared_device_1",
+              "source_edge": 4063,
+              "peer_edge": 4068
+            },
+            {
+              "account": "shared_4",
+              "via": "Device",
+              "identifier": "shared_device_0",
+              "source_edge": 4062,
+              "peer_edge": 4069
+            },
+            {
+              "account": "shared_4",
+              "via": "Phone",
+              "identifier": "shared_phone_0",
+              "source_edge": 6089,
+              "peer_edge": 6095
+            },
+            {
+              "account": "shared_5",
+              "via": "Device",
+              "identifier": "shared_device_1",
+              "source_edge": 4063,
+              "peer_edge": 4070
+            },
+            {
+              "account": "shared_6",
+              "via": "Device",
+              "identifier": "shared_device_0",
+              "source_edge": 4062,
+              "peer_edge": 4071
+            }
+          ],
+          "text": "Account 'cycle_0' shares device identifiers with several accounts including 'cycle_1' and multiple accounts labeled 'shared_0' through 'shared_6'. It also shares a phone identifier with 'shared_1' and 'shared_4'. This suggests the accounts are connected through shared devices and phones, indicating potential coordinated access or usage among these accounts.",
+          "cited_ids": [
+            "cycle_0"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "cycle_0",
+            "cycle_1",
+            "shared_0",
+            "shared_1",
+            "shared_2",
+            "shared_3",
+            "shared_4",
+            "shared_5",
+            "shared_6"
+          ],
+          "positive": true,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_39a242d3effa46cbbbfdefeb6e0bee4f",
+          "step": 7,
+          "tool": "fan_in",
+          "params": {
+            "account_id": "cycle_0",
+            "since": 1791907200,
+            "max_amount": 500
+          },
+          "result": [
+            {
+              "collector": "cycle_0",
+              "senders": 1,
+              "total": 460.0,
+              "sender_ids": [
+                "cycle_4"
+              ],
+              "transfers": [
+                "tx_0026045"
+              ],
+              "first_ts": 1792080000,
+              "last_ts": 1792080000
+            }
+          ],
+          "text": "Account cycle_0 received a single transfer of $460 from one sender account cycle_4 on a single day.",
+          "cited_ids": [
+            "cycle_0",
+            "cycle_4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "cycle_0",
+            "cycle_4"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_39a242d3effa46cbbbfdefeb6e0bee4f",
+          "step": 8,
+          "tool": "corridor_context",
+          "params": {
+            "corridor_code": "US-NG"
+          },
+          "result": [
+            {
+              "corridor": "US-NG",
+              "lead_id": "emp_0",
+              "lead": "Fictional employee 0",
+              "team_id": "team_0",
+              "team": "Fictional team 0",
+              "policies": [
+                {
+                  "id": "POL-AML-1",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 1",
+                  "source_id": "DOC-1",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 1"
+                },
+                {
+                  "id": "POL-AML-2",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 2",
+                  "source_id": "DOC-2",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 2"
+                },
+                {
+                  "id": "POL-AML-3",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 3",
+                  "source_id": "DOC-3",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 3"
+                },
+                {
+                  "id": "POL-AML-4",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 4",
+                  "source_id": "DOC-4",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 4"
+                }
+              ]
+            }
+          ],
+          "text": "The corridor US-NG has an assigned lead named Fictional employee 0 and a team called Fictional team 0 for handling investigations. They follow four synthetic review policies (POL-AML-1 to POL-AML-4) from different fictional handbooks, each requiring investigation of connected evidence above a threshold of 500 units. These policies emphasize that investigations are not legal thresholds but guides for evidence review in the synthetic dataset context.",
+          "cited_ids": [
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_39a242d3effa46cbbbfdefeb6e0bee4f",
+          "step": 9,
+          "tool": "precedents",
+          "params": {
+            "policy_id": "POL-AML-1"
+          },
+          "result": [
+            {
+              "decision": "DEC-6",
+              "summary": "Fictional precedent 6",
+              "outcome": "FREEZE",
+              "date": 1791892800,
+              "decided_by_id": "emp_6",
+              "decided_by": "Fictional employee 6"
+            }
+          ],
+          "text": "The decision DEC-6 mandates a FREEZE outcome based on the fictional precedent 6, as decided by employee emp_6.",
+          "cited_ids": [
+            "DEC-6"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "closed",
+          "case_id": "case_39a242d3effa46cbbbfdefeb6e0bee4f",
+          "decision": {
+            "case_id": "case_39a242d3effa46cbbbfdefeb6e0bee4f",
+            "verdict": "FREEZE",
+            "risk": 0.75,
+            "pattern": "circular_layering",
+            "members": [
+              "cycle_0",
+              "cycle_1",
+              "cycle_2",
+              "cycle_3",
+              "cycle_4"
+            ],
+            "policy_id": "POL-AML-1",
+            "precedent_decision_id": "DEC-6",
+            "assignee_employee_id": "emp_0",
+            "rationale": "The investigation identified a circular flow of funds between accounts cycle_0 through cycle_4 with a total volume exceeding the threshold of 500 units, indicating layering behavior. The min_freeze_set analysis shows freezing cycle_0 disrupts the entire circular flow. Shared device and phone IDs suggest coordination among these accounts, supporting the suspicion of layering. Policy POL-AML-1 requires investigation of connected evidence at this threshold. A relevant precedent (DEC-6) mandates freezing in similar cases. Therefore, freezing the involved accounts is justified to prevent further illicit layering activity.",
+            "steps": 9,
+            "step_cap_reached": false,
+            "guardrail_reasons": []
+          }
+        }
+      ]
+    },
+    {
+      "account_id": "collector_0",
+      "expected_ring_member": true,
+      "case_id": "case_3de4d9b24deb446baeff0f968cb235ba",
+      "verdict": "MONITOR",
+      "risk": 0.85,
+      "pattern": "fan_in_mule",
+      "members": [
+        "collector_0",
+        "mule_0",
+        "mule_1",
+        "mule_10",
+        "mule_11",
+        "mule_2",
+        "mule_3",
+        "mule_4",
+        "mule_5",
+        "mule_6",
+        "mule_7",
+        "mule_8",
+        "mule_9"
+      ],
+      "policy_id": "POL-AML-1",
+      "precedent_decision_id": "DEC-6",
+      "assignee_employee_id": "emp_0",
+      "rationale": "The investigation of account 'collector_0' in the US-NG corridor under policy POL-AML-1 reveals strong evidence of a fan-in pattern involving 12 mule accounts sending structured transfers under 1000 units each, totaling 4866 units. Collector rank analysis shows the collector_0 account is central, and min_freeze_set confirms freezing collector_0 would eliminate the inflow from all mule accounts. The precedent DEC-6 under the same policy also mandates a FREEZE decision. Combined, this evidence supports a high-risk judgment for freezing the collector account to disrupt the suspected money laundering pattern.",
+      "steps": 8,
+      "step_cap_reached": false,
+      "guardrail_reasons": [
+        "FREEZE downgraded: no member has two positive independent tools citing the same account."
+      ],
+      "trace": [
+        {
+          "type": "opened",
+          "case_id": "case_3de4d9b24deb446baeff0f968cb235ba",
+          "account_id": "collector_0"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_3de4d9b24deb446baeff0f968cb235ba",
+          "step": 1,
+          "tool": "prior_cases",
+          "params": {
+            "account_id": "collector_0",
+            "exclude_case_id": "case_3de4d9b24deb446baeff0f968cb235ba"
+          },
+          "result": [],
+          "text": "There is no evidence of prior cases involving the account 'collector_0' excluding the current case 'case_3de4d9b24deb446baeff0f968cb235ba'.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_3de4d9b24deb446baeff0f968cb235ba",
+          "step": 2,
+          "tool": "circular_flows",
+          "params": {
+            "account_id": "collector_0",
+            "max_hops": 5
+          },
+          "result": [],
+          "text": "No circular flows were found involving account 'collector_0' within 5 hops.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_3de4d9b24deb446baeff0f968cb235ba",
+          "step": 3,
+          "tool": "fan_in",
+          "params": {
+            "account_id": "collector_0",
+            "since": 1791932400,
+            "max_amount": 1000
+          },
+          "result": [
+            {
+              "collector": "collector_0",
+              "senders": 12,
+              "total": 4866.0,
+              "sender_ids": [
+                "mule_0",
+                "mule_1",
+                "mule_2",
+                "mule_3",
+                "mule_4",
+                "mule_5",
+                "mule_6",
+                "mule_7",
+                "mule_8",
+                "mule_9",
+                "mule_10",
+                "mule_11"
+              ],
+              "transfers": [
+                "tx_0026059",
+                "tx_0026060",
+                "tx_0026061",
+                "tx_0026062",
+                "tx_0026063",
+                "tx_0026064",
+                "tx_0026065",
+                "tx_0026066",
+                "tx_0026067",
+                "tx_0026068",
+                "tx_0026069",
+                "tx_0026070"
+              ],
+              "first_ts": 1792065600,
+              "last_ts": 1792105200
+            }
+          ],
+          "text": "Account collector_0 received 12 incoming transfers from accounts mule_0 through mule_11 within a short time window, totaling 4866.0 units, all under or equal to 1000 units each, indicating a possible structuring or layering pattern.",
+          "cited_ids": [
+            "collector_0",
+            "mule_0",
+            "mule_1",
+            "mule_10",
+            "mule_11",
+            "mule_2",
+            "mule_3",
+            "mule_4",
+            "mule_5",
+            "mule_6",
+            "mule_7",
+            "mule_8",
+            "mule_9"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "collector_0",
+            "mule_0",
+            "mule_1",
+            "mule_10",
+            "mule_11",
+            "mule_2",
+            "mule_3",
+            "mule_4",
+            "mule_5",
+            "mule_6",
+            "mule_7",
+            "mule_8",
+            "mule_9"
+          ],
+          "positive": true,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_3de4d9b24deb446baeff0f968cb235ba",
+          "step": 4,
+          "tool": "collector_rank",
+          "params": {
+            "account_ids": [
+              "collector_0",
+              "mule_0",
+              "mule_1",
+              "mule_10",
+              "mule_11",
+              "mule_2",
+              "mule_3",
+              "mule_4",
+              "mule_5",
+              "mule_6",
+              "mule_7",
+              "mule_8",
+              "mule_9"
+            ]
+          },
+          "result": [
+            {
+              "account": "collector_0",
+              "score": 0.000594318727962673
+            },
+            {
+              "account": "mule_0",
+              "score": 5.30627075931989e-05
+            },
+            {
+              "account": "mule_1",
+              "score": 5.30627075931989e-05
+            },
+            {
+              "account": "mule_10",
+              "score": 5.30627075931989e-05
+            },
+            {
+              "account": "mule_11",
+              "score": 5.30627075931989e-05
+            },
+            {
+              "account": "mule_2",
+              "score": 5.30627075931989e-05
+            },
+            {
+              "account": "mule_3",
+              "score": 5.30627075931989e-05
+            },
+            {
+              "account": "mule_4",
+              "score": 5.30627075931989e-05
+            },
+            {
+              "account": "mule_5",
+              "score": 5.30627075931989e-05
+            },
+            {
+              "account": "mule_6",
+              "score": 5.30627075931989e-05
+            },
+            {
+              "account": "mule_7",
+              "score": 5.30627075931989e-05
+            },
+            {
+              "account": "mule_8",
+              "score": 5.30627075931989e-05
+            },
+            {
+              "account": "mule_9",
+              "score": 5.30627075931989e-05
+            }
+          ],
+          "text": "The collector account 'collector_0' has a significantly higher collector rank score (0.000594) compared to all mule accounts which have equal and much lower scores (5.3e-05). This indicates that 'collector_0' is more central or influential as a collector in the remittance pattern than the mule accounts.",
+          "cited_ids": [
+            "collector_0",
+            "mule_0",
+            "mule_1",
+            "mule_10",
+            "mule_11",
+            "mule_2",
+            "mule_3",
+            "mule_4",
+            "mule_5",
+            "mule_6",
+            "mule_7",
+            "mule_8",
+            "mule_9"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "collector_0",
+            "mule_0",
+            "mule_1",
+            "mule_10",
+            "mule_11",
+            "mule_2",
+            "mule_3",
+            "mule_4",
+            "mule_5",
+            "mule_6",
+            "mule_7",
+            "mule_8",
+            "mule_9"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_3de4d9b24deb446baeff0f968cb235ba",
+          "step": 5,
+          "tool": "ring_communities",
+          "params": {
+            "account_ids": [
+              "collector_0",
+              "mule_0",
+              "mule_1",
+              "mule_10",
+              "mule_11",
+              "mule_2",
+              "mule_3",
+              "mule_4",
+              "mule_5",
+              "mule_6",
+              "mule_7",
+              "mule_8",
+              "mule_9"
+            ]
+          },
+          "result": [
+            {
+              "community_id": 4069,
+              "members": [
+                "mule_0",
+                "mule_1",
+                "mule_2",
+                "mule_3",
+                "mule_4",
+                "mule_5",
+                "mule_6",
+                "mule_7",
+                "mule_8",
+                "mule_9",
+                "mule_10",
+                "mule_11"
+              ],
+              "size": 12
+            },
+            {
+              "community_id": 4081,
+              "members": [
+                "collector_0"
+              ],
+              "size": 1
+            }
+          ],
+          "text": "The ring communities analysis shows that all mule accounts (mule_0 to mule_11) form a single, tightly connected community, while the collector_0 account forms a separate, individual community by itself.",
+          "cited_ids": [
+            "collector_0",
+            "mule_0",
+            "mule_1",
+            "mule_10",
+            "mule_11",
+            "mule_2",
+            "mule_3",
+            "mule_4",
+            "mule_5",
+            "mule_6",
+            "mule_7",
+            "mule_8",
+            "mule_9"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "collector_0",
+            "mule_0",
+            "mule_1",
+            "mule_10",
+            "mule_11",
+            "mule_2",
+            "mule_3",
+            "mule_4",
+            "mule_5",
+            "mule_6",
+            "mule_7",
+            "mule_8",
+            "mule_9"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_3de4d9b24deb446baeff0f968cb235ba",
+          "step": 6,
+          "tool": "min_freeze_set",
+          "params": {
+            "account_ids": [
+              "collector_0",
+              "mule_0",
+              "mule_1",
+              "mule_10",
+              "mule_11",
+              "mule_2",
+              "mule_3",
+              "mule_4",
+              "mule_5",
+              "mule_6",
+              "mule_7",
+              "mule_8",
+              "mule_9"
+            ],
+            "k": 3
+          },
+          "result": [
+            {
+              "plan_id": "plan_d4a578307a154eea8a8815961b95d560",
+              "case_id": "case_3de4d9b24deb446baeff0f968cb235ba",
+              "collector": "collector_0",
+              "accounts": [
+                "collector_0",
+                "mule_0",
+                "mule_1",
+                "mule_10",
+                "mule_11",
+                "mule_2",
+                "mule_3",
+                "mule_4",
+                "mule_5",
+                "mule_6",
+                "mule_7",
+                "mule_8",
+                "mule_9"
+              ],
+              "freeze_ids": [
+                "collector_0"
+              ],
+              "before": {
+                "transfers": 12,
+                "inflow_volume": 4866.0,
+                "cycles_remaining": 0,
+                "senders_reaching_collector": 12,
+                "reachable_sender_ids": [
+                  "mule_0",
+                  "mule_1",
+                  "mule_10",
+                  "mule_11",
+                  "mule_2",
+                  "mule_3",
+                  "mule_4",
+                  "mule_5",
+                  "mule_6",
+                  "mule_7",
+                  "mule_8",
+                  "mule_9"
+                ]
+              },
+              "after": {
+                "transfers": 0,
+                "inflow_volume": 0.0,
+                "cycles_remaining": 0,
+                "senders_reaching_collector": 0,
+                "reachable_sender_ids": []
+              },
+              "steps": [
+                {
+                  "account": "collector_0",
+                  "after": {
+                    "transfers": 0,
+                    "inflow_volume": 0.0,
+                    "cycles_remaining": 0,
+                    "senders_reaching_collector": 0,
+                    "reachable_sender_ids": []
+                  },
+                  "outside_community_counterparties": [
+                    "mule_0",
+                    "mule_1",
+                    "mule_10",
+                    "mule_11",
+                    "mule_2",
+                    "mule_3",
+                    "mule_4",
+                    "mule_5",
+                    "mule_6",
+                    "mule_7",
+                    "mule_8",
+                    "mule_9"
+                  ],
+                  "outside_candidate_counterparties": []
+                }
+              ],
+              "ranking": [
+                {
+                  "account": "collector_0",
+                  "score": 0.000594134151469916
+                },
+                {
+                  "account": "mule_0",
+                  "score": 5.30466240888927e-05
+                },
+                {
+                  "account": "mule_1",
+                  "score": 5.30466240888927e-05
+                },
+                {
+                  "account": "mule_10",
+                  "score": 5.30466240888927e-05
+                },
+                {
+                  "account": "mule_11",
+                  "score": 5.30466240888927e-05
+                },
+                {
+                  "account": "mule_2",
+                  "score": 5.30466240888927e-05
+                },
+                {
+                  "account": "mule_3",
+                  "score": 5.30466240888927e-05
+                },
+                {
+                  "account": "mule_4",
+                  "score": 5.30466240888927e-05
+                },
+                {
+                  "account": "mule_5",
+                  "score": 5.30466240888927e-05
+                },
+                {
+                  "account": "mule_6",
+                  "score": 5.30466240888927e-05
+                },
+                {
+                  "account": "mule_7",
+                  "score": 5.30466240888927e-05
+                },
+                {
+                  "account": "mule_8",
+                  "score": 5.30466240888927e-05
+                },
+                {
+                  "account": "mule_9",
+                  "score": 5.30466240888927e-05
+                }
+              ],
+              "community_members": [
+                "collector_0"
+              ],
+              "params": {
+                "account_ids": [
+                  "collector_0",
+                  "mule_0",
+                  "mule_1",
+                  "mule_10",
+                  "mule_11",
+                  "mule_2",
+                  "mule_3",
+                  "mule_4",
+                  "mule_5",
+                  "mule_6",
+                  "mule_7",
+                  "mule_8",
+                  "mule_9"
+                ],
+                "since": 1791846000,
+                "until": 1792105200,
+                "collector": "collector_0",
+                "scope_ids": [
+                  "collector_0",
+                  "mule_0",
+                  "mule_1",
+                  "mule_10",
+                  "mule_11",
+                  "mule_2",
+                  "mule_3",
+                  "mule_4",
+                  "mule_5",
+                  "mule_6",
+                  "mule_7",
+                  "mule_8",
+                  "mule_9"
+                ],
+                "sender_ids": [
+                  "mule_0",
+                  "mule_1",
+                  "mule_10",
+                  "mule_11",
+                  "mule_2",
+                  "mule_3",
+                  "mule_4",
+                  "mule_5",
+                  "mule_6",
+                  "mule_7",
+                  "mule_8",
+                  "mule_9"
+                ]
+              },
+              "fingerprint": "5ce25256328ed4c0d09a122c331f8e06bad060d5af253bb542ca33c5f8de3964",
+              "method": "PageRank-ordered greedy heuristic; not a minimum-set guarantee",
+              "scope": "Up to 5 directed hops inside the cited accounts and their one-hop transfer neighbors, over 72 hours. Historical flows model blocked routes, not future savings.",
+              "synthetic": true,
+              "scratch_deleted": true
+            }
+          ],
+          "text": "The min_freeze_set analysis shows that freezing the collector account 'collector_0' alone would effectively cut off the inflow volume of 4866.0 from all 12 mule accounts to the collector, eliminating the transfers and connections that support the remittance pattern within this group.",
+          "cited_ids": [
+            "collector_0",
+            "mule_0",
+            "mule_1",
+            "mule_10",
+            "mule_11",
+            "mule_2",
+            "mule_3",
+            "mule_4",
+            "mule_5",
+            "mule_6",
+            "mule_7",
+            "mule_8",
+            "mule_9"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "collector_0",
+            "mule_0",
+            "mule_1",
+            "mule_10",
+            "mule_11",
+            "mule_2",
+            "mule_3",
+            "mule_4",
+            "mule_5",
+            "mule_6",
+            "mule_7",
+            "mule_8",
+            "mule_9"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_3de4d9b24deb446baeff0f968cb235ba",
+          "step": 7,
+          "tool": "corridor_context",
+          "params": {
+            "corridor_code": "US-NG"
+          },
+          "result": [
+            {
+              "corridor": "US-NG",
+              "lead_id": "emp_0",
+              "lead": "Fictional employee 0",
+              "team_id": "team_0",
+              "team": "Fictional team 0",
+              "policies": [
+                {
+                  "id": "POL-AML-1",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 1",
+                  "source_id": "DOC-1",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 1"
+                },
+                {
+                  "id": "POL-AML-2",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 2",
+                  "source_id": "DOC-2",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 2"
+                },
+                {
+                  "id": "POL-AML-3",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 3",
+                  "source_id": "DOC-3",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 3"
+                },
+                {
+                  "id": "POL-AML-4",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 4",
+                  "source_id": "DOC-4",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 4"
+                }
+              ]
+            }
+          ],
+          "text": "The investigation context for the US-NG remittance corridor is led by Fictional employee 0 from Fictional team 0. Four related AML policies (POL-AML-1 through POL-AML-4) apply, each requiring investigation of connected evidence when the transaction threshold is 500 units. These policies guide inquiry but do not impose a legal determination threshold.",
+          "cited_ids": [
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_3de4d9b24deb446baeff0f968cb235ba",
+          "step": 8,
+          "tool": "precedents",
+          "params": {
+            "policy_id": "POL-AML-1"
+          },
+          "result": [
+            {
+              "decision": "DEC-6",
+              "summary": "Fictional precedent 6",
+              "outcome": "FREEZE",
+              "date": 1791892800,
+              "decided_by_id": "emp_6",
+              "decided_by": "Fictional employee 6"
+            }
+          ],
+          "text": "The precedent DEC-6, decided by Fictional employee 6, mandates a FREEZE outcome based on policy POL-AML-1, supported by the summary 'Fictional precedent 6'.",
+          "cited_ids": [
+            "DEC-6"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "guardrail",
+          "case_id": "case_3de4d9b24deb446baeff0f968cb235ba",
+          "text": "FREEZE downgraded: no member has two positive independent tools citing the same account.",
+          "details": {
+            "proposed_verdict": "FREEZE",
+            "final_verdict": "MONITOR"
+          }
+        },
+        {
+          "type": "closed",
+          "case_id": "case_3de4d9b24deb446baeff0f968cb235ba",
+          "decision": {
+            "case_id": "case_3de4d9b24deb446baeff0f968cb235ba",
+            "verdict": "MONITOR",
+            "risk": 0.85,
+            "pattern": "fan_in_mule",
+            "members": [
+              "collector_0",
+              "mule_0",
+              "mule_1",
+              "mule_10",
+              "mule_11",
+              "mule_2",
+              "mule_3",
+              "mule_4",
+              "mule_5",
+              "mule_6",
+              "mule_7",
+              "mule_8",
+              "mule_9"
+            ],
+            "policy_id": "POL-AML-1",
+            "precedent_decision_id": "DEC-6",
+            "assignee_employee_id": "emp_0",
+            "rationale": "The investigation of account 'collector_0' in the US-NG corridor under policy POL-AML-1 reveals strong evidence of a fan-in pattern involving 12 mule accounts sending structured transfers under 1000 units each, totaling 4866 units. Collector rank analysis shows the collector_0 account is central, and min_freeze_set confirms freezing collector_0 would eliminate the inflow from all mule accounts. The precedent DEC-6 under the same policy also mandates a FREEZE decision. Combined, this evidence supports a high-risk judgment for freezing the collector account to disrupt the suspected money laundering pattern.",
+            "steps": 8,
+            "step_cap_reached": false,
+            "guardrail_reasons": [
+              "FREEZE downgraded: no member has two positive independent tools citing the same account."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "account_id": "shared_0",
+      "expected_ring_member": true,
+      "case_id": "case_4ed5dc90ec4c406db959c81b0cf1ec15",
+      "verdict": "MONITOR",
+      "risk": 0.3,
+      "pattern": "shared_device",
+      "members": [
+        "shared_0",
+        "cycle_0",
+        "shared_2",
+        "shared_3",
+        "shared_4",
+        "shared_6"
+      ],
+      "policy_id": "POL-AML-1",
+      "precedent_decision_id": "DEC-6",
+      "assignee_employee_id": "emp_0",
+      "rationale": "The account 'shared_0' shares device and phone identifiers with multiple accounts, indicating possible connected activity. However, there is no evidence of circular layering or strong cyclical fraud patterns from circular_flows and min_freeze_set tools. The collector rank scores are low for related accounts except cycle_0, and the ring community is confirmed but does not solely indicate malicious layering. The relevant policy POL-AML-1 encourages investigation based on connected evidence. Precedent DEC-6 found freezing appropriate but current evidence here supports a monitoring approach pending further evidence. Therefore, the recommend decision is MONITOR with moderate risk to track activity closely and reassess if new evidence emerges.",
+      "steps": 8,
+      "step_cap_reached": false,
+      "guardrail_reasons": [
+        "Model or tool error requires review; automatic CLEAR/FREEZE suppressed."
+      ],
+      "trace": [
+        {
+          "type": "opened",
+          "case_id": "case_4ed5dc90ec4c406db959c81b0cf1ec15",
+          "account_id": "shared_0"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_4ed5dc90ec4c406db959c81b0cf1ec15",
+          "step": 1,
+          "tool": "prior_cases",
+          "params": {
+            "account_id": "shared_0",
+            "exclude_case_id": "case_4ed5dc90ec4c406db959c81b0cf1ec15"
+          },
+          "result": [],
+          "text": "No prior cases were found involving account shared_0 excluding case 4ed5dc90ec4c406db959c81b0cf1ec15.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_4ed5dc90ec4c406db959c81b0cf1ec15",
+          "step": 2,
+          "tool": "shared_identifiers",
+          "params": {
+            "account_id": "shared_0"
+          },
+          "result": [
+            {
+              "account": "cycle_0",
+              "via": "Device",
+              "identifier": "shared_device_0",
+              "source_edge": 4065,
+              "peer_edge": 4062
+            },
+            {
+              "account": "shared_2",
+              "via": "Device",
+              "identifier": "shared_device_0",
+              "source_edge": 4065,
+              "peer_edge": 4067
+            },
+            {
+              "account": "shared_3",
+              "via": "Phone",
+              "identifier": "shared_phone_2",
+              "source_edge": 6091,
+              "peer_edge": 6094
+            },
+            {
+              "account": "shared_4",
+              "via": "Device",
+              "identifier": "shared_device_0",
+              "source_edge": 4065,
+              "peer_edge": 4069
+            },
+            {
+              "account": "shared_6",
+              "via": "Device",
+              "identifier": "shared_device_0",
+              "source_edge": 4065,
+              "peer_edge": 4071
+            },
+            {
+              "account": "shared_6",
+              "via": "Phone",
+              "identifier": "shared_phone_2",
+              "source_edge": 6091,
+              "peer_edge": 6097
+            }
+          ],
+          "text": "The account 'shared_0' shares device identifier 'shared_device_0' with accounts 'cycle_0', 'shared_2', 'shared_4', and 'shared_6', and shares phone identifier 'shared_phone_2' with accounts 'shared_3' and 'shared_6'.",
+          "cited_ids": [
+            "cycle_0",
+            "shared_0",
+            "shared_2",
+            "shared_3",
+            "shared_4",
+            "shared_6",
+            "shared_device_0",
+            "shared_phone_2"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "cycle_0",
+            "shared_0",
+            "shared_2",
+            "shared_3",
+            "shared_4",
+            "shared_6"
+          ],
+          "positive": true,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_4ed5dc90ec4c406db959c81b0cf1ec15",
+          "step": 3,
+          "tool": "circular_flows",
+          "params": {
+            "account_id": "shared_0",
+            "max_hops": 5
+          },
+          "result": [],
+          "text": "No circular flow patterns were detected for account shared_0 within 5 hops, indicating no evidence of layering or structuring through circular transactions in this context.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_4ed5dc90ec4c406db959c81b0cf1ec15",
+          "step": 4,
+          "tool": "collector_rank",
+          "params": {
+            "account_ids": [
+              "cycle_0",
+              "shared_0",
+              "shared_2",
+              "shared_3",
+              "shared_4",
+              "shared_6"
+            ]
+          },
+          "result": [
+            {
+              "account": "cycle_0",
+              "score": 0.000352709728758782
+            },
+            {
+              "account": "shared_0",
+              "score": 5.30627075931989e-05
+            },
+            {
+              "account": "shared_2",
+              "score": 5.30627075931989e-05
+            },
+            {
+              "account": "shared_3",
+              "score": 5.30627075931989e-05
+            },
+            {
+              "account": "shared_4",
+              "score": 5.30627075931989e-05
+            },
+            {
+              "account": "shared_6",
+              "score": 5.30627075931989e-05
+            }
+          ],
+          "text": "The account cycle_0 has a significantly higher collector rank score compared to shared_0, shared_2, shared_3, shared_4, and shared_6, which all have very low and equal scores.",
+          "cited_ids": [
+            "cycle_0",
+            "shared_0",
+            "shared_2",
+            "shared_3",
+            "shared_4",
+            "shared_6"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "cycle_0",
+            "shared_0",
+            "shared_2",
+            "shared_3",
+            "shared_4",
+            "shared_6"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_4ed5dc90ec4c406db959c81b0cf1ec15",
+          "step": 5,
+          "tool": "ring_communities",
+          "params": {
+            "account_ids": [
+              "cycle_0",
+              "shared_0",
+              "shared_2",
+              "shared_3",
+              "shared_4",
+              "shared_6"
+            ]
+          },
+          "result": [
+            {
+              "community_id": 4057,
+              "members": [
+                "cycle_0",
+                "shared_0",
+                "shared_2",
+                "shared_3",
+                "shared_4",
+                "shared_6"
+              ],
+              "size": 6
+            }
+          ],
+          "text": "Accounts cycle_0, shared_0, shared_2, shared_3, shared_4, and shared_6 form a tightly connected community of six members, indicating evidence of ring structure interaction among these accounts.",
+          "cited_ids": [
+            "cycle_0",
+            "shared_0",
+            "shared_2",
+            "shared_3",
+            "shared_4",
+            "shared_6"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "cycle_0",
+            "shared_0",
+            "shared_2",
+            "shared_3",
+            "shared_4",
+            "shared_6"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_4ed5dc90ec4c406db959c81b0cf1ec15",
+          "step": 6,
+          "tool": "min_freeze_set",
+          "params": {
+            "account_ids": [
+              "cycle_0",
+              "shared_0",
+              "shared_2",
+              "shared_3",
+              "shared_4",
+              "shared_6"
+            ],
+            "k": 2
+          },
+          "result": [],
+          "text": "The min_freeze_set tool found no minimal set of accounts to freeze that would disrupt all 2-cycle connections among the specified accounts, indicating no strong evidence of cyclical layering fraud among these nodes.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": true,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_4ed5dc90ec4c406db959c81b0cf1ec15",
+          "step": 7,
+          "tool": "corridor_context",
+          "params": {
+            "corridor_code": "US-NG"
+          },
+          "result": [
+            {
+              "corridor": "US-NG",
+              "lead_id": "emp_0",
+              "lead": "Fictional employee 0",
+              "team_id": "team_0",
+              "team": "Fictional team 0",
+              "policies": [
+                {
+                  "id": "POL-AML-1",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 1",
+                  "source_id": "DOC-1",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 1"
+                },
+                {
+                  "id": "POL-AML-2",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 2",
+                  "source_id": "DOC-2",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 2"
+                },
+                {
+                  "id": "POL-AML-3",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 3",
+                  "source_id": "DOC-3",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 3"
+                },
+                {
+                  "id": "POL-AML-4",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 4",
+                  "source_id": "DOC-4",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 4"
+                }
+              ]
+            }
+          ],
+          "text": "The US-NG corridor is under investigation led by Fictional employee 0 from Fictional team 0, following four synthetic review policies all recommending investigation of connected evidence, each with a threshold of $500, emphasizing that these are not legal thresholds but internal review criteria.",
+          "cited_ids": [
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_4ed5dc90ec4c406db959c81b0cf1ec15",
+          "step": 8,
+          "tool": "precedents",
+          "params": {
+            "policy_id": "POL-AML-1"
+          },
+          "result": [
+            {
+              "decision": "DEC-6",
+              "summary": "Fictional precedent 6",
+              "outcome": "FREEZE",
+              "date": 1791892800,
+              "decided_by_id": "emp_6",
+              "decided_by": "Fictional employee 6"
+            }
+          ],
+          "text": "The precedent DEC-6 has led to a decision to FREEZE based on policy POL-AML-1, decided by employee Fictional employee 6 on the specified date, supporting strong enforcement action.",
+          "cited_ids": [
+            "DEC-6"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "guardrail",
+          "case_id": "case_4ed5dc90ec4c406db959c81b0cf1ec15",
+          "text": "Model or tool error requires review; automatic CLEAR/FREEZE suppressed.",
+          "details": {
+            "proposed_verdict": "MONITOR",
+            "final_verdict": "MONITOR"
+          }
+        },
+        {
+          "type": "closed",
+          "case_id": "case_4ed5dc90ec4c406db959c81b0cf1ec15",
+          "decision": {
+            "case_id": "case_4ed5dc90ec4c406db959c81b0cf1ec15",
+            "verdict": "MONITOR",
+            "risk": 0.3,
+            "pattern": "shared_device",
+            "members": [
+              "shared_0",
+              "cycle_0",
+              "shared_2",
+              "shared_3",
+              "shared_4",
+              "shared_6"
+            ],
+            "policy_id": "POL-AML-1",
+            "precedent_decision_id": "DEC-6",
+            "assignee_employee_id": "emp_0",
+            "rationale": "The account 'shared_0' shares device and phone identifiers with multiple accounts, indicating possible connected activity. However, there is no evidence of circular layering or strong cyclical fraud patterns from circular_flows and min_freeze_set tools. The collector rank scores are low for related accounts except cycle_0, and the ring community is confirmed but does not solely indicate malicious layering. The relevant policy POL-AML-1 encourages investigation based on connected evidence. Precedent DEC-6 found freezing appropriate but current evidence here supports a monitoring approach pending further evidence. Therefore, the recommend decision is MONITOR with moderate risk to track activity closely and reassess if new evidence emerges.",
+            "steps": 8,
+            "step_cap_reached": false,
+            "guardrail_reasons": [
+              "Model or tool error requires review; automatic CLEAR/FREEZE suppressed."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "account_id": "ajo_0",
+      "expected_ring_member": true,
+      "case_id": "case_c21adbaafa75442189e0d7d73e8b46d5",
+      "verdict": "MONITOR",
+      "risk": 0.85,
+      "pattern": "fan_in_mule",
+      "members": [
+        "ajo_0",
+        "ajo_1",
+        "ajo_2",
+        "ajo_3",
+        "ajo_4"
+      ],
+      "policy_id": "POL-AML-1",
+      "precedent_decision_id": "DEC-6",
+      "assignee_employee_id": "emp_0",
+      "rationale": "The investigation reveals account ajo_0 shares a device with four other accounts and receives incoming transfers from them totaling 200 units, forming a fan-in mule pattern. ajo_0 is a central collector in a closely connected community. The min_freeze_set analysis shows freezing ajo_0 blocks all inflow and senders, effectively disrupting the suspicious network. This matches the precedent DEC-6 for freezing under policy POL-AML-1 in the US-NG corridor managed by Fictional employee 0.",
+      "steps": 9,
+      "step_cap_reached": false,
+      "guardrail_reasons": [
+        "FREEZE downgraded: no member has two positive independent tools citing the same account."
+      ],
+      "trace": [
+        {
+          "type": "opened",
+          "case_id": "case_c21adbaafa75442189e0d7d73e8b46d5",
+          "account_id": "ajo_0"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_c21adbaafa75442189e0d7d73e8b46d5",
+          "step": 1,
+          "tool": "prior_cases",
+          "params": {
+            "account_id": "ajo_0",
+            "exclude_case_id": "case_c21adbaafa75442189e0d7d73e8b46d5"
+          },
+          "result": [],
+          "text": "No prior cases related to account ajo_0 were found excluding case_c21adbaafa75442189e0d7d73e8b46d5.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_c21adbaafa75442189e0d7d73e8b46d5",
+          "step": 2,
+          "tool": "circular_flows",
+          "params": {
+            "account_id": "ajo_0",
+            "max_hops": 5
+          },
+          "result": [],
+          "text": "There is no evidence of circular flows involving account ajo_0 within 5 hops.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_c21adbaafa75442189e0d7d73e8b46d5",
+          "step": 3,
+          "tool": "shared_identifiers",
+          "params": {
+            "account_id": "ajo_0"
+          },
+          "result": [
+            {
+              "account": "ajo_1",
+              "via": "Device",
+              "identifier": "ajo_device",
+              "source_edge": 4072,
+              "peer_edge": 4073
+            },
+            {
+              "account": "ajo_2",
+              "via": "Device",
+              "identifier": "ajo_device",
+              "source_edge": 4072,
+              "peer_edge": 4074
+            },
+            {
+              "account": "ajo_3",
+              "via": "Device",
+              "identifier": "ajo_device",
+              "source_edge": 4072,
+              "peer_edge": 4075
+            },
+            {
+              "account": "ajo_4",
+              "via": "Device",
+              "identifier": "ajo_device",
+              "source_edge": 4072,
+              "peer_edge": 4076
+            }
+          ],
+          "text": "Account ajo_0 shares the same device (ajo_device) with four other accounts: ajo_1, ajo_2, ajo_3, and ajo_4, indicating possible device sharing.",
+          "cited_ids": [
+            "ajo_0",
+            "ajo_1",
+            "ajo_2",
+            "ajo_3",
+            "ajo_4",
+            "ajo_device"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "ajo_0",
+            "ajo_1",
+            "ajo_2",
+            "ajo_3",
+            "ajo_4"
+          ],
+          "positive": true,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_c21adbaafa75442189e0d7d73e8b46d5",
+          "step": 4,
+          "tool": "fan_in",
+          "params": {
+            "account_id": "ajo_0",
+            "since": 1793102400,
+            "max_amount": 1000
+          },
+          "result": [
+            {
+              "collector": "ajo_0",
+              "senders": 4,
+              "total": 200.0,
+              "sender_ids": [
+                "ajo_1",
+                "ajo_2",
+                "ajo_3",
+                "ajo_4"
+              ],
+              "transfers": [
+                "tx_0026604",
+                "tx_0026605",
+                "tx_0026606",
+                "tx_0026607"
+              ],
+              "first_ts": 1793275200,
+              "last_ts": 1793275200
+            }
+          ],
+          "text": "Account ajo_0 received four incoming transfers from distinct accounts ajo_1, ajo_2, ajo_3, and ajo_4 within the queried period, totaling 200 units. This indicates a fan-in pattern where multiple senders consolidated funds into ajo_0.",
+          "cited_ids": [
+            "ajo_0",
+            "ajo_1",
+            "ajo_2",
+            "ajo_3",
+            "ajo_4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "ajo_0",
+            "ajo_1",
+            "ajo_2",
+            "ajo_3",
+            "ajo_4"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_c21adbaafa75442189e0d7d73e8b46d5",
+          "step": 5,
+          "tool": "collector_rank",
+          "params": {
+            "account_ids": [
+              "ajo_0",
+              "ajo_1",
+              "ajo_2",
+              "ajo_3",
+              "ajo_4"
+            ]
+          },
+          "result": [
+            {
+              "account": "ajo_0",
+              "score": 0.000233443002798595
+            },
+            {
+              "account": "ajo_1",
+              "score": 5.30539109604433e-05
+            },
+            {
+              "account": "ajo_2",
+              "score": 5.30539109604433e-05
+            },
+            {
+              "account": "ajo_3",
+              "score": 5.30539109604433e-05
+            },
+            {
+              "account": "ajo_4",
+              "score": 5.30539109604433e-05
+            }
+          ],
+          "text": "Among accounts ajo_0 to ajo_4, ajo_0 has a significantly higher collector rank score than the others, indicating it is likely a more central or influential collector in the remittance network.",
+          "cited_ids": [
+            "ajo_0",
+            "ajo_1",
+            "ajo_2",
+            "ajo_3",
+            "ajo_4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "ajo_0",
+            "ajo_1",
+            "ajo_2",
+            "ajo_3",
+            "ajo_4"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_c21adbaafa75442189e0d7d73e8b46d5",
+          "step": 6,
+          "tool": "ring_communities",
+          "params": {
+            "account_ids": [
+              "ajo_0",
+              "ajo_1",
+              "ajo_2",
+              "ajo_3",
+              "ajo_4"
+            ]
+          },
+          "result": [
+            {
+              "community_id": 4082,
+              "members": [
+                "ajo_0",
+                "ajo_1",
+                "ajo_2",
+                "ajo_3",
+                "ajo_4"
+              ],
+              "size": 5
+            }
+          ],
+          "text": "The accounts ajo_0, ajo_1, ajo_2, ajo_3, and ajo_4 form a closely connected ring community, indicating a potentially coordinated group activity among these five accounts.",
+          "cited_ids": [
+            "ajo_0",
+            "ajo_1",
+            "ajo_2",
+            "ajo_3",
+            "ajo_4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "ajo_0",
+            "ajo_1",
+            "ajo_2",
+            "ajo_3",
+            "ajo_4"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_c21adbaafa75442189e0d7d73e8b46d5",
+          "step": 7,
+          "tool": "min_freeze_set",
+          "params": {
+            "account_ids": [
+              "ajo_0",
+              "ajo_1",
+              "ajo_2",
+              "ajo_3",
+              "ajo_4"
+            ],
+            "k": 2
+          },
+          "result": [
+            {
+              "plan_id": "plan_1c7a522a81ec4fe8af0bd966caf81df8",
+              "case_id": "case_c21adbaafa75442189e0d7d73e8b46d5",
+              "collector": "ajo_0",
+              "accounts": [
+                "ajo_0",
+                "ajo_1",
+                "ajo_2",
+                "ajo_3",
+                "ajo_4"
+              ],
+              "freeze_ids": [
+                "ajo_0"
+              ],
+              "before": {
+                "transfers": 4,
+                "inflow_volume": 200.0,
+                "cycles_remaining": 0,
+                "senders_reaching_collector": 4,
+                "reachable_sender_ids": [
+                  "ajo_1",
+                  "ajo_2",
+                  "ajo_3",
+                  "ajo_4"
+                ]
+              },
+              "after": {
+                "transfers": 0,
+                "inflow_volume": 0.0,
+                "cycles_remaining": 0,
+                "senders_reaching_collector": 0,
+                "reachable_sender_ids": []
+              },
+              "steps": [
+                {
+                  "account": "ajo_0",
+                  "after": {
+                    "transfers": 0,
+                    "inflow_volume": 0.0,
+                    "cycles_remaining": 0,
+                    "senders_reaching_collector": 0,
+                    "reachable_sender_ids": []
+                  },
+                  "outside_community_counterparties": [],
+                  "outside_candidate_counterparties": []
+                }
+              ],
+              "ranking": [
+                {
+                  "account": "ajo_0",
+                  "score": 0.000233396014664322
+                },
+                {
+                  "account": "ajo_1",
+                  "score": 5.30440229340456e-05
+                },
+                {
+                  "account": "ajo_2",
+                  "score": 5.30440229340456e-05
+                },
+                {
+                  "account": "ajo_3",
+                  "score": 5.30440229340456e-05
+                },
+                {
+                  "account": "ajo_4",
+                  "score": 5.30440229340456e-05
+                }
+              ],
+              "community_members": [
+                "ajo_0",
+                "ajo_1",
+                "ajo_2",
+                "ajo_3",
+                "ajo_4"
+              ],
+              "params": {
+                "account_ids": [
+                  "ajo_0",
+                  "ajo_1",
+                  "ajo_2",
+                  "ajo_3",
+                  "ajo_4"
+                ],
+                "since": 1793016000,
+                "until": 1793275200,
+                "collector": "ajo_0",
+                "scope_ids": [
+                  "ajo_0",
+                  "ajo_1",
+                  "ajo_2",
+                  "ajo_3",
+                  "ajo_4"
+                ],
+                "sender_ids": [
+                  "ajo_1",
+                  "ajo_2",
+                  "ajo_3",
+                  "ajo_4"
+                ]
+              },
+              "fingerprint": "72ca065d0ea998c989218da8830cda3d184ecb400ef1b245478dfbf0650621a9",
+              "method": "PageRank-ordered greedy heuristic; not a minimum-set guarantee",
+              "scope": "Up to 5 directed hops inside the cited accounts and their one-hop transfer neighbors, over 72 hours. Historical flows model blocked routes, not future savings.",
+              "synthetic": true,
+              "scratch_deleted": true
+            }
+          ],
+          "text": "The min_freeze_set tool analysis shows that freezing account ajo_0 alone would block all inflow volume and senders to the collector ajo_0 in the investigated community of accounts ajo_0, ajo_1, ajo_2, ajo_3, and ajo_4, effectively stopping 200.0 units of transfer volume and 4 senders from reaching the collector, with no cycles remaining. This suggests ajo_0 is a critical node for the flow of funds in this network segment.",
+          "cited_ids": [
+            "ajo_0",
+            "ajo_1",
+            "ajo_2",
+            "ajo_3",
+            "ajo_4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "ajo_0",
+            "ajo_1",
+            "ajo_2",
+            "ajo_3",
+            "ajo_4"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_c21adbaafa75442189e0d7d73e8b46d5",
+          "step": 8,
+          "tool": "corridor_context",
+          "params": {
+            "corridor_code": "US-NG"
+          },
+          "result": [
+            {
+              "corridor": "US-NG",
+              "lead_id": "emp_0",
+              "lead": "Fictional employee 0",
+              "team_id": "team_0",
+              "team": "Fictional team 0",
+              "policies": [
+                {
+                  "id": "POL-AML-1",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 1",
+                  "source_id": "DOC-1",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 1"
+                },
+                {
+                  "id": "POL-AML-2",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 2",
+                  "source_id": "DOC-2",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 2"
+                },
+                {
+                  "id": "POL-AML-3",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 3",
+                  "source_id": "DOC-3",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 3"
+                },
+                {
+                  "id": "POL-AML-4",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 4",
+                  "source_id": "DOC-4",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 4"
+                }
+              ]
+            }
+          ],
+          "text": "The investigation corridor US-NG is managed by Fictional employee 0 under policies POL-AML-1 to POL-AML-4, which require investigating connected evidence above a threshold of 500.0, but these policies state this is not a legal threshold, only a procedural guide.",
+          "cited_ids": [
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_c21adbaafa75442189e0d7d73e8b46d5",
+          "step": 9,
+          "tool": "precedents",
+          "params": {
+            "policy_id": "POL-AML-1"
+          },
+          "result": [
+            {
+              "decision": "DEC-6",
+              "summary": "Fictional precedent 6",
+              "outcome": "FREEZE",
+              "date": 1791892800,
+              "decided_by_id": "emp_6",
+              "decided_by": "Fictional employee 6"
+            }
+          ],
+          "text": "A decision was made by employee Fictional employee 6 on policy POL-AML-1 with outcome FREEZE, citing precedent DEC-6 which supports freezing in this case as per the fictional summary.",
+          "cited_ids": [
+            "DEC-6"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "guardrail",
+          "case_id": "case_c21adbaafa75442189e0d7d73e8b46d5",
+          "text": "FREEZE downgraded: no member has two positive independent tools citing the same account.",
+          "details": {
+            "proposed_verdict": "FREEZE",
+            "final_verdict": "MONITOR"
+          }
+        },
+        {
+          "type": "closed",
+          "case_id": "case_c21adbaafa75442189e0d7d73e8b46d5",
+          "decision": {
+            "case_id": "case_c21adbaafa75442189e0d7d73e8b46d5",
+            "verdict": "MONITOR",
+            "risk": 0.85,
+            "pattern": "fan_in_mule",
+            "members": [
+              "ajo_0",
+              "ajo_1",
+              "ajo_2",
+              "ajo_3",
+              "ajo_4"
+            ],
+            "policy_id": "POL-AML-1",
+            "precedent_decision_id": "DEC-6",
+            "assignee_employee_id": "emp_0",
+            "rationale": "The investigation reveals account ajo_0 shares a device with four other accounts and receives incoming transfers from them totaling 200 units, forming a fan-in mule pattern. ajo_0 is a central collector in a closely connected community. The min_freeze_set analysis shows freezing ajo_0 blocks all inflow and senders, effectively disrupting the suspicious network. This matches the precedent DEC-6 for freezing under policy POL-AML-1 in the US-NG corridor managed by Fictional employee 0.",
+            "steps": 9,
+            "step_cap_reached": false,
+            "guardrail_reasons": [
+              "FREEZE downgraded: no member has two positive independent tools citing the same account."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "account_id": "family_0_0",
+      "expected_ring_member": false,
+      "case_id": "case_3406490ee62b407893c999750be84dc9",
+      "verdict": "CLEAR",
+      "risk": 0.0,
+      "pattern": "none",
+      "members": [
+        "family_0_0"
+      ],
+      "policy_id": "POL-AML-1",
+      "precedent_decision_id": "DEC-6",
+      "assignee_employee_id": "emp_0",
+      "rationale": "Investigation using multiple tools found no evidence of suspicious activity such as circular money flows, fan-in structured layering, or suspicious cycles requiring freezing. Although shared device usage was found among a small group of accounts, there was no transactional behavior indicative of layering or mule collection. The min_freeze_set analysis showed no transfer cycles or activity needing intervention. Policies require investigating connected evidence but do not set legal thresholds. Given no corroborating suspicious findings and no prior freeze cases related to this account, the risk is low. The precedent involving a freeze decision does not apply here given lack of supporting evidence. Recommended final verdict is CLEAR for account family_0_0 under policy POL-AML-1.",
+      "steps": 9,
+      "step_cap_reached": false,
+      "guardrail_reasons": [],
+      "trace": [
+        {
+          "type": "opened",
+          "case_id": "case_3406490ee62b407893c999750be84dc9",
+          "account_id": "family_0_0"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_3406490ee62b407893c999750be84dc9",
+          "step": 1,
+          "tool": "prior_cases",
+          "params": {
+            "account_id": "family_0_0",
+            "exclude_case_id": "case_3406490ee62b407893c999750be84dc9"
+          },
+          "result": [],
+          "text": "No prior cases related to account family_0_0 were found excluding the specified case.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_3406490ee62b407893c999750be84dc9",
+          "step": 2,
+          "tool": "circular_flows",
+          "params": {
+            "account_id": "family_0_0",
+            "max_hops": 5
+          },
+          "result": [],
+          "text": "No circular money flows were detected for account family_0_0 within 5 hops, indicating no evidence of circular transaction patterns for this account.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_3406490ee62b407893c999750be84dc9",
+          "step": 3,
+          "tool": "shared_identifiers",
+          "params": {
+            "account_id": "family_0_0"
+          },
+          "result": [
+            {
+              "account": "family_0_1",
+              "via": "Device",
+              "identifier": "family_device_0",
+              "source_edge": 4077,
+              "peer_edge": 4078
+            },
+            {
+              "account": "family_0_2",
+              "via": "Device",
+              "identifier": "family_device_0",
+              "source_edge": 4077,
+              "peer_edge": 4079
+            }
+          ],
+          "text": "Accounts family_0_1 and family_0_2 share the same device identifier family_device_0 with family_0_0, indicating device sharing among these three accounts.",
+          "cited_ids": [
+            "family_0_0",
+            "family_0_1",
+            "family_0_2",
+            "family_device_0"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "family_0_0",
+            "family_0_1",
+            "family_0_2"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_3406490ee62b407893c999750be84dc9",
+          "step": 4,
+          "tool": "fan_in",
+          "params": {
+            "account_id": "family_0_0",
+            "since": 1791900000,
+            "max_amount": 1000
+          },
+          "result": [
+            {
+              "collector": "family_0_0",
+              "senders": 0,
+              "total": 0.0,
+              "sender_ids": [],
+              "transfers": [],
+              "first_ts": null,
+              "last_ts": null
+            }
+          ],
+          "text": "There is no evidence of incoming transactions to account family_0_0 with amounts less than or equal to 1000 since the specified time, indicating no fan-in activity.",
+          "cited_ids": [
+            "family_0_0"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "family_0_0"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_3406490ee62b407893c999750be84dc9",
+          "step": 5,
+          "tool": "collector_rank",
+          "params": {
+            "account_ids": [
+              "family_0_0",
+              "family_0_1",
+              "family_0_2"
+            ]
+          },
+          "result": [
+            {
+              "account": "family_0_1",
+              "score": 7.56025474402122e-05
+            },
+            {
+              "account": "family_0_2",
+              "score": 7.56025474402122e-05
+            },
+            {
+              "account": "family_0_0",
+              "score": 5.30539109604433e-05
+            }
+          ],
+          "text": "The accounts family_0_1 and family_0_2 have slightly higher collector rank scores than family_0_0, indicating they might have marginally more influence or centrality in the transaction network among these three. However, the scores are all very low, suggesting limited overall significance in collector behavior.",
+          "cited_ids": [
+            "family_0_0",
+            "family_0_1",
+            "family_0_2"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "family_0_0",
+            "family_0_1",
+            "family_0_2"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_3406490ee62b407893c999750be84dc9",
+          "step": 6,
+          "tool": "ring_communities",
+          "params": {
+            "account_ids": [
+              "family_0_0",
+              "family_0_1",
+              "family_0_2"
+            ]
+          },
+          "result": [
+            {
+              "community_id": 4087,
+              "members": [
+                "family_0_0",
+                "family_0_1",
+                "family_0_2"
+              ],
+              "size": 3
+            }
+          ],
+          "text": "The accounts family_0_0, family_0_1, and family_0_2 form a single ring community, indicating they are tightly connected in a transactional pattern forming a cycle.",
+          "cited_ids": [
+            "family_0_0",
+            "family_0_1",
+            "family_0_2"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "family_0_0",
+            "family_0_1",
+            "family_0_2"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_3406490ee62b407893c999750be84dc9",
+          "step": 7,
+          "tool": "min_freeze_set",
+          "params": {
+            "account_ids": [
+              "family_0_0",
+              "family_0_1",
+              "family_0_2"
+            ],
+            "k": 1
+          },
+          "result": [
+            {
+              "plan_id": "plan_49134813ca83415c8645406b008dd02b",
+              "case_id": "case_3406490ee62b407893c999750be84dc9",
+              "collector": "family_0_0",
+              "accounts": [
+                "family_0_0",
+                "family_0_1",
+                "family_0_2"
+              ],
+              "freeze_ids": [],
+              "before": {
+                "transfers": 0,
+                "inflow_volume": 0.0,
+                "cycles_remaining": 0,
+                "senders_reaching_collector": 0,
+                "reachable_sender_ids": []
+              },
+              "after": {
+                "transfers": 0,
+                "inflow_volume": 0.0,
+                "cycles_remaining": 0,
+                "senders_reaching_collector": 0,
+                "reachable_sender_ids": []
+              },
+              "steps": [],
+              "ranking": [
+                {
+                  "account": "family_0_1",
+                  "score": 7.55880173528567e-05
+                },
+                {
+                  "account": "family_0_2",
+                  "score": 7.55880173528567e-05
+                },
+                {
+                  "account": "family_0_0",
+                  "score": 5.30440229340456e-05
+                }
+              ],
+              "community_members": [
+                "family_0_0",
+                "family_0_1",
+                "family_0_2"
+              ],
+              "params": {
+                "account_ids": [
+                  "family_0_0",
+                  "family_0_1",
+                  "family_0_2"
+                ],
+                "since": 1791813600,
+                "until": 1792072800,
+                "collector": "family_0_0",
+                "scope_ids": [
+                  "family_0_0",
+                  "family_0_1",
+                  "family_0_2"
+                ],
+                "sender_ids": [
+                  "family_0_1",
+                  "family_0_2"
+                ]
+              },
+              "fingerprint": "7418e059670a208756ab592a31d2da2053eac851e30a81634cea68176e2fac4f",
+              "method": "PageRank-ordered greedy heuristic; not a minimum-set guarantee",
+              "scope": "Up to 5 directed hops inside the cited accounts and their one-hop transfer neighbors, over 72 hours. Historical flows model blocked routes, not future savings.",
+              "synthetic": true,
+              "scratch_deleted": true
+            }
+          ],
+          "text": "The min_freeze_set tool analysis on accounts family_0_0, family_0_1, and family_0_2 found no remaining transfer cycles and no transfer activity requiring freezing, indicating no direct evidence supporting a freeze action from this set over the specified time window.",
+          "cited_ids": [
+            "family_0_0",
+            "family_0_1",
+            "family_0_2"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "family_0_0",
+            "family_0_1",
+            "family_0_2"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_3406490ee62b407893c999750be84dc9",
+          "step": 8,
+          "tool": "corridor_context",
+          "params": {
+            "corridor_code": "US-NG"
+          },
+          "result": [
+            {
+              "corridor": "US-NG",
+              "lead_id": "emp_0",
+              "lead": "Fictional employee 0",
+              "team_id": "team_0",
+              "team": "Fictional team 0",
+              "policies": [
+                {
+                  "id": "POL-AML-1",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 1",
+                  "source_id": "DOC-1",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 1"
+                },
+                {
+                  "id": "POL-AML-2",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 2",
+                  "source_id": "DOC-2",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 2"
+                },
+                {
+                  "id": "POL-AML-3",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 3",
+                  "source_id": "DOC-3",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 3"
+                },
+                {
+                  "id": "POL-AML-4",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 4",
+                  "source_id": "DOC-4",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 4"
+                }
+              ]
+            }
+          ],
+          "text": "The corridor US-NG is assigned a lead investigator named Fictional employee 0 from the Fictional team 0. There are four linked policies (POL-AML-1 to POL-AML-4) applicable to this corridor, all requiring investigation of connected evidence, each with a review threshold of 500.0 units. These policies emphasize investigatory actions rather than legal thresholds for decision-making.",
+          "cited_ids": [
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_3406490ee62b407893c999750be84dc9",
+          "step": 9,
+          "tool": "precedents",
+          "params": {
+            "policy_id": "POL-AML-1"
+          },
+          "result": [
+            {
+              "decision": "DEC-6",
+              "summary": "Fictional precedent 6",
+              "outcome": "FREEZE",
+              "date": 1791892800,
+              "decided_by_id": "emp_6",
+              "decided_by": "Fictional employee 6"
+            }
+          ],
+          "text": "The decision was made by a fictional employee (id emp_6) on the given date, resulting in a FREEZE action as per the fictional precedent DEC-6 under the AML policy POL-AML-1.",
+          "cited_ids": [
+            "DEC-6"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "closed",
+          "case_id": "case_3406490ee62b407893c999750be84dc9",
+          "decision": {
+            "case_id": "case_3406490ee62b407893c999750be84dc9",
+            "verdict": "CLEAR",
+            "risk": 0.0,
+            "pattern": "none",
+            "members": [
+              "family_0_0"
+            ],
+            "policy_id": "POL-AML-1",
+            "precedent_decision_id": "DEC-6",
+            "assignee_employee_id": "emp_0",
+            "rationale": "Investigation using multiple tools found no evidence of suspicious activity such as circular money flows, fan-in structured layering, or suspicious cycles requiring freezing. Although shared device usage was found among a small group of accounts, there was no transactional behavior indicative of layering or mule collection. The min_freeze_set analysis showed no transfer cycles or activity needing intervention. Policies require investigating connected evidence but do not set legal thresholds. Given no corroborating suspicious findings and no prior freeze cases related to this account, the risk is low. The precedent involving a freeze decision does not apply here given lack of supporting evidence. Recommended final verdict is CLEAR for account family_0_0 under policy POL-AML-1.",
+            "steps": 9,
+            "step_cap_reached": false,
+            "guardrail_reasons": []
+          }
+        }
+      ]
+    },
+    {
+      "account_id": "family_1_0",
+      "expected_ring_member": false,
+      "case_id": "case_c88fe5bc1cf04e5698b813173f21dfa5",
+      "verdict": "CLEAR",
+      "risk": 0.0,
+      "pattern": "none",
+      "members": [
+        "family_1_0"
+      ],
+      "policy_id": "POL-AML-1",
+      "precedent_decision_id": "DEC-6",
+      "assignee_employee_id": "emp_0",
+      "rationale": "The investigation of account family_1_0 revealed no prior cases or suspicious transaction activity, including no evidence of layering, fan-in, links to known bad actors, or suspicious ring cycles. Although the accounts family_1_0, family_1_1, and family_1_2 share a device and form a ring community, there is no suspicious transactional evidence within the evaluation period. Therefore, based on the current evidence and policy POL-AML-1, the appropriate decision is CLEAR with a risk score of 0.0.",
+      "steps": 9,
+      "step_cap_reached": false,
+      "guardrail_reasons": [],
+      "trace": [
+        {
+          "type": "opened",
+          "case_id": "case_c88fe5bc1cf04e5698b813173f21dfa5",
+          "account_id": "family_1_0"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_c88fe5bc1cf04e5698b813173f21dfa5",
+          "step": 1,
+          "tool": "prior_cases",
+          "params": {
+            "account_id": "family_1_0",
+            "exclude_case_id": "case_c88fe5bc1cf04e5698b813173f21dfa5"
+          },
+          "result": [],
+          "text": "No prior cases are associated with account family_1_0 excluding case_c88fe5bc1cf04e5698b813173f21dfa5.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_c88fe5bc1cf04e5698b813173f21dfa5",
+          "step": 2,
+          "tool": "shared_identifiers",
+          "params": {
+            "account_id": "family_1_0"
+          },
+          "result": [
+            {
+              "account": "family_1_1",
+              "via": "Device",
+              "identifier": "family_device_1",
+              "source_edge": 4080,
+              "peer_edge": 4081
+            },
+            {
+              "account": "family_1_2",
+              "via": "Device",
+              "identifier": "family_device_1",
+              "source_edge": 4080,
+              "peer_edge": 4082
+            }
+          ],
+          "text": "Accounts family_1_1 and family_1_2 share the same device identifier family_device_1 with account family_1_0, indicating these accounts are linked via a common device.",
+          "cited_ids": [
+            "family_1_0",
+            "family_1_1",
+            "family_1_2",
+            "family_device_1"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "family_1_0",
+            "family_1_1",
+            "family_1_2"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_c88fe5bc1cf04e5698b813173f21dfa5",
+          "step": 3,
+          "tool": "circular_flows",
+          "params": {
+            "account_id": "family_1_0",
+            "max_hops": 5
+          },
+          "result": [],
+          "text": "There is no evidence of circular flow activity within 5 hops from account family_1_0.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_c88fe5bc1cf04e5698b813173f21dfa5",
+          "step": 4,
+          "tool": "fan_in",
+          "params": {
+            "account_id": "family_1_0",
+            "since": 1791900000,
+            "max_amount": 10000
+          },
+          "result": [
+            {
+              "collector": "family_1_0",
+              "senders": 0,
+              "total": 0.0,
+              "sender_ids": [],
+              "transfers": [],
+              "first_ts": null,
+              "last_ts": null
+            }
+          ],
+          "text": "The account family_1_0 shows no incoming transfers up to 10,000 since the specified timestamp, indicating no fan-in activity.",
+          "cited_ids": [
+            "family_1_0"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "family_1_0"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_c88fe5bc1cf04e5698b813173f21dfa5",
+          "step": 5,
+          "tool": "link_to_known_bad",
+          "params": {
+            "account_id": "family_1_0"
+          },
+          "result": [],
+          "text": "No links to known bad actors were found for account family_1_0.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_c88fe5bc1cf04e5698b813173f21dfa5",
+          "step": 6,
+          "tool": "ring_communities",
+          "params": {
+            "account_ids": [
+              "family_1_0",
+              "family_1_1",
+              "family_1_2"
+            ]
+          },
+          "result": [
+            {
+              "community_id": 4090,
+              "members": [
+                "family_1_0",
+                "family_1_1",
+                "family_1_2"
+              ],
+              "size": 3
+            }
+          ],
+          "text": "The three accounts family_1_0, family_1_1, and family_1_2 form a single ring community of size 3, indicating a closely-knit transaction pattern among them.",
+          "cited_ids": [
+            "family_1_0",
+            "family_1_1",
+            "family_1_2"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "family_1_0",
+            "family_1_1",
+            "family_1_2"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_c88fe5bc1cf04e5698b813173f21dfa5",
+          "step": 7,
+          "tool": "min_freeze_set",
+          "params": {
+            "account_ids": [
+              "family_1_0",
+              "family_1_1",
+              "family_1_2"
+            ],
+            "k": 1
+          },
+          "result": [
+            {
+              "plan_id": "plan_8342acf39f2b43cc803401cf8a7c556f",
+              "case_id": "case_c88fe5bc1cf04e5698b813173f21dfa5",
+              "collector": "family_1_0",
+              "accounts": [
+                "family_1_0",
+                "family_1_1",
+                "family_1_2"
+              ],
+              "freeze_ids": [],
+              "before": {
+                "transfers": 0,
+                "inflow_volume": 0.0,
+                "cycles_remaining": 0,
+                "senders_reaching_collector": 0,
+                "reachable_sender_ids": []
+              },
+              "after": {
+                "transfers": 0,
+                "inflow_volume": 0.0,
+                "cycles_remaining": 0,
+                "senders_reaching_collector": 0,
+                "reachable_sender_ids": []
+              },
+              "steps": [],
+              "ranking": [
+                {
+                  "account": "family_1_1",
+                  "score": 7.55880173528567e-05
+                },
+                {
+                  "account": "family_1_2",
+                  "score": 7.55880173528567e-05
+                },
+                {
+                  "account": "family_1_0",
+                  "score": 5.30440229340456e-05
+                }
+              ],
+              "community_members": [
+                "family_1_0",
+                "family_1_1",
+                "family_1_2"
+              ],
+              "params": {
+                "account_ids": [
+                  "family_1_0",
+                  "family_1_1",
+                  "family_1_2"
+                ],
+                "since": 1791813600,
+                "until": 1792072800,
+                "collector": "family_1_0",
+                "scope_ids": [
+                  "family_1_0",
+                  "family_1_1",
+                  "family_1_2"
+                ],
+                "sender_ids": [
+                  "family_1_1",
+                  "family_1_2"
+                ]
+              },
+              "fingerprint": "92608fd6264bf11043ab4cd199bda494fdf801dcbdf8c11214d3d50a0f45ec76",
+              "method": "PageRank-ordered greedy heuristic; not a minimum-set guarantee",
+              "scope": "Up to 5 directed hops inside the cited accounts and their one-hop transfer neighbors, over 72 hours. Historical flows model blocked routes, not future savings.",
+              "synthetic": true,
+              "scratch_deleted": true
+            }
+          ],
+          "text": "The minimum freeze set analysis for accounts family_1_0, family_1_1, and family_1_2 shows no remaining suspicious transaction cycles, no detected inflow volume, no reachable senders, no senders reaching the collector, and no transfers in the evaluation period, indicating no evidence of suspicious transactional activity within this set during the timeframe analyzed.",
+          "cited_ids": [
+            "family_1_0",
+            "family_1_1",
+            "family_1_2"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "family_1_0",
+            "family_1_1",
+            "family_1_2"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_c88fe5bc1cf04e5698b813173f21dfa5",
+          "step": 8,
+          "tool": "corridor_context",
+          "params": {
+            "corridor_code": "US-NG"
+          },
+          "result": [
+            {
+              "corridor": "US-NG",
+              "lead_id": "emp_0",
+              "lead": "Fictional employee 0",
+              "team_id": "team_0",
+              "team": "Fictional team 0",
+              "policies": [
+                {
+                  "id": "POL-AML-1",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 1",
+                  "source_id": "DOC-1",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 1"
+                },
+                {
+                  "id": "POL-AML-2",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 2",
+                  "source_id": "DOC-2",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 2"
+                },
+                {
+                  "id": "POL-AML-3",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 3",
+                  "source_id": "DOC-3",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 3"
+                },
+                {
+                  "id": "POL-AML-4",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 4",
+                  "source_id": "DOC-4",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 4"
+                }
+              ]
+            }
+          ],
+          "text": "This result provides the investigation context for the transaction corridor US-NG, assigning the lead investigator Fictional employee 0 and listing four synthetic review policies, each with a threshold of 500.0 to guide evidence investigation. The result indicates this is a demonstration setup with no legal threshold implied, associated with the team Fictional team 0.",
+          "cited_ids": [
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_c88fe5bc1cf04e5698b813173f21dfa5",
+          "step": 9,
+          "tool": "precedents",
+          "params": {
+            "policy_id": "POL-AML-1"
+          },
+          "result": [
+            {
+              "decision": "DEC-6",
+              "summary": "Fictional precedent 6",
+              "outcome": "FREEZE",
+              "date": 1791892800,
+              "decided_by_id": "emp_6",
+              "decided_by": "Fictional employee 6"
+            }
+          ],
+          "text": "The decision is a FREEZE outcome based on precedent DEC-6, decided by employee Fictional employee 6, under policy POL-AML-1.",
+          "cited_ids": [
+            "DEC-6"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "closed",
+          "case_id": "case_c88fe5bc1cf04e5698b813173f21dfa5",
+          "decision": {
+            "case_id": "case_c88fe5bc1cf04e5698b813173f21dfa5",
+            "verdict": "CLEAR",
+            "risk": 0.0,
+            "pattern": "none",
+            "members": [
+              "family_1_0"
+            ],
+            "policy_id": "POL-AML-1",
+            "precedent_decision_id": "DEC-6",
+            "assignee_employee_id": "emp_0",
+            "rationale": "The investigation of account family_1_0 revealed no prior cases or suspicious transaction activity, including no evidence of layering, fan-in, links to known bad actors, or suspicious ring cycles. Although the accounts family_1_0, family_1_1, and family_1_2 share a device and form a ring community, there is no suspicious transactional evidence within the evaluation period. Therefore, based on the current evidence and policy POL-AML-1, the appropriate decision is CLEAR with a risk score of 0.0.",
+            "steps": 9,
+            "step_cap_reached": false,
+            "guardrail_reasons": []
+          }
+        }
+      ]
+    },
+    {
+      "account_id": "family_2_0",
+      "expected_ring_member": false,
+      "case_id": "case_cc2f74d3dfda4c43aece7a143d1e53ac",
+      "verdict": "CLEAR",
+      "risk": 0.0,
+      "pattern": "none",
+      "members": [
+        "family_2_0"
+      ],
+      "policy_id": "POL-AML-1",
+      "precedent_decision_id": "DEC-6",
+      "assignee_employee_id": "emp_0",
+      "rationale": "Investigation of account family_2_0 reveals no prior cases or circular fund flows. Device sharing exists with two other accounts, but it is not sufficient evidence of wrongdoing. No incoming transfers indicative of mule collection or layering were found. Collector ranks and ring community analysis show interconnected accounts, but minimum freeze set analysis indicates no active suspicious layering or mule collection in the examined 72-hour window. The policy POL-AML-1 requires connected evidence investigation, but current evidence does not meet criteria for freezing or monitoring. Therefore, the verdict is CLEAR based on absence of corroborating suspicious activity.",
+      "steps": 9,
+      "step_cap_reached": false,
+      "guardrail_reasons": [],
+      "trace": [
+        {
+          "type": "opened",
+          "case_id": "case_cc2f74d3dfda4c43aece7a143d1e53ac",
+          "account_id": "family_2_0"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_cc2f74d3dfda4c43aece7a143d1e53ac",
+          "step": 1,
+          "tool": "prior_cases",
+          "params": {
+            "account_id": "family_2_0",
+            "exclude_case_id": "case_cc2f74d3dfda4c43aece7a143d1e53ac"
+          },
+          "result": [],
+          "text": "No prior cases related to account family_2_0 were found excluding case case_cc2f74d3dfda4c43aece7a143d1e53ac.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_cc2f74d3dfda4c43aece7a143d1e53ac",
+          "step": 2,
+          "tool": "circular_flows",
+          "params": {
+            "account_id": "family_2_0",
+            "max_hops": 5
+          },
+          "result": [],
+          "text": "There is no evidence of circular fund flows involving account family_2_0 within 5 hops.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_cc2f74d3dfda4c43aece7a143d1e53ac",
+          "step": 3,
+          "tool": "shared_identifiers",
+          "params": {
+            "account_id": "family_2_0"
+          },
+          "result": [
+            {
+              "account": "family_2_1",
+              "via": "Device",
+              "identifier": "family_device_2",
+              "source_edge": 4083,
+              "peer_edge": 4084
+            },
+            {
+              "account": "family_2_2",
+              "via": "Device",
+              "identifier": "family_device_2",
+              "source_edge": 4083,
+              "peer_edge": 4085
+            }
+          ],
+          "text": "Account family_2_0 shares a device identifier (family_device_2) with two other accounts, family_2_1 and family_2_2, indicating device sharing among these accounts.",
+          "cited_ids": [
+            "family_2_0",
+            "family_2_1",
+            "family_2_2",
+            "family_device_2"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "family_2_0",
+            "family_2_1",
+            "family_2_2"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_cc2f74d3dfda4c43aece7a143d1e53ac",
+          "step": 4,
+          "tool": "fan_in",
+          "params": {
+            "account_id": "family_2_0",
+            "since": 1791900000,
+            "max_amount": 5000
+          },
+          "result": [
+            {
+              "collector": "family_2_0",
+              "senders": 0,
+              "total": 0.0,
+              "sender_ids": [],
+              "transfers": [],
+              "first_ts": null,
+              "last_ts": null
+            }
+          ],
+          "text": "There is no evidence of incoming transfers to the account family_2_0 since the given timestamp with amounts below 5000.",
+          "cited_ids": [
+            "family_2_0"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "family_2_0"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_cc2f74d3dfda4c43aece7a143d1e53ac",
+          "step": 5,
+          "tool": "collector_rank",
+          "params": {
+            "account_ids": [
+              "family_2_0",
+              "family_2_1",
+              "family_2_2"
+            ]
+          },
+          "result": [
+            {
+              "account": "family_2_1",
+              "score": 7.56025474402122e-05
+            },
+            {
+              "account": "family_2_2",
+              "score": 7.56025474402122e-05
+            },
+            {
+              "account": "family_2_0",
+              "score": 5.30539109604433e-05
+            }
+          ],
+          "text": "The collector_rank scores for accounts family_2_1 and family_2_2 are higher (7.56e-05) than for family_2_0 (5.31e-05), indicating a relatively higher potential involvement in collector activities for family_2_1 and family_2_2 compared to family_2_0.",
+          "cited_ids": [
+            "family_2_0",
+            "family_2_1",
+            "family_2_2"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "family_2_0",
+            "family_2_1",
+            "family_2_2"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_cc2f74d3dfda4c43aece7a143d1e53ac",
+          "step": 6,
+          "tool": "ring_communities",
+          "params": {
+            "account_ids": [
+              "family_2_0",
+              "family_2_1",
+              "family_2_2"
+            ]
+          },
+          "result": [
+            {
+              "community_id": 4093,
+              "members": [
+                "family_2_0",
+                "family_2_1",
+                "family_2_2"
+              ],
+              "size": 3
+            }
+          ],
+          "text": "Accounts family_2_0, family_2_1, and family_2_2 form a single ring community of size 3, indicating they are closely interconnected in transaction patterns.",
+          "cited_ids": [
+            "family_2_0",
+            "family_2_1",
+            "family_2_2"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "family_2_0",
+            "family_2_1",
+            "family_2_2"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_cc2f74d3dfda4c43aece7a143d1e53ac",
+          "step": 7,
+          "tool": "min_freeze_set",
+          "params": {
+            "account_ids": [
+              "family_2_0",
+              "family_2_1",
+              "family_2_2"
+            ],
+            "k": 3
+          },
+          "result": [
+            {
+              "plan_id": "plan_c6d52d4c3ac4469e84b1a9618f5b6234",
+              "case_id": "case_cc2f74d3dfda4c43aece7a143d1e53ac",
+              "collector": "family_2_0",
+              "accounts": [
+                "family_2_0",
+                "family_2_1",
+                "family_2_2"
+              ],
+              "freeze_ids": [],
+              "before": {
+                "transfers": 0,
+                "inflow_volume": 0.0,
+                "cycles_remaining": 0,
+                "senders_reaching_collector": 0,
+                "reachable_sender_ids": []
+              },
+              "after": {
+                "transfers": 0,
+                "inflow_volume": 0.0,
+                "cycles_remaining": 0,
+                "senders_reaching_collector": 0,
+                "reachable_sender_ids": []
+              },
+              "steps": [],
+              "ranking": [
+                {
+                  "account": "family_2_1",
+                  "score": 7.55880173528567e-05
+                },
+                {
+                  "account": "family_2_2",
+                  "score": 7.55880173528567e-05
+                },
+                {
+                  "account": "family_2_0",
+                  "score": 5.30440229340456e-05
+                }
+              ],
+              "community_members": [
+                "family_2_0",
+                "family_2_1",
+                "family_2_2"
+              ],
+              "params": {
+                "account_ids": [
+                  "family_2_0",
+                  "family_2_1",
+                  "family_2_2"
+                ],
+                "since": 1791813600,
+                "until": 1792072800,
+                "collector": "family_2_0",
+                "scope_ids": [
+                  "family_2_0",
+                  "family_2_1",
+                  "family_2_2"
+                ],
+                "sender_ids": [
+                  "family_2_1",
+                  "family_2_2"
+                ]
+              },
+              "fingerprint": "2e823c72dda3083c1b4739e7fff784d78146e685a676891fef621e2500258ffc",
+              "method": "PageRank-ordered greedy heuristic; not a minimum-set guarantee",
+              "scope": "Up to 5 directed hops inside the cited accounts and their one-hop transfer neighbors, over 72 hours. Historical flows model blocked routes, not future savings.",
+              "synthetic": true,
+              "scratch_deleted": true
+            }
+          ],
+          "text": "The minimum freeze set analysis for accounts family_2_0, family_2_1, and family_2_2 found no cycles, no inflows, no reachable senders, no transfers, and thus no accounts to freeze for disrupting illicit flows in this 72-hour window. This indicates absence of evidence for active suspicious layering or mule collection involving these accounts in the examined timeframe.",
+          "cited_ids": [
+            "family_2_0",
+            "family_2_1",
+            "family_2_2"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "family_2_0",
+            "family_2_1",
+            "family_2_2"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_cc2f74d3dfda4c43aece7a143d1e53ac",
+          "step": 8,
+          "tool": "corridor_context",
+          "params": {
+            "corridor_code": "US-NG"
+          },
+          "result": [
+            {
+              "corridor": "US-NG",
+              "lead_id": "emp_0",
+              "lead": "Fictional employee 0",
+              "team_id": "team_0",
+              "team": "Fictional team 0",
+              "policies": [
+                {
+                  "id": "POL-AML-1",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 1",
+                  "source_id": "DOC-1",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 1"
+                },
+                {
+                  "id": "POL-AML-2",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 2",
+                  "source_id": "DOC-2",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 2"
+                },
+                {
+                  "id": "POL-AML-3",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 3",
+                  "source_id": "DOC-3",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 3"
+                },
+                {
+                  "id": "POL-AML-4",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 4",
+                  "source_id": "DOC-4",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 4"
+                }
+              ]
+            }
+          ],
+          "text": "The corridor US-NG has a dedicated investigation team led by Fictional employee 0, with multiple synthetic review policies (POL-AML-1 to POL-AML-4) requiring connected evidence investigations for transactions over $500, though these are not legal thresholds.",
+          "cited_ids": [
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_cc2f74d3dfda4c43aece7a143d1e53ac",
+          "step": 9,
+          "tool": "precedents",
+          "params": {
+            "policy_id": "POL-AML-1"
+          },
+          "result": [
+            {
+              "decision": "DEC-6",
+              "summary": "Fictional precedent 6",
+              "outcome": "FREEZE",
+              "date": 1791892800,
+              "decided_by_id": "emp_6",
+              "decided_by": "Fictional employee 6"
+            }
+          ],
+          "text": "A precedent decision labeled DEC-6 led by employee emp_6 has resulted in a FREEZE outcome according to policy POL-AML-1, summarized as Fictional precedent 6.",
+          "cited_ids": [
+            "DEC-6"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "closed",
+          "case_id": "case_cc2f74d3dfda4c43aece7a143d1e53ac",
+          "decision": {
+            "case_id": "case_cc2f74d3dfda4c43aece7a143d1e53ac",
+            "verdict": "CLEAR",
+            "risk": 0.0,
+            "pattern": "none",
+            "members": [
+              "family_2_0"
+            ],
+            "policy_id": "POL-AML-1",
+            "precedent_decision_id": "DEC-6",
+            "assignee_employee_id": "emp_0",
+            "rationale": "Investigation of account family_2_0 reveals no prior cases or circular fund flows. Device sharing exists with two other accounts, but it is not sufficient evidence of wrongdoing. No incoming transfers indicative of mule collection or layering were found. Collector ranks and ring community analysis show interconnected accounts, but minimum freeze set analysis indicates no active suspicious layering or mule collection in the examined 72-hour window. The policy POL-AML-1 requires connected evidence investigation, but current evidence does not meet criteria for freezing or monitoring. Therefore, the verdict is CLEAR based on absence of corroborating suspicious activity.",
+            "steps": 9,
+            "step_cap_reached": false,
+            "guardrail_reasons": []
+          }
+        }
+      ]
+    },
+    {
+      "account_id": "family_3_0",
+      "expected_ring_member": false,
+      "case_id": "case_b31007d698ff4c47b6b8984ee65f6a14",
+      "verdict": "CLEAR",
+      "risk": 0.0,
+      "pattern": "none",
+      "members": [
+        "family_3_0"
+      ],
+      "policy_id": "POL-AML-1",
+      "precedent_decision_id": "DEC-6",
+      "assignee_employee_id": "emp_0",
+      "rationale": "Investigation for account family_3_0 under policy POL-AML-1 shows no evidence of suspicious activity. No prior cases linked to this account, no circular flows, no layering or structuring by fan-in, no links to known bad actors, despite shared device access with family_3_1 and family_3_2. Ring community formed is small and no freeze-worthy transactional patterns found by min_freeze_set tool. Precedent DEC-6 under the same policy led to a freeze but current evidence does not support such action. Recommend CLEAR verdict.",
+      "steps": 9,
+      "step_cap_reached": false,
+      "guardrail_reasons": [],
+      "trace": [
+        {
+          "type": "opened",
+          "case_id": "case_b31007d698ff4c47b6b8984ee65f6a14",
+          "account_id": "family_3_0"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_b31007d698ff4c47b6b8984ee65f6a14",
+          "step": 1,
+          "tool": "prior_cases",
+          "params": {
+            "account_id": "family_3_0",
+            "exclude_case_id": "case_b31007d698ff4c47b6b8984ee65f6a14"
+          },
+          "result": [],
+          "text": "No prior cases are associated with account family_3_0 excluding case_b31007d698ff4c47b6b8984ee65f6a14.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_b31007d698ff4c47b6b8984ee65f6a14",
+          "step": 2,
+          "tool": "shared_identifiers",
+          "params": {
+            "account_id": "family_3_0"
+          },
+          "result": [
+            {
+              "account": "family_3_1",
+              "via": "Device",
+              "identifier": "family_device_3",
+              "source_edge": 4086,
+              "peer_edge": 4087
+            },
+            {
+              "account": "family_3_2",
+              "via": "Device",
+              "identifier": "family_device_3",
+              "source_edge": 4086,
+              "peer_edge": 4088
+            }
+          ],
+          "text": "Accounts family_3_1 and family_3_2 share a device identifier family_device_3 with account family_3_0, indicating that these accounts are accessed from the same device.",
+          "cited_ids": [
+            "family_3_0",
+            "family_3_1",
+            "family_3_2",
+            "family_device_3"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "family_3_0",
+            "family_3_1",
+            "family_3_2"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_b31007d698ff4c47b6b8984ee65f6a14",
+          "step": 3,
+          "tool": "circular_flows",
+          "params": {
+            "account_id": "family_3_0",
+            "max_hops": 5
+          },
+          "result": [],
+          "text": "There is no evidence of circular flow activity involving account family_3_0 within 5 hops.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_b31007d698ff4c47b6b8984ee65f6a14",
+          "step": 4,
+          "tool": "fan_in",
+          "params": {
+            "account_id": "family_3_0",
+            "since": 1791900000,
+            "max_amount": 1000
+          },
+          "result": [
+            {
+              "collector": "family_3_0",
+              "senders": 0,
+              "total": 0.0,
+              "sender_ids": [],
+              "transfers": [],
+              "first_ts": null,
+              "last_ts": null
+            }
+          ],
+          "text": "No transactions incoming to account family_3_0 with amounts under 1000 since the given timestamp, indicating no evidence of layering or structuring by fan-in for this account in the period.",
+          "cited_ids": [
+            "family_3_0"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "family_3_0"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_b31007d698ff4c47b6b8984ee65f6a14",
+          "step": 5,
+          "tool": "ring_communities",
+          "params": {
+            "account_ids": [
+              "family_3_0",
+              "family_3_1",
+              "family_3_2"
+            ]
+          },
+          "result": [
+            {
+              "community_id": 4096,
+              "members": [
+                "family_3_0",
+                "family_3_1",
+                "family_3_2"
+              ],
+              "size": 3
+            }
+          ],
+          "text": "The three accounts family_3_0, family_3_1, and family_3_2 form a single ring community, indicating a close transactional relationship among them consistent with a tightly connected group.",
+          "cited_ids": [
+            "family_3_0",
+            "family_3_1",
+            "family_3_2"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "family_3_0",
+            "family_3_1",
+            "family_3_2"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_b31007d698ff4c47b6b8984ee65f6a14",
+          "step": 6,
+          "tool": "min_freeze_set",
+          "params": {
+            "account_ids": [
+              "family_3_0",
+              "family_3_1",
+              "family_3_2"
+            ],
+            "k": 1
+          },
+          "result": [
+            {
+              "plan_id": "plan_b1628d36c15f44a49b9dc874097c2950",
+              "case_id": "case_b31007d698ff4c47b6b8984ee65f6a14",
+              "collector": "family_3_0",
+              "accounts": [
+                "family_3_0",
+                "family_3_1",
+                "family_3_2"
+              ],
+              "freeze_ids": [],
+              "before": {
+                "transfers": 0,
+                "inflow_volume": 0.0,
+                "cycles_remaining": 0,
+                "senders_reaching_collector": 0,
+                "reachable_sender_ids": []
+              },
+              "after": {
+                "transfers": 0,
+                "inflow_volume": 0.0,
+                "cycles_remaining": 0,
+                "senders_reaching_collector": 0,
+                "reachable_sender_ids": []
+              },
+              "steps": [],
+              "ranking": [
+                {
+                  "account": "family_3_1",
+                  "score": 7.55919390940107e-05
+                },
+                {
+                  "account": "family_3_2",
+                  "score": 7.55919390940107e-05
+                },
+                {
+                  "account": "family_3_0",
+                  "score": 5.30466240888927e-05
+                }
+              ],
+              "community_members": [
+                "family_3_0",
+                "family_3_1",
+                "family_3_2"
+              ],
+              "params": {
+                "account_ids": [
+                  "family_3_0",
+                  "family_3_1",
+                  "family_3_2"
+                ],
+                "since": 1791813600,
+                "until": 1792072800,
+                "collector": "family_3_0",
+                "scope_ids": [
+                  "family_3_0",
+                  "family_3_1",
+                  "family_3_2"
+                ],
+                "sender_ids": [
+                  "family_3_1",
+                  "family_3_2"
+                ]
+              },
+              "fingerprint": "d0cb181b61fb599ceacd96dc4ef3c5d9e33d2c42ef3a974aad81e9ac1b6f82cc",
+              "method": "PageRank-ordered greedy heuristic; not a minimum-set guarantee",
+              "scope": "Up to 5 directed hops inside the cited accounts and their one-hop transfer neighbors, over 72 hours. Historical flows model blocked routes, not future savings.",
+              "synthetic": true,
+              "scratch_deleted": true
+            }
+          ],
+          "text": "The min_freeze_set tool found no evidence of cycles, transfers, or inflow volume requiring account freezing among accounts family_3_0, family_3_1, and family_3_2 in the examined period.",
+          "cited_ids": [
+            "family_3_0",
+            "family_3_1",
+            "family_3_2"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "family_3_0",
+            "family_3_1",
+            "family_3_2"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_b31007d698ff4c47b6b8984ee65f6a14",
+          "step": 7,
+          "tool": "link_to_known_bad",
+          "params": {
+            "account_id": "family_3_0"
+          },
+          "result": [],
+          "text": "Account family_3_0 shows no links to known bad actors, indicating no evidence of direct connections to identified fraudulent entities.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_b31007d698ff4c47b6b8984ee65f6a14",
+          "step": 8,
+          "tool": "corridor_context",
+          "params": {
+            "corridor_code": "US-NG"
+          },
+          "result": [
+            {
+              "corridor": "US-NG",
+              "lead_id": "emp_0",
+              "lead": "Fictional employee 0",
+              "team_id": "team_0",
+              "team": "Fictional team 0",
+              "policies": [
+                {
+                  "id": "POL-AML-1",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 1",
+                  "source_id": "DOC-1",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 1"
+                },
+                {
+                  "id": "POL-AML-2",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 2",
+                  "source_id": "DOC-2",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 2"
+                },
+                {
+                  "id": "POL-AML-3",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 3",
+                  "source_id": "DOC-3",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 3"
+                },
+                {
+                  "id": "POL-AML-4",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 4",
+                  "source_id": "DOC-4",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 4"
+                }
+              ]
+            }
+          ],
+          "text": "The corridor US-NG is overseen by 'Fictional employee 0' from 'Fictional team 0'. There are four policies applicable to this corridor, each requiring investigation of connected evidence without constituting a legal threshold and each with a threshold of 500.0. These policies mandate investigation steps but do not alone indicate fraud.",
+          "cited_ids": [
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_b31007d698ff4c47b6b8984ee65f6a14",
+          "step": 9,
+          "tool": "precedents",
+          "params": {
+            "policy_id": "POL-AML-1"
+          },
+          "result": [
+            {
+              "decision": "DEC-6",
+              "summary": "Fictional precedent 6",
+              "outcome": "FREEZE",
+              "date": 1791892800,
+              "decided_by_id": "emp_6",
+              "decided_by": "Fictional employee 6"
+            }
+          ],
+          "text": "The precedent DEC-6 by the decision maker Fictional employee 6 is related to policy POL-AML-1 and resulted in a FREEZE outcome.",
+          "cited_ids": [
+            "DEC-6"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "closed",
+          "case_id": "case_b31007d698ff4c47b6b8984ee65f6a14",
+          "decision": {
+            "case_id": "case_b31007d698ff4c47b6b8984ee65f6a14",
+            "verdict": "CLEAR",
+            "risk": 0.0,
+            "pattern": "none",
+            "members": [
+              "family_3_0"
+            ],
+            "policy_id": "POL-AML-1",
+            "precedent_decision_id": "DEC-6",
+            "assignee_employee_id": "emp_0",
+            "rationale": "Investigation for account family_3_0 under policy POL-AML-1 shows no evidence of suspicious activity. No prior cases linked to this account, no circular flows, no layering or structuring by fan-in, no links to known bad actors, despite shared device access with family_3_1 and family_3_2. Ring community formed is small and no freeze-worthy transactional patterns found by min_freeze_set tool. Precedent DEC-6 under the same policy led to a freeze but current evidence does not support such action. Recommend CLEAR verdict.",
+            "steps": 9,
+            "step_cap_reached": false,
+            "guardrail_reasons": []
+          }
+        }
+      ]
+    },
+    {
+      "account_id": "rotating_0_0",
+      "expected_ring_member": false,
+      "case_id": "case_5fd1e3492c6c4387a3f3f1cf105aa302",
+      "verdict": "CLEAR",
+      "risk": 0.0,
+      "pattern": "none",
+      "members": [
+        "rotating_0_0"
+      ],
+      "policy_id": "POL-AML-1",
+      "precedent_decision_id": "DEC-6",
+      "assignee_employee_id": "emp_0",
+      "rationale": "The account rotating_0_0 shows no evidence of wrongdoing: no prior cases, no circular layering, no fan-in mule collection, no shared identifiers, no links to known bad actors, and a low collector rank score. The investigation corridor US-NG is managed under policy POL-AML-1 which requires investigation of connected evidence, but none was found here. Despite a precedent DEC-6 resulting in a freeze in another case, this account does not meet the threshold or have positive evidence indicating fraud or suspicious behavior.",
+      "steps": 8,
+      "step_cap_reached": false,
+      "guardrail_reasons": [],
+      "trace": [
+        {
+          "type": "opened",
+          "case_id": "case_5fd1e3492c6c4387a3f3f1cf105aa302",
+          "account_id": "rotating_0_0"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5fd1e3492c6c4387a3f3f1cf105aa302",
+          "step": 1,
+          "tool": "prior_cases",
+          "params": {
+            "account_id": "rotating_0_0",
+            "exclude_case_id": "case_5fd1e3492c6c4387a3f3f1cf105aa302"
+          },
+          "result": [],
+          "text": "No prior cases or investigations have involved the account rotating_0_0, excluding case ID case_5fd1e3492c6c4387a3f3f1cf105aa302.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5fd1e3492c6c4387a3f3f1cf105aa302",
+          "step": 2,
+          "tool": "circular_flows",
+          "params": {
+            "account_id": "rotating_0_0",
+            "max_hops": 5
+          },
+          "result": [],
+          "text": "The account rotating_0_0 shows no evidence of participating in circular flow transactions within 5 hops, indicating no detected circular layering behavior.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5fd1e3492c6c4387a3f3f1cf105aa302",
+          "step": 3,
+          "tool": "fan_in",
+          "params": {
+            "account_id": "rotating_0_0",
+            "since": 1793102400,
+            "max_amount": 1000
+          },
+          "result": [
+            {
+              "collector": "rotating_0_0",
+              "senders": 0,
+              "total": 0.0,
+              "sender_ids": [],
+              "transfers": [],
+              "first_ts": null,
+              "last_ts": null
+            }
+          ],
+          "text": "No incoming transactions to rotating_0_0 were found within the specified timeframe and amount limit, indicating no evidence of fan-in layering at this account under these parameters.",
+          "cited_ids": [
+            "rotating_0_0"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "rotating_0_0"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5fd1e3492c6c4387a3f3f1cf105aa302",
+          "step": 4,
+          "tool": "shared_identifiers",
+          "params": {
+            "account_id": "rotating_0_0"
+          },
+          "result": [],
+          "text": "No shared identifiers were found for account rotating_0_0, indicating no direct link to other accounts via shared identification details.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5fd1e3492c6c4387a3f3f1cf105aa302",
+          "step": 5,
+          "tool": "link_to_known_bad",
+          "params": {
+            "account_id": "rotating_0_0"
+          },
+          "result": [],
+          "text": "There is no evidence linking account rotating_0_0 to known bad actors or activities.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5fd1e3492c6c4387a3f3f1cf105aa302",
+          "step": 6,
+          "tool": "collector_rank",
+          "params": {
+            "account_ids": [
+              "rotating_0_0"
+            ]
+          },
+          "result": [
+            {
+              "account": "rotating_0_0",
+              "score": 0.000552604731637985
+            }
+          ],
+          "text": "The account rotating_0_0 has a low collector rank score of 0.000552604731637985, indicating it is not a significant collector (receiver) of funds in this analysis.",
+          "cited_ids": [
+            "rotating_0_0"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "rotating_0_0"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5fd1e3492c6c4387a3f3f1cf105aa302",
+          "step": 7,
+          "tool": "corridor_context",
+          "params": {
+            "corridor_code": "US-NG"
+          },
+          "result": [
+            {
+              "corridor": "US-NG",
+              "lead_id": "emp_0",
+              "lead": "Fictional employee 0",
+              "team_id": "team_0",
+              "team": "Fictional team 0",
+              "policies": [
+                {
+                  "id": "POL-AML-1",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 1",
+                  "source_id": "DOC-1",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 1"
+                },
+                {
+                  "id": "POL-AML-2",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 2",
+                  "source_id": "DOC-2",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 2"
+                },
+                {
+                  "id": "POL-AML-3",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 3",
+                  "source_id": "DOC-3",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 3"
+                },
+                {
+                  "id": "POL-AML-4",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 4",
+                  "source_id": "DOC-4",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 4"
+                }
+              ]
+            }
+          ],
+          "text": "The investigation corridor US-NG is managed by Fictional employee 0 from Fictional team 0, under four fictional policies each requiring investigation of connected evidence but specifying that these are not legal thresholds for action.",
+          "cited_ids": [
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5fd1e3492c6c4387a3f3f1cf105aa302",
+          "step": 8,
+          "tool": "precedents",
+          "params": {
+            "policy_id": "POL-AML-1"
+          },
+          "result": [
+            {
+              "decision": "DEC-6",
+              "summary": "Fictional precedent 6",
+              "outcome": "FREEZE",
+              "date": 1791892800,
+              "decided_by_id": "emp_6",
+              "decided_by": "Fictional employee 6"
+            }
+          ],
+          "text": "The precedent DEC-6 was decided by Fictional employee 6 resulting in a FREEZE outcome, indicating a strong policy-based basis for freezing relevant accounts under policy POL-AML-1.",
+          "cited_ids": [
+            "DEC-6"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "closed",
+          "case_id": "case_5fd1e3492c6c4387a3f3f1cf105aa302",
+          "decision": {
+            "case_id": "case_5fd1e3492c6c4387a3f3f1cf105aa302",
+            "verdict": "CLEAR",
+            "risk": 0.0,
+            "pattern": "none",
+            "members": [
+              "rotating_0_0"
+            ],
+            "policy_id": "POL-AML-1",
+            "precedent_decision_id": "DEC-6",
+            "assignee_employee_id": "emp_0",
+            "rationale": "The account rotating_0_0 shows no evidence of wrongdoing: no prior cases, no circular layering, no fan-in mule collection, no shared identifiers, no links to known bad actors, and a low collector rank score. The investigation corridor US-NG is managed under policy POL-AML-1 which requires investigation of connected evidence, but none was found here. Despite a precedent DEC-6 resulting in a freeze in another case, this account does not meet the threshold or have positive evidence indicating fraud or suspicious behavior.",
+            "steps": 8,
+            "step_cap_reached": false,
+            "guardrail_reasons": []
+          }
+        }
+      ]
+    },
+    {
+      "account_id": "rotating_1_0",
+      "expected_ring_member": false,
+      "case_id": "case_761a06e064e546ce8f0e30a73d226659",
+      "verdict": "CLEAR",
+      "risk": 0.0,
+      "pattern": "none",
+      "members": [
+        "rotating_1_0"
+      ],
+      "policy_id": "POL-AML-1",
+      "precedent_decision_id": "DEC-6",
+      "assignee_employee_id": "emp_0",
+      "rationale": "After investigation, no suspicious evidence was found for account 'rotating_1_0': no prior cases, no shared identifiers, no circular flows, no fan-in of transactions, and very low collector rank. The precedent DEC-6 to FREEZE does not apply here as no corroborating suspicious patterns were detected under the policy POL-AML-1. Thus, the appropriate action is to CLEAR this account from suspicion.",
+      "steps": 7,
+      "step_cap_reached": false,
+      "guardrail_reasons": [],
+      "trace": [
+        {
+          "type": "opened",
+          "case_id": "case_761a06e064e546ce8f0e30a73d226659",
+          "account_id": "rotating_1_0"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_761a06e064e546ce8f0e30a73d226659",
+          "step": 1,
+          "tool": "prior_cases",
+          "params": {
+            "account_id": "rotating_1_0",
+            "exclude_case_id": "case_761a06e064e546ce8f0e30a73d226659"
+          },
+          "result": [],
+          "text": "No prior cases were found for account rotating_1_0 excluding case 761a06e064e546ce8f0e30a73d226659.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_761a06e064e546ce8f0e30a73d226659",
+          "step": 2,
+          "tool": "shared_identifiers",
+          "params": {
+            "account_id": "rotating_1_0"
+          },
+          "result": [],
+          "text": "No shared identifiers were found for account rotating_1_0, indicating no direct connections to other accounts through common identifiers such as emails, phone numbers, or device IDs.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_761a06e064e546ce8f0e30a73d226659",
+          "step": 3,
+          "tool": "circular_flows",
+          "params": {
+            "account_id": "rotating_1_0",
+            "max_hops": 5
+          },
+          "result": [],
+          "text": "No evidence of circular flow patterns was found involving the account rotating_1_0 within 5 hops.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_761a06e064e546ce8f0e30a73d226659",
+          "step": 4,
+          "tool": "fan_in",
+          "params": {
+            "account_id": "rotating_1_0",
+            "since": 1793102400,
+            "max_amount": 1000
+          },
+          "result": [
+            {
+              "collector": "rotating_1_0",
+              "senders": 0,
+              "total": 0.0,
+              "sender_ids": [],
+              "transfers": [],
+              "first_ts": null,
+              "last_ts": null
+            }
+          ],
+          "text": "There is no evidence of incoming transactions to the account 'rotating_1_0' under 1000 units since the given timestamp, indicating no observable layering or structuring activity as a collector within this amount and time frame.",
+          "cited_ids": [
+            "rotating_1_0"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "rotating_1_0"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_761a06e064e546ce8f0e30a73d226659",
+          "step": 5,
+          "tool": "collector_rank",
+          "params": {
+            "account_ids": [
+              "rotating_1_0"
+            ]
+          },
+          "result": [
+            {
+              "account": "rotating_1_0",
+              "score": 0.000552411656826735
+            }
+          ],
+          "text": "The account 'rotating_1_0' has a very low collector rank score of 0.00055, indicating it is unlikely to be a major collector or central node in remittance transactions.",
+          "cited_ids": [
+            "rotating_1_0"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "rotating_1_0"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_761a06e064e546ce8f0e30a73d226659",
+          "step": 6,
+          "tool": "corridor_context",
+          "params": {
+            "corridor_code": "US-NG"
+          },
+          "result": [
+            {
+              "corridor": "US-NG",
+              "lead_id": "emp_0",
+              "lead": "Fictional employee 0",
+              "team_id": "team_0",
+              "team": "Fictional team 0",
+              "policies": [
+                {
+                  "id": "POL-AML-1",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 1",
+                  "source_id": "DOC-1",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 1"
+                },
+                {
+                  "id": "POL-AML-2",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 2",
+                  "source_id": "DOC-2",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 2"
+                },
+                {
+                  "id": "POL-AML-3",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 3",
+                  "source_id": "DOC-3",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 3"
+                },
+                {
+                  "id": "POL-AML-4",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 4",
+                  "source_id": "DOC-4",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 4"
+                }
+              ]
+            }
+          ],
+          "text": "The report for corridor US-NG assigns a fictional employee 0 as lead and provides four synthetic review policies, all suggesting investigation of connected evidence without establishing a legal threshold, with thresholds set at 500 units. The investigation team is Fictional team 0. This indicates a standard procedural approach to screening remittance activity in this corridor, focusing on gathering connected evidence rather than immediate legal action.",
+          "cited_ids": [
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_761a06e064e546ce8f0e30a73d226659",
+          "step": 7,
+          "tool": "precedents",
+          "params": {
+            "policy_id": "POL-AML-1"
+          },
+          "result": [
+            {
+              "decision": "DEC-6",
+              "summary": "Fictional precedent 6",
+              "outcome": "FREEZE",
+              "date": 1791892800,
+              "decided_by_id": "emp_6",
+              "decided_by": "Fictional employee 6"
+            }
+          ],
+          "text": "The precedent DEC-6 was used to make a decision to FREEZE in this case, as supported by the summary from Fictional employee 6.",
+          "cited_ids": [
+            "DEC-6"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "closed",
+          "case_id": "case_761a06e064e546ce8f0e30a73d226659",
+          "decision": {
+            "case_id": "case_761a06e064e546ce8f0e30a73d226659",
+            "verdict": "CLEAR",
+            "risk": 0.0,
+            "pattern": "none",
+            "members": [
+              "rotating_1_0"
+            ],
+            "policy_id": "POL-AML-1",
+            "precedent_decision_id": "DEC-6",
+            "assignee_employee_id": "emp_0",
+            "rationale": "After investigation, no suspicious evidence was found for account 'rotating_1_0': no prior cases, no shared identifiers, no circular flows, no fan-in of transactions, and very low collector rank. The precedent DEC-6 to FREEZE does not apply here as no corroborating suspicious patterns were detected under the policy POL-AML-1. Thus, the appropriate action is to CLEAR this account from suspicion.",
+            "steps": 7,
+            "step_cap_reached": false,
+            "guardrail_reasons": []
+          }
+        }
+      ]
+    },
+    {
+      "account_id": "business_sender",
+      "expected_ring_member": false,
+      "case_id": "case_90f3f9f681d1491eaa71bd11e7ceef62",
+      "verdict": "CLEAR",
+      "risk": 0.0,
+      "pattern": "none",
+      "members": [
+        "business_sender"
+      ],
+      "policy_id": "POL-AML-1",
+      "precedent_decision_id": "DEC-6",
+      "assignee_employee_id": "emp_0",
+      "rationale": "Investigation of the business_sender account within the US-NG corridor under policy POL-AML-1 found no evidence of suspicious activity. There are no prior cases involving this account, no detected circular flows indicating layering or structuring, no incoming transfers with layering patterns, negligible collector rank, and no shared identifiers with other accounts. The account showed clean transactional behavior with no indicators of abuse or structural manipulation. This aligns with the policy's guidance to investigate connected evidence, which in this case supports clearance. Previous precedent DEC-6 involving a freeze decision is acknowledged but not corroborated by current evidence for this account.",
+      "steps": 7,
+      "step_cap_reached": false,
+      "guardrail_reasons": [],
+      "trace": [
+        {
+          "type": "opened",
+          "case_id": "case_90f3f9f681d1491eaa71bd11e7ceef62",
+          "account_id": "business_sender"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_90f3f9f681d1491eaa71bd11e7ceef62",
+          "step": 1,
+          "tool": "prior_cases",
+          "params": {
+            "account_id": "business_sender",
+            "exclude_case_id": "case_90f3f9f681d1491eaa71bd11e7ceef62"
+          },
+          "result": [],
+          "text": "No prior cases found involving the account 'business_sender' excluding case 'case_90f3f9f681d1491eaa71bd11e7ceef62'.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_90f3f9f681d1491eaa71bd11e7ceef62",
+          "step": 2,
+          "tool": "circular_flows",
+          "params": {
+            "account_id": "business_sender",
+            "max_hops": 5
+          },
+          "result": [],
+          "text": "There is no evidence of circular flows involving the account 'business_sender' within 5 hops, indicating no detected layering or structuring in this account's transaction graph relevant to circular money movement.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_90f3f9f681d1491eaa71bd11e7ceef62",
+          "step": 3,
+          "tool": "fan_in",
+          "params": {
+            "account_id": "business_sender",
+            "since": 1791907200,
+            "max_amount": 5000
+          },
+          "result": [
+            {
+              "collector": "business_sender",
+              "senders": 0,
+              "total": 0.0,
+              "sender_ids": [],
+              "transfers": [],
+              "first_ts": null,
+              "last_ts": null
+            }
+          ],
+          "text": "The business_sender account shows no incoming transactions with amounts up to 5000 in the specified time frame, indicating no evidence of layering or structuring via multiple small incoming transfers.",
+          "cited_ids": [
+            "business_sender"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "business_sender"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_90f3f9f681d1491eaa71bd11e7ceef62",
+          "step": 4,
+          "tool": "collector_rank",
+          "params": {
+            "account_ids": [
+              "business_sender"
+            ]
+          },
+          "result": [
+            {
+              "account": "business_sender",
+              "score": 5.30627075931989e-05
+            }
+          ],
+          "text": "The account 'business_sender' shows a very low collector rank score, indicating it is not a significant collector in the network analysis of remittance activity.",
+          "cited_ids": [
+            "business_sender"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "business_sender"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_90f3f9f681d1491eaa71bd11e7ceef62",
+          "step": 5,
+          "tool": "shared_identifiers",
+          "params": {
+            "account_id": "business_sender"
+          },
+          "result": [],
+          "text": "No shared identifiers were found for the account 'business_sender', indicating no direct connection to other accounts via common identifiers in the dataset.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_90f3f9f681d1491eaa71bd11e7ceef62",
+          "step": 6,
+          "tool": "corridor_context",
+          "params": {
+            "corridor_code": "US-NG"
+          },
+          "result": [
+            {
+              "corridor": "US-NG",
+              "lead_id": "emp_0",
+              "lead": "Fictional employee 0",
+              "team_id": "team_0",
+              "team": "Fictional team 0",
+              "policies": [
+                {
+                  "id": "POL-AML-1",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 1",
+                  "source_id": "DOC-1",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 1"
+                },
+                {
+                  "id": "POL-AML-2",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 2",
+                  "source_id": "DOC-2",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 2"
+                },
+                {
+                  "id": "POL-AML-3",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 3",
+                  "source_id": "DOC-3",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 3"
+                },
+                {
+                  "id": "POL-AML-4",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 4",
+                  "source_id": "DOC-4",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 4"
+                }
+              ]
+            }
+          ],
+          "text": "For the US-NG corridor, the lead investigator is Fictional employee 0, part of Fictional team 0, with four associated policies (POL-AML-1 to POL-AML-4) that mandate investigation of connected evidence above a threshold of 500. The policies are from various fictional handbooks and serve as internal guidelines for review, not legal enforcement.",
+          "cited_ids": [
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_90f3f9f681d1491eaa71bd11e7ceef62",
+          "step": 7,
+          "tool": "precedents",
+          "params": {
+            "policy_id": "POL-AML-1"
+          },
+          "result": [
+            {
+              "decision": "DEC-6",
+              "summary": "Fictional precedent 6",
+              "outcome": "FREEZE",
+              "date": 1791892800,
+              "decided_by_id": "emp_6",
+              "decided_by": "Fictional employee 6"
+            }
+          ],
+          "text": "The case was decided by Fictional employee 6 with the outcome FREEZE, based on precedent DEC-6.",
+          "cited_ids": [
+            "DEC-6"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "closed",
+          "case_id": "case_90f3f9f681d1491eaa71bd11e7ceef62",
+          "decision": {
+            "case_id": "case_90f3f9f681d1491eaa71bd11e7ceef62",
+            "verdict": "CLEAR",
+            "risk": 0.0,
+            "pattern": "none",
+            "members": [
+              "business_sender"
+            ],
+            "policy_id": "POL-AML-1",
+            "precedent_decision_id": "DEC-6",
+            "assignee_employee_id": "emp_0",
+            "rationale": "Investigation of the business_sender account within the US-NG corridor under policy POL-AML-1 found no evidence of suspicious activity. There are no prior cases involving this account, no detected circular flows indicating layering or structuring, no incoming transfers with layering patterns, negligible collector rank, and no shared identifiers with other accounts. The account showed clean transactional behavior with no indicators of abuse or structural manipulation. This aligns with the policy's guidance to investigate connected evidence, which in this case supports clearance. Previous precedent DEC-6 involving a freeze decision is acknowledged but not corroborated by current evidence for this account.",
+            "steps": 7,
+            "step_cap_reached": false,
+            "guardrail_reasons": []
+          }
+        }
+      ]
+    },
+    {
+      "account_id": "business_receiver",
+      "expected_ring_member": false,
+      "case_id": "case_5cfd4d836c2f4b0caeee258fdf051d50",
+      "verdict": "MONITOR",
+      "risk": 0.3,
+      "pattern": "fan_in_mule",
+      "members": [
+        "business_receiver",
+        "business_receiver_peer_0",
+        "business_receiver_peer_1",
+        "business_receiver_peer_2"
+      ],
+      "policy_id": "POL-AML-1",
+      "precedent_decision_id": "DEC-6",
+      "assignee_employee_id": "emp_0",
+      "rationale": "The investigation found no prior cases or circular layering evidence on business_receiver (prior_cases, circular_flows). The fan-in tool detected three transfers totaling $5,700 into business_receiver from distinct senders, indicating possible layering, but under the policy threshold. Ring communities and collector rank analyses reveal business_receiver is not deeply interconnected or a major collector. The minimum freeze set shows freezing business_receiver would block inflows, but the transaction pattern and risk do not firmly meet freeze criteria. A precedent exists for freeze in a similar case, but here evidence is insufficient for freezing, warranting monitoring per policy POL-AML-1 under lead emp_0 in corridor US-NG.",
+      "steps": 8,
+      "step_cap_reached": false,
+      "guardrail_reasons": [],
+      "trace": [
+        {
+          "type": "opened",
+          "case_id": "case_5cfd4d836c2f4b0caeee258fdf051d50",
+          "account_id": "business_receiver"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5cfd4d836c2f4b0caeee258fdf051d50",
+          "step": 1,
+          "tool": "prior_cases",
+          "params": {
+            "account_id": "business_receiver",
+            "exclude_case_id": "case_5cfd4d836c2f4b0caeee258fdf051d50"
+          },
+          "result": [],
+          "text": "No prior cases were found for the account 'business_receiver' excluding the specified case 'case_5cfd4d836c2f4b0caeee258fdf051d50'.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5cfd4d836c2f4b0caeee258fdf051d50",
+          "step": 2,
+          "tool": "circular_flows",
+          "params": {
+            "account_id": "business_receiver",
+            "max_hops": 5
+          },
+          "result": [],
+          "text": "The circular flow analysis for the account 'business_receiver' found no evidence of circular transactions within five hops.",
+          "cited_ids": [],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5cfd4d836c2f4b0caeee258fdf051d50",
+          "step": 3,
+          "tool": "fan_in",
+          "params": {
+            "account_id": "business_receiver",
+            "since": 1791900000,
+            "max_amount": 10000
+          },
+          "result": [
+            {
+              "collector": "business_receiver",
+              "senders": 3,
+              "total": 5700.0,
+              "sender_ids": [
+                "business_receiver_peer_0",
+                "business_receiver_peer_1",
+                "business_receiver_peer_2"
+              ],
+              "transfers": [
+                "tx_0026748",
+                "tx_0026750",
+                "tx_0026752"
+              ],
+              "first_ts": 1792065600,
+              "last_ts": 1792072800
+            }
+          ],
+          "text": "The business account 'business_receiver' received three transfers totaling $5,700 from three distinct sender accounts within a short timeframe, indicating a possible layering phase in remittance activity.",
+          "cited_ids": [
+            "business_receiver",
+            "business_receiver_peer_0",
+            "business_receiver_peer_1",
+            "business_receiver_peer_2"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "business_receiver",
+            "business_receiver_peer_0",
+            "business_receiver_peer_1",
+            "business_receiver_peer_2"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5cfd4d836c2f4b0caeee258fdf051d50",
+          "step": 4,
+          "tool": "ring_communities",
+          "params": {
+            "account_ids": [
+              "business_receiver",
+              "business_receiver_peer_0",
+              "business_receiver_peer_1",
+              "business_receiver_peer_2"
+            ]
+          },
+          "result": [
+            {
+              "community_id": 4116,
+              "members": [
+                "business_receiver_peer_0",
+                "business_receiver_peer_1",
+                "business_receiver_peer_2"
+              ],
+              "size": 3
+            },
+            {
+              "community_id": 4115,
+              "members": [
+                "business_receiver"
+              ],
+              "size": 1
+            }
+          ],
+          "text": "The analysis reveals two distinct communities among the given accounts: one community consisting of three peers (business_receiver_peer_0, business_receiver_peer_1, and business_receiver_peer_2) and a separate single-member community for the business_receiver account. This separation suggests that the business_receiver account is not closely interconnected with the three peer accounts in this ring community analysis.",
+          "cited_ids": [
+            "business_receiver",
+            "business_receiver_peer_0",
+            "business_receiver_peer_1",
+            "business_receiver_peer_2"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "business_receiver",
+            "business_receiver_peer_0",
+            "business_receiver_peer_1",
+            "business_receiver_peer_2"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5cfd4d836c2f4b0caeee258fdf051d50",
+          "step": 5,
+          "tool": "collector_rank",
+          "params": {
+            "account_ids": [
+              "business_receiver",
+              "business_receiver_peer_0",
+              "business_receiver_peer_1",
+              "business_receiver_peer_2"
+            ]
+          },
+          "result": [
+            {
+              "account": "business_receiver",
+              "score": 0.000188345729839057
+            },
+            {
+              "account": "business_receiver_peer_0",
+              "score": 5.30539109604433e-05
+            },
+            {
+              "account": "business_receiver_peer_1",
+              "score": 5.30539109604433e-05
+            },
+            {
+              "account": "business_receiver_peer_2",
+              "score": 5.30539109604433e-05
+            }
+          ],
+          "text": "The collector rank scores for business_receiver and its peers are very low, indicating these accounts are not significant collectors in the remittance network.",
+          "cited_ids": [
+            "business_receiver",
+            "business_receiver_peer_0",
+            "business_receiver_peer_1",
+            "business_receiver_peer_2"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "business_receiver",
+            "business_receiver_peer_0",
+            "business_receiver_peer_1",
+            "business_receiver_peer_2"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5cfd4d836c2f4b0caeee258fdf051d50",
+          "step": 6,
+          "tool": "min_freeze_set",
+          "params": {
+            "account_ids": [
+              "business_receiver",
+              "business_receiver_peer_0",
+              "business_receiver_peer_1",
+              "business_receiver_peer_2"
+            ],
+            "k": 1
+          },
+          "result": [
+            {
+              "plan_id": "plan_cbf97f0034a349bb8636e87a6ceb3e69",
+              "case_id": "case_5cfd4d836c2f4b0caeee258fdf051d50",
+              "collector": "business_receiver",
+              "accounts": [
+                "business_receiver",
+                "business_receiver_peer_0",
+                "business_receiver_peer_1",
+                "business_receiver_peer_2"
+              ],
+              "freeze_ids": [
+                "business_receiver"
+              ],
+              "before": {
+                "transfers": 3,
+                "inflow_volume": 5700.0,
+                "cycles_remaining": 0,
+                "senders_reaching_collector": 3,
+                "reachable_sender_ids": [
+                  "business_receiver_peer_0",
+                  "business_receiver_peer_1",
+                  "business_receiver_peer_2"
+                ]
+              },
+              "after": {
+                "transfers": 0,
+                "inflow_volume": 0.0,
+                "cycles_remaining": 0,
+                "senders_reaching_collector": 0,
+                "reachable_sender_ids": []
+              },
+              "steps": [
+                {
+                  "account": "business_receiver",
+                  "after": {
+                    "transfers": 0,
+                    "inflow_volume": 0.0,
+                    "cycles_remaining": 0,
+                    "senders_reaching_collector": 0,
+                    "reachable_sender_ids": []
+                  },
+                  "outside_community_counterparties": [
+                    "business_receiver_peer_0",
+                    "business_receiver_peer_1",
+                    "business_receiver_peer_2"
+                  ],
+                  "outside_candidate_counterparties": []
+                }
+              ],
+              "ranking": [
+                {
+                  "account": "business_receiver",
+                  "score": 0.00018831851775758
+                },
+                {
+                  "account": "business_receiver_peer_0",
+                  "score": 5.30466240888927e-05
+                },
+                {
+                  "account": "business_receiver_peer_1",
+                  "score": 5.30466240888927e-05
+                },
+                {
+                  "account": "business_receiver_peer_2",
+                  "score": 5.30466240888927e-05
+                }
+              ],
+              "community_members": [
+                "business_receiver"
+              ],
+              "params": {
+                "account_ids": [
+                  "business_receiver",
+                  "business_receiver_peer_0",
+                  "business_receiver_peer_1",
+                  "business_receiver_peer_2"
+                ],
+                "since": 1791813600,
+                "until": 1792072800,
+                "collector": "business_receiver",
+                "scope_ids": [
+                  "business_receiver",
+                  "business_receiver_peer_0",
+                  "business_receiver_peer_1",
+                  "business_receiver_peer_2"
+                ],
+                "sender_ids": [
+                  "business_receiver_peer_0",
+                  "business_receiver_peer_1",
+                  "business_receiver_peer_2"
+                ]
+              },
+              "fingerprint": "f5f8ccdb8c261e638f01a1266a836ae126ce3d625a0bc1cd6f6ccc8b1e32b02f",
+              "method": "PageRank-ordered greedy heuristic; not a minimum-set guarantee",
+              "scope": "Up to 5 directed hops inside the cited accounts and their one-hop transfer neighbors, over 72 hours. Historical flows model blocked routes, not future savings.",
+              "synthetic": true,
+              "scratch_deleted": true
+            }
+          ],
+          "text": "The minimum freeze set analysis indicates that freezing the account 'business_receiver' alone would fully block the inflow volume of 5700.0 units coming from its three sender accounts ('business_receiver_peer_0', 'business_receiver_peer_1', 'business_receiver_peer_2'). This means the 'business_receiver' account is a critical node in this transaction network, and freezing it would sever the flow from all identified associated sender accounts, effectively disrupting the collection of funds through this pathway.",
+          "cited_ids": [
+            "business_receiver",
+            "business_receiver_peer_0",
+            "business_receiver_peer_1",
+            "business_receiver_peer_2"
+          ],
+          "rejected_citations": [],
+          "account_ids": [
+            "business_receiver",
+            "business_receiver_peer_0",
+            "business_receiver_peer_1",
+            "business_receiver_peer_2"
+          ],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5cfd4d836c2f4b0caeee258fdf051d50",
+          "step": 7,
+          "tool": "corridor_context",
+          "params": {
+            "corridor_code": "US-NG"
+          },
+          "result": [
+            {
+              "corridor": "US-NG",
+              "lead_id": "emp_0",
+              "lead": "Fictional employee 0",
+              "team_id": "team_0",
+              "team": "Fictional team 0",
+              "policies": [
+                {
+                  "id": "POL-AML-1",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 1",
+                  "source_id": "DOC-1",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 1"
+                },
+                {
+                  "id": "POL-AML-2",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 2",
+                  "source_id": "DOC-2",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 2"
+                },
+                {
+                  "id": "POL-AML-3",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 3",
+                  "source_id": "DOC-3",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 3"
+                },
+                {
+                  "id": "POL-AML-4",
+                  "rule": "Fictional demo: investigate connected evidence; this is not a legal threshold.",
+                  "source": "Fictional handbook 4",
+                  "source_id": "DOC-4",
+                  "threshold": 500.0,
+                  "title": "Synthetic review policy 4"
+                }
+              ]
+            }
+          ],
+          "text": "The corridor context result for US-NG provides four related policies from different fictional AML handbooks, each advising investigation of connected evidence without constituting a legal threshold, with a consistent threshold value of 500.",
+          "cited_ids": [
+            "POL-AML-1",
+            "POL-AML-2",
+            "POL-AML-3",
+            "POL-AML-4"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "finding",
+          "case_id": "case_5cfd4d836c2f4b0caeee258fdf051d50",
+          "step": 8,
+          "tool": "precedents",
+          "params": {
+            "policy_id": "POL-AML-1"
+          },
+          "result": [
+            {
+              "decision": "DEC-6",
+              "summary": "Fictional precedent 6",
+              "outcome": "FREEZE",
+              "date": 1791892800,
+              "decided_by_id": "emp_6",
+              "decided_by": "Fictional employee 6"
+            }
+          ],
+          "text": "The precedent DEC-6 has resulted in a decision to FREEZE, as summarized by the fictional precedent 6.",
+          "cited_ids": [
+            "DEC-6"
+          ],
+          "rejected_citations": [],
+          "account_ids": [],
+          "positive": false,
+          "error": false,
+          "interpretation_source": "model"
+        },
+        {
+          "type": "closed",
+          "case_id": "case_5cfd4d836c2f4b0caeee258fdf051d50",
+          "decision": {
+            "case_id": "case_5cfd4d836c2f4b0caeee258fdf051d50",
+            "verdict": "MONITOR",
+            "risk": 0.3,
+            "pattern": "fan_in_mule",
+            "members": [
+              "business_receiver",
+              "business_receiver_peer_0",
+              "business_receiver_peer_1",
+              "business_receiver_peer_2"
+            ],
+            "policy_id": "POL-AML-1",
+            "precedent_decision_id": "DEC-6",
+            "assignee_employee_id": "emp_0",
+            "rationale": "The investigation found no prior cases or circular layering evidence on business_receiver (prior_cases, circular_flows). The fan-in tool detected three transfers totaling $5,700 into business_receiver from distinct senders, indicating possible layering, but under the policy threshold. Ring communities and collector rank analyses reveal business_receiver is not deeply interconnected or a major collector. The minimum freeze set shows freezing business_receiver would block inflows, but the transaction pattern and risk do not firmly meet freeze criteria. A precedent exists for freeze in a similar case, but here evidence is insufficient for freezing, warranting monitoring per policy POL-AML-1 under lead emp_0 in corridor US-NG.",
+            "steps": 8,
+            "step_cap_reached": false,
+            "guardrail_reasons": []
+          }
+        }
+      ]
+    }
+  ],
+  "metrics": {
+    "tp": 4,
+    "fp": 1,
+    "tn": 7,
+    "fn": 0,
+    "precision": 0.8,
+    "recall": 1.0,
+    "completed": 12,
+    "errors": 0
+  },
+  "finished_at": 1792335522,
+  "base_graph_deleted": true
+}

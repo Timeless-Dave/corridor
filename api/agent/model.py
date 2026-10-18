@@ -11,6 +11,17 @@ class ModelError(RuntimeError):
     pass
 
 
+def model_findings(findings):
+    """Past interpretations must not masquerade as present transaction observations."""
+    output=[]
+    for finding in findings:
+        item=dict(finding)
+        if item.get('tool')=='prior_cases':
+            item['result']=[{k:v for k,v in row.items() if k!='key_findings'} for row in item.get('result',[])]
+        output.append(item)
+    return output
+
+
 class OpenAIModel:
     def __init__(self,client=None,model=None):
         load_dotenv(Path(__file__).resolve().parents[2]/'.env')
@@ -39,7 +50,7 @@ class OpenAIModel:
             raise ModelError('OpenAI response failed or did not match the required schema.') from None
 
     def choose(self,context,findings):
-        inputs=[{'role':'user','content':'Choose the next investigation tool.\n'+data_block({'context':context,'findings':findings})}]
+        inputs=[{'role':'user','content':'Choose the next investigation tool.\n'+data_block({'context':context,'findings':model_findings(findings)})}]
         name,args,output,call_id=self._request(inputs,INVESTIGATION_TOOLS)
         self.pending=(inputs+[item.model_dump(exclude_none=True) for item in output],call_id,name)
         if name=='finish_investigation':
@@ -66,6 +77,6 @@ class OpenAIModel:
             {'type':'function','name':'select_policy'})[1]['policy_id']
 
     def decide(self,context,findings):
-        return self._request([{'role':'user','content':'Return the final proposed decision using retrieved company references.\n'+data_block({'context':context,'findings':findings})}],
+        return self._request([{'role':'user','content':'Return the final proposed decision using retrieved company references.\n'+data_block({'context':context,'findings':model_findings(findings)})}],
             [function('submit_verdict',VERDICT,'Propose a verdict; the application validates and persists it.')],
             {'type':'function','name':'submit_verdict'})[1]

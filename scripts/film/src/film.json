@@ -1,0 +1,727 @@
+{
+ "fps": 30,
+ "case_id": "case_a6f3be789aa04896a2b77380875a28f8",
+ "account": "ajo_0",
+ "attempts": [],
+ "plan": {
+  "freeze": [
+   "ajo_0"
+  ],
+  "before": {
+   "cycles_remaining": 0,
+   "inflow_volume": 200,
+   "reachable_sender_ids": [
+    "ajo_1",
+    "ajo_2",
+    "ajo_3",
+    "ajo_4"
+   ],
+   "senders_reaching_collector": 4,
+   "transfers": 4
+  },
+  "after": {
+   "cycles_remaining": 0,
+   "inflow_volume": 0,
+   "reachable_sender_ids": [],
+   "senders_reaching_collector": 0,
+   "transfers": 0
+  },
+  "collector": "ajo_0"
+ },
+ "receipt": {
+  "matched": true,
+  "id": "freeze_a02200a113f34e64b55deed5d0afe425"
+ },
+ "scenes": [
+  {
+   "id": "01-hook",
+   "type": "card",
+   "chapter": "CORRIDOR · GRAPH HACKS 2026",
+   "title": "Detection is easy.\nDeciding what to freeze is not.",
+   "text": "Spotting a suspicious transfer is the easy part. The hard part is deciding what to freeze. Freeze too little, and the money keeps moving. Freeze too much, and you lock out people who did nothing wrong. Corridor is an investigation agent on FalkorDB that tests a freeze on a copy of the graph before anyone applies it.",
+   "voice": 17.286125,
+   "lead": 0.5,
+   "frames": 561
+  },
+  {
+   "id": "02-queue",
+   "type": "capture",
+   "chapter": "01 · REVIEW QUEUE",
+   "title": "Start from a flag",
+   "text": "This is the review queue for a US to Nigeria remittance corridor. Every account and transfer here is synthetic. We'll investigate ajo zero: the payout account of a rotating savings pool, called an ajo.",
+   "voice": 12.863125,
+   "lead": 0.5,
+   "frames": 428,
+   "clip": {
+    "src": "capture/live.mp4",
+    "from": 0,
+    "to": 11.667,
+    "rate": 0.818,
+    "events": [
+     {
+      "type": "focus",
+      "rect": {
+       "x": 273,
+       "y": 75,
+       "w": 1440,
+       "h": 1000.4921875
+      },
+      "hold": 2.6,
+      "label": "queue",
+      "t": 1.029
+     },
+     {
+      "type": "move",
+      "from": {
+       "x": 1190.4,
+       "y": 594
+      },
+      "to": {
+       "x": 420,
+       "y": 525
+      },
+      "ms": 900,
+      "t": 3.634
+     },
+     {
+      "type": "focus",
+      "rect": {
+       "x": 300,
+       "y": 460.1875,
+       "w": 1386,
+       "h": 136.7421875
+      },
+      "hold": 3.2,
+      "label": "row",
+      "t": 4.972
+     },
+     {
+      "type": "move",
+      "from": {
+       "x": 420,
+       "y": 525
+      },
+      "to": {
+       "x": 1509.55859375,
+       "y": 528.5546875
+      },
+      "ms": 900,
+      "t": 8.179
+     },
+     {
+      "type": "click",
+      "x": 1509.55859375,
+      "y": 528.5546875,
+      "t": 10.678
+     },
+     {
+      "type": "mark",
+      "name": "investigate",
+      "t": 10.767
+     }
+    ]
+   }
+  },
+  {
+   "id": "03-live",
+   "type": "capture",
+   "chapter": "02 · LIVE INVESTIGATION",
+   "title": "The agent walks the graph",
+   "text": "The agent picks from fixed, parameterized Cypher tools. It never writes its own queries. It starts with the account's earlier cases, stored in the same graph. Then it finds five accounts on one device, ranks ajo zero first with PageRank, and confirms a payout pattern across two rounds. It measures a freeze on a scratch copy and proposes freeze. Two independent tools cite ajo zero, so code lets it stand.",
+   "voice": 24.432917,
+   "lead": 0.5,
+   "frames": 775,
+   "clip": {
+    "src": "capture/live.mp4",
+    "from": 11.667,
+    "to": 40.69204592704773,
+    "rate": 1.124,
+    "events": [
+     {
+      "type": "move",
+      "from": {
+       "x": 1190.4,
+       "y": 594
+      },
+      "to": {
+       "x": 420,
+       "y": 525
+      },
+      "ms": 900,
+      "t": 3.634
+     },
+     {
+      "type": "move",
+      "from": {
+       "x": 420,
+       "y": 525
+      },
+      "to": {
+       "x": 1509.55859375,
+       "y": 528.5546875
+      },
+      "ms": 900,
+      "t": 8.179
+     },
+     {
+      "type": "move",
+      "from": {
+       "x": 1509.55859375,
+       "y": 528.5546875
+      },
+      "to": {
+       "x": 1700,
+       "y": 960
+      },
+      "ms": 700,
+      "t": 12.024
+     },
+     {
+      "type": "focus",
+      "rect": {
+       "x": 119,
+       "y": 223.0078125,
+       "w": 469.2578125,
+       "h": 828
+      },
+      "hold": 1.5,
+      "label": "trail",
+      "t": 13.065
+     },
+     {
+      "type": "focus",
+      "rect": {
+       "x": 101,
+       "y": 655.5625,
+       "w": 505.2578125,
+       "h": 226.8828125
+      },
+      "hold": 1.8,
+      "label": "Trace shared identifiers",
+      "t": 20.757
+     },
+     {
+      "type": "focus",
+      "rect": {
+       "x": 101,
+       "y": 846.4453125,
+       "w": 505.2578125,
+       "h": 208.734375
+      },
+      "hold": 1.8,
+      "label": "Rank transfer collectors",
+      "t": 23.065
+     },
+     {
+      "type": "focus",
+      "rect": {
+       "x": 101,
+       "y": 810.1796875,
+       "w": 505.2578125,
+       "h": 245.03125
+      },
+      "hold": 1.8,
+      "label": "Review pool payouts",
+      "t": 25.776
+     },
+     {
+      "type": "focus",
+      "rect": {
+       "x": 101,
+       "y": 810.2109375,
+       "w": 505.2578125,
+       "h": 245.03125
+      },
+      "hold": 1.8,
+      "label": "Measure a greedy freeze set",
+      "t": 28.491
+     },
+     {
+      "type": "mark",
+      "name": "closed",
+      "t": 35.584
+     },
+     {
+      "type": "focus",
+      "rect": {
+       "x": 1423.1171875,
+       "y": 272.0078125,
+       "w": 435.8828125,
+       "h": 1080
+      },
+      "hold": 3.5,
+      "label": "verdict",
+      "t": 36.789
+     }
+    ]
+   }
+  },
+  {
+   "id": "04-copy",
+   "type": "card",
+   "chapter": "03 · COUNTERFACTUAL ON A SCRATCH GRAPH",
+   "title": "Test the freeze on a copy",
+   "text": "Then it tests the intervention. It copies the graph with GRAPH dot COPY, removes the candidate account's transfers in the copy only, and measures again: who can still reach the collector, how much historical inflow arrives, and how many cycles remain. The copy is deleted afterwards.",
+   "voice": 15.711625,
+   "lead": 0.5,
+   "frames": 513
+  },
+  {
+   "id": "05-impact",
+   "type": "capture",
+   "chapter": "04 · FREEZE IMPACT",
+   "title": "What would a freeze interrupt?",
+   "text": "Here is that measurement in the case. Four senders reached ajo zero. After blocking it in the copy, zero do. Two hundred dollars of historical inflow drops to zero, with no affected counterparties outside the ring's community. The plan is greedy, ordered by PageRank, so we call it a candidate, not a proven minimum.",
+   "voice": 18.529,
+   "lead": 0.5,
+   "frames": 598,
+   "clip": {
+    "src": "capture/impact.mp4",
+    "from": 0,
+    "to": 26.74,
+    "rate": 1.342,
+    "events": [
+     {
+      "type": "focus",
+      "rect": {
+       "x": 1421.1171875,
+       "y": 249.953125,
+       "w": 439.8828125,
+       "h": 609.28125
+      },
+      "hold": 2.4,
+      "label": "panel",
+      "t": 0.502
+     },
+     {
+      "type": "move",
+      "from": {
+       "x": 1190.4,
+       "y": 594
+      },
+      "to": {
+       "x": 1496.984375,
+       "y": 761.390625
+      },
+      "ms": 900,
+      "t": 2.91
+     },
+     {
+      "type": "click",
+      "x": 1496.984375,
+      "y": 761.390625,
+      "t": 5.313
+     },
+     {
+      "type": "mark",
+      "name": "simulate",
+      "t": 5.394
+     },
+     {
+      "type": "focus",
+      "rect": {
+       "x": 1419.1171875,
+       "y": 387.140625,
+       "w": 443.8828125,
+       "h": 192.828125
+      },
+      "hold": 6.5,
+      "label": "table",
+      "t": 9.717
+     },
+     {
+      "type": "focus",
+      "rect": {
+       "x": 1373.1171875,
+       "y": 521.96875,
+       "w": 535.8828125,
+       "h": 157.1875
+      },
+      "hold": 2.6,
+      "label": "steps",
+      "t": 16.238
+     },
+     {
+      "type": "move",
+      "from": {
+       "x": 1496.984375,
+       "y": 761.390625
+      },
+      "to": {
+       "x": 1641.05859375,
+       "y": 723.0703125
+      },
+      "ms": 700,
+      "t": 18.847
+     },
+     {
+      "type": "click",
+      "x": 1641.05859375,
+      "y": 723.0703125,
+      "t": 20.363
+     },
+     {
+      "type": "focus",
+      "rect": {
+       "x": 1417.1171875,
+       "y": 682.546875,
+       "w": 447.8828125,
+       "h": 194.03125
+      },
+      "hold": 4.2,
+      "label": "method",
+      "t": 20.944
+     },
+     {
+      "type": "move",
+      "from": {
+       "x": 1641.05859375,
+       "y": 723.0703125
+      },
+      "to": {
+       "x": 1641.05859375,
+       "y": 723.0703125
+      },
+      "ms": 500,
+      "t": 25.151
+     },
+     {
+      "type": "click",
+      "x": 1641.05859375,
+      "y": 723.0703125,
+      "t": 26.063
+     },
+     {
+      "type": "mark",
+      "name": "approve",
+      "t": 26.74
+     },
+     {
+      "type": "move",
+      "from": {
+       "x": 1641.05859375,
+       "y": 723.0703125
+      },
+      "to": {
+       "x": 1641.05859375,
+       "y": 819.7109375
+      },
+      "ms": 800,
+      "t": 26.744
+     }
+    ]
+   }
+  },
+  {
+   "id": "06-guardrails",
+   "type": "card",
+   "chapter": "05 · DETERMINISTIC GUARDRAILS",
+   "title": "The model proposes.\nCode decides.",
+   "text": "The model only proposes a verdict. Code decides whether it stands. A freeze needs two independent evidence tools citing the same account, recorded algorithm results, and a completed scratch-graph plan. Otherwise it is downgraded to monitor, which is where most of our ring runs end up.",
+   "voice": 16.902542,
+   "lead": 0.5,
+   "frames": 549
+  },
+  {
+   "id": "07-approve",
+   "type": "capture",
+   "chapter": "06 · HUMAN APPROVAL · RECEIPT",
+   "title": "A person approves. Corridor measures.",
+   "text": "A freeze still needs a person. The analyst enters an operator token, confirms this exact plan, and applies it. Corridor marks the account frozen and its transfers blocked in the demo graph, measures again, and writes a receipt. The measured outcome matches the projection: four senders, now zero. No real money moves.",
+   "voice": 17.379083,
+   "lead": 0.5,
+   "frames": 563,
+   "clip": {
+    "src": "capture/impact.mp4",
+    "from": 26.74,
+    "to": 52.252188205718994,
+    "rate": 1.359,
+    "events": [
+     {
+      "type": "move",
+      "from": {
+       "x": 1190.4,
+       "y": 594
+      },
+      "to": {
+       "x": 1496.984375,
+       "y": 761.390625
+      },
+      "ms": 900,
+      "t": 2.91
+     },
+     {
+      "type": "move",
+      "from": {
+       "x": 1496.984375,
+       "y": 761.390625
+      },
+      "to": {
+       "x": 1641.05859375,
+       "y": 723.0703125
+      },
+      "ms": 700,
+      "t": 18.847
+     },
+     {
+      "type": "move",
+      "from": {
+       "x": 1641.05859375,
+       "y": 723.0703125
+      },
+      "to": {
+       "x": 1641.05859375,
+       "y": 723.0703125
+      },
+      "ms": 500,
+      "t": 25.151
+     },
+     {
+      "type": "mark",
+      "name": "approve",
+      "t": 26.74
+     },
+     {
+      "type": "move",
+      "from": {
+       "x": 1641.05859375,
+       "y": 723.0703125
+      },
+      "to": {
+       "x": 1641.05859375,
+       "y": 819.7109375
+      },
+      "ms": 800,
+      "t": 26.744
+     },
+     {
+      "type": "click",
+      "x": 1641.05859375,
+      "y": 819.7109375,
+      "t": 28.156
+     },
+     {
+      "type": "focus",
+      "rect": {
+       "x": 1417.1171875,
+       "y": 510.6875,
+       "w": 447.8828125,
+       "h": 278.015625
+      },
+      "hold": 2.6,
+      "label": "gate",
+      "t": 29.736
+     },
+     {
+      "type": "move",
+      "from": {
+       "x": 1641.05859375,
+       "y": 819.7109375
+      },
+      "to": {
+       "x": 1641.05859375,
+       "y": 664.21875
+      },
+      "ms": 700,
+      "t": 32.341
+     },
+     {
+      "type": "click",
+      "x": 1641.05859375,
+      "y": 664.21875,
+      "t": 34.038
+     },
+     {
+      "type": "move",
+      "from": {
+       "x": 1641.05859375,
+       "y": 664.21875
+      },
+      "to": {
+       "x": 1439.6171875,
+       "y": 701.515625
+      },
+      "ms": 700,
+      "t": 35.531
+     },
+     {
+      "type": "click",
+      "x": 1439.6171875,
+      "y": 701.515625,
+      "t": 36.745
+     },
+     {
+      "type": "move",
+      "from": {
+       "x": 1439.6171875,
+       "y": 701.515625
+      },
+      "to": {
+       "x": 1545.95703125,
+       "y": 754.90625
+      },
+      "ms": 700,
+      "t": 37.528
+     },
+     {
+      "type": "click",
+      "x": 1545.95703125,
+      "y": 754.90625,
+      "t": 38.98
+     },
+     {
+      "type": "move",
+      "from": {
+       "x": 1545.95703125,
+       "y": 754.90625
+      },
+      "to": {
+       "x": 1500,
+       "y": 1000
+      },
+      "ms": 600,
+      "t": 44.099
+     },
+     {
+      "type": "focus",
+      "rect": {
+       "x": 1411.1171875,
+       "y": 557.09375,
+       "w": 459.8828125,
+       "h": 184.4375
+      },
+      "hold": 7,
+      "label": "receipt",
+      "t": 44.847
+     }
+    ]
+   }
+  },
+  {
+   "id": "08-evidence",
+   "type": "capture",
+   "chapter": "07 · TRACEABLE EVIDENCE",
+   "title": "Every claim links to the graph",
+   "text": "Every claim stays traceable. Select a finding, and the accounts it cites light up in the graph. Open the technical details to see the exact query and its raw result. The decision also links to the policy, its source document, the current precedent, and the corridor lead who owns the next step.",
+   "voice": 17.244792,
+   "lead": 0.5,
+   "frames": 559,
+   "clip": {
+    "src": "capture/evidence.mp4",
+    "from": 0,
+    "to": 22.57389497756958,
+    "rate": 1.211,
+    "events": [
+     {
+      "type": "move",
+      "from": {
+       "x": 1190.4,
+       "y": 594
+      },
+      "to": {
+       "x": 354.62890625,
+       "y": 1174.67578125
+      },
+      "ms": 900,
+      "t": 0.523
+     },
+     {
+      "type": "click",
+      "x": 354.62890625,
+      "y": 1174.67578125,
+      "t": 2.077
+     },
+     {
+      "type": "focus",
+      "rect": {
+       "x": 593.2578125,
+       "y": 223.0078125,
+       "w": 816.859375,
+       "h": 828
+      },
+      "hold": 3.8,
+      "label": "graph",
+      "t": 2.656
+     },
+     {
+      "type": "move",
+      "from": {
+       "x": 354.62890625,
+       "y": 1174.67578125
+      },
+      "to": {
+       "x": 354.62890625,
+       "y": 1321.9609375
+      },
+      "ms": 800,
+      "t": 6.463
+     },
+     {
+      "type": "click",
+      "x": 354.62890625,
+      "y": 1321.9609375,
+      "t": 7.903
+     },
+     {
+      "type": "focus",
+      "rect": {
+       "x": 119,
+       "y": 209.0078125,
+       "w": 469.2578125,
+       "h": 828
+      },
+      "hold": 4.5,
+      "label": "details",
+      "t": 9.611
+     },
+     {
+      "type": "move",
+      "from": {
+       "x": 354.62890625,
+       "y": 1321.9609375
+      },
+      "to": {
+       "x": 1640,
+       "y": 700
+      },
+      "ms": 700,
+      "t": 15.027
+     },
+     {
+      "type": "focus",
+      "rect": {
+       "x": 1419.1171875,
+       "y": 580.03125,
+       "w": 443.8828125,
+       "h": 395.8046875
+      },
+      "hold": 5.5,
+      "label": "grounding",
+      "t": 15.869
+     }
+    ]
+   }
+  },
+  {
+   "id": "09-eval",
+   "type": "card",
+   "chapter": "08 · EVALUATION · SYNTHETIC DATA",
+   "title": "4 of 4 rings alerted.\n0 of 8 decoys.",
+   "text": "We also ran the agent against eight decoys: families sharing a device, savings pools paying out normally, and busy one-way businesses. On these twelve synthetic cases, every ring raised an alert and no decoy did. An earlier run flagged one decoy. This is a smoke test on synthetic data, not a real-world accuracy claim.",
+   "voice": 19.192042,
+   "lead": 0.5,
+   "frames": 618
+  },
+  {
+   "id": "10-close",
+   "type": "card",
+   "chapter": "CORRIDOR",
+   "title": "Find the ring.\nTest the freeze.\nKeep a receipt.",
+   "text": "Corridor finds the ring, tests the freeze on a copy of the graph, and lets a person approve it, with a receipt. Built on FalkorDB for Graph Hacks.",
+   "voice": 8.33825,
+   "lead": 0.5,
+   "frames": 292
+  }
+ ],
+ "totalFrames": 5456
+}

@@ -1,0 +1,72 @@
+[
+  {
+    "id": "01-hook",
+    "type": "card",
+    "chapter": "CORRIDOR · GRAPH HACKS 2026",
+    "title": "Detection is easy.\nDeciding what to freeze is not.",
+    "text": "Spotting a suspicious transfer is the easy part. The hard part is deciding what to freeze. Freeze too little, and the money keeps moving. Freeze too much, and you lock out people who did nothing wrong. Corridor is an investigation agent on FalkorDB that tests a freeze on a copy of the graph before anyone applies it."
+  },
+  {
+    "id": "02-queue",
+    "type": "capture",
+    "chapter": "01 · REVIEW QUEUE",
+    "title": "Start from a flag",
+    "text": "This is the review queue for a US to Nigeria remittance corridor. Every account and transfer here is synthetic. We'll investigate ajo zero: the payout account of a rotating savings pool, called an ajo."
+  },
+  {
+    "id": "03-live",
+    "type": "capture",
+    "chapter": "02 · LIVE INVESTIGATION",
+    "title": "The agent walks the graph",
+    "text": "The agent picks from fixed, parameterized Cypher tools. It never writes its own queries. It starts with the account's earlier cases, stored in the same graph. Then it finds five accounts on one device, ranks ajo zero first with PageRank, and confirms a payout pattern across two rounds. It measures a freeze on a scratch copy and proposes freeze. Two independent tools cite ajo zero, so code lets it stand."
+  },
+  {
+    "id": "04-copy",
+    "type": "card",
+    "chapter": "03 · COUNTERFACTUAL ON A SCRATCH GRAPH",
+    "title": "Test the freeze on a copy",
+    "text": "Then it tests the intervention. It copies the graph with GRAPH dot COPY, removes the candidate account's transfers in the copy only, and measures again: who can still reach the collector, how much historical inflow arrives, and how many cycles remain. The copy is deleted afterwards."
+  },
+  {
+    "id": "05-impact",
+    "type": "capture",
+    "chapter": "04 · FREEZE IMPACT",
+    "title": "What would a freeze interrupt?",
+    "text": "Here is that measurement in the case. Four senders reached ajo zero. After blocking it in the copy, zero do. Two hundred dollars of historical inflow drops to zero, with no affected counterparties outside the ring's community. The plan is greedy, ordered by PageRank, so we call it a candidate, not a proven minimum."
+  },
+  {
+    "id": "06-guardrails",
+    "type": "card",
+    "chapter": "05 · DETERMINISTIC GUARDRAILS",
+    "title": "The model proposes.\nCode decides.",
+    "text": "The model only proposes a verdict. Code decides whether it stands. A freeze needs two independent evidence tools citing the same account, recorded algorithm results, and a completed scratch-graph plan. Otherwise it is downgraded to monitor, which is where most of our ring runs end up."
+  },
+  {
+    "id": "07-approve",
+    "type": "capture",
+    "chapter": "06 · HUMAN APPROVAL · RECEIPT",
+    "title": "A person approves. Corridor measures.",
+    "text": "A freeze still needs a person. The analyst enters an operator token, confirms this exact plan, and applies it. Corridor marks the account frozen and its transfers blocked in the demo graph, measures again, and writes a receipt. The measured outcome matches the projection: four senders, now zero. No real money moves."
+  },
+  {
+    "id": "08-evidence",
+    "type": "capture",
+    "chapter": "07 · TRACEABLE EVIDENCE",
+    "title": "Every claim links to the graph",
+    "text": "Every claim stays traceable. Select a finding, and the accounts it cites light up in the graph. Open the technical details to see the exact query and its raw result. The decision also links to the policy, its source document, the current precedent, and the corridor lead who owns the next step."
+  },
+  {
+    "id": "09-eval",
+    "type": "card",
+    "chapter": "08 · EVALUATION · SYNTHETIC DATA",
+    "title": "4 of 4 rings alerted.\n0 of 8 decoys.",
+    "text": "We also ran the agent against eight decoys: families sharing a device, savings pools paying out normally, and busy one-way businesses. On these twelve synthetic cases, every ring raised an alert and no decoy did. An earlier run flagged one decoy. This is a smoke test on synthetic data, not a real-world accuracy claim."
+  },
+  {
+    "id": "10-close",
+    "type": "card",
+    "chapter": "CORRIDOR",
+    "title": "Find the ring.\nTest the freeze.\nKeep a receipt.",
+    "text": "Corridor finds the ring, tests the freeze on a copy of the graph, and lets a person approve it, with a receipt. Built on FalkorDB for Graph Hacks."
+  }
+]

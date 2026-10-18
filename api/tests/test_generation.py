@@ -29,7 +29,7 @@ class GenerationTests(unittest.TestCase):
     def test_counts_and_overlap(self):
         counts = Counter(n['label'] for n in self.data['nodes'])
         self.assertEqual({k:counts[k] for k in ('Account','AjoPool','Team','Employee','Corridor','Policy','Doc','Decision','Case')},
-                         dict(Account=2030, AjoPool=31, Team=3, Employee=12, Corridor=2, Policy=6, Doc=6, Decision=8, Case=1))
+                         dict(Account=2062, AjoPool=33, Team=3, Employee=12, Corridor=2, Policy=6, Doc=6, Decision=8, Case=1))
         cycle = set(self.truth['rings']['cycle']['accounts'])
         cluster = set(self.truth['rings']['shared']['accounts'])
         self.assertEqual(cycle & cluster, {'cycle_0', 'cycle_1'})
@@ -58,6 +58,15 @@ class GenerationTests(unittest.TestCase):
         bad = [e for e in self.data['edges'] if e['props'].get('pool_id')=='pool_abuse']
         self.assertEqual({e['target'] for e in bad}, {'ajo_0'})
         self.assertEqual({e['props']['round'] for e in bad}, {0,1,2})
+
+    def test_eight_decoys_are_labeled_only_outside_graph(self):
+        decoys=self.truth['decoys']
+        self.assertEqual(len(decoys),8)
+        self.assertEqual(len({d['account_id'] for d in decoys}),8)
+        self.assertEqual(len(self.truth['evaluation_flags']),12)
+        planted={a for ring in self.truth['rings'].values() for a in ring['accounts']}
+        self.assertFalse(planted & {a for d in decoys for a in d['members']})
+        self.assertEqual(sum(n['props'].get('flagged',False) for n in self.data['nodes']),12)
 
     def test_ground_truth_not_stored(self):
         for n in self.data['nodes']:

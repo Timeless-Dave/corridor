@@ -3,6 +3,138 @@
     "family_account": "acct_0000",
     "legitimate_pool": "pool_00"
   },
+  "decoys": [
+    {
+      "account_id": "family_0_0",
+      "kind": "family_device_sharing",
+      "members": [
+        "family_0_0",
+        "family_0_1",
+        "family_0_2"
+      ]
+    },
+    {
+      "account_id": "family_1_0",
+      "kind": "family_device_sharing",
+      "members": [
+        "family_1_0",
+        "family_1_1",
+        "family_1_2"
+      ]
+    },
+    {
+      "account_id": "family_2_0",
+      "kind": "family_device_sharing",
+      "members": [
+        "family_2_0",
+        "family_2_1",
+        "family_2_2"
+      ]
+    },
+    {
+      "account_id": "family_3_0",
+      "kind": "family_device_sharing",
+      "members": [
+        "family_3_0",
+        "family_3_1",
+        "family_3_2"
+      ]
+    },
+    {
+      "account_id": "rotating_0_0",
+      "kind": "legitimate_rotating_pool",
+      "members": [
+        "rotating_0_0",
+        "rotating_0_1",
+        "rotating_0_2",
+        "rotating_0_3",
+        "rotating_0_4"
+      ]
+    },
+    {
+      "account_id": "rotating_1_0",
+      "kind": "legitimate_rotating_pool",
+      "members": [
+        "rotating_1_0",
+        "rotating_1_1",
+        "rotating_1_2",
+        "rotating_1_3",
+        "rotating_1_4"
+      ]
+    },
+    {
+      "account_id": "business_sender",
+      "kind": "one_way_business",
+      "members": [
+        "business_sender",
+        "business_sender_peer_0",
+        "business_sender_peer_1",
+        "business_sender_peer_2",
+        "business_sender_peer_3",
+        "business_sender_peer_4"
+      ]
+    },
+    {
+      "account_id": "business_receiver",
+      "kind": "one_way_business",
+      "members": [
+        "business_receiver",
+        "business_receiver_peer_0",
+        "business_receiver_peer_1",
+        "business_receiver_peer_2"
+      ]
+    }
+  ],
+  "evaluation_flags": [
+    {
+      "account_id": "cycle_0",
+      "expected_ring_member": true
+    },
+    {
+      "account_id": "collector_0",
+      "expected_ring_member": true
+    },
+    {
+      "account_id": "shared_0",
+      "expected_ring_member": true
+    },
+    {
+      "account_id": "ajo_0",
+      "expected_ring_member": true
+    },
+    {
+      "account_id": "family_0_0",
+      "expected_ring_member": false
+    },
+    {
+      "account_id": "family_1_0",
+      "expected_ring_member": false
+    },
+    {
+      "account_id": "family_2_0",
+      "expected_ring_member": false
+    },
+    {
+      "account_id": "family_3_0",
+      "expected_ring_member": false
+    },
+    {
+      "account_id": "rotating_0_0",
+      "expected_ring_member": false
+    },
+    {
+      "account_id": "rotating_1_0",
+      "expected_ring_member": false
+    },
+    {
+      "account_id": "business_sender",
+      "expected_ring_member": false
+    },
+    {
+      "account_id": "business_receiver",
+      "expected_ring_member": false
+    }
+  ],
   "reference_ts": 1792065600,
   "rings": {
     "ajo": {

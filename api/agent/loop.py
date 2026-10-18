@@ -36,6 +36,7 @@ class Investigation:
         self.receipt=self.tools.open_case(account_id)
         self.prepared_account=account_id
         self.case_id=self.receipt['case_id']
+        self.tools.case_id=self.case_id
         self.emit('opened',account_id=account_id)
         return self.case_id
 
@@ -57,9 +58,9 @@ class Investigation:
         error=False
         try:
             rows=self.tools.call(name,**params)
-        except (ValueError,TypeError):
+        except (ValueError,TypeError) as exc:
             rows=[]
-            error=True
+            error=str(exc) if isinstance(exc,ValueError) else 'Invalid tool arguments.'
             self.force_monitor=True
         ids=candidate_ids(name,params,rows)
         resolved=query_records(self.graph,'resolve_citations',{'ids':ids}) if ids else []
@@ -67,8 +68,30 @@ class Investigation:
         account_ids={r['id'] for r in resolved if 'Account' in r['labels']}
         source='model'
         try:
-            if not interpret: raise ModelError('Deterministic handling requested.')
-            interpretation=validate(self.model.interpret(name,params,rows,allowed),INTERPRETATION)
+            if error:
+                # Never let the model narrate a failed call as if it were an observation.
+                source='deterministic'
+                interpretation={'text':f'Tool call rejected: {error} No evidence was observed.','cited_ids':[]}
+            elif name=='prior_cases':
+                source='deterministic'
+                interpretation={'text':f'Retrieved {len(rows)} historical case records. Past verdicts are context, not fresh evidence of wrongdoing.',
+                                'cited_ids':sorted(allowed)}
+            elif name in ('min_freeze_set','simulate_freeze') and rows:
+                source='deterministic'
+                plan=rows[0]
+                before,after=plan['before'],plan['after']
+                frozen=', '.join(plan['freeze_ids']) or 'no accounts'
+                interpretation={'text':f"Observed exposure (live graph): {before['senders_reaching_collector']} accounts reach {plan['collector']} with {before['inflow_volume']:,.0f} USD historical inflow and {before['cycles_remaining']} cycle paths. Hypothetical, in a disposable copy only: blocking {frozen} leaves {after['senders_reaching_collector']} accounts, {after['inflow_volume']:,.0f} USD, {after['cycles_remaining']} cycle paths. The live graph is unchanged. Greedy heuristic, not a minimum-set proof; bounded to 5 hops and 72 hours.",
+                                'cited_ids':sorted(allowed)}
+            elif name=='collector_rank' and rows:
+                source='deterministic'
+                interpretation={'text':f"PageRank ranked {len(rows)} observed accounts. Highest: {rows[0]['account']} ({rows[0]['score']:.6g}). This is structural centrality, not a fraud score.", 'cited_ids':sorted(allowed)}
+            elif name=='ring_communities' and rows:
+                source='deterministic'
+                interpretation={'text':f"Label propagation placed the requested accounts in {len(rows)} communities. Shared community membership is structural context, not evidence of wrongdoing.", 'cited_ids':sorted(allowed)}
+            else:
+                if not interpret: raise ModelError('Deterministic handling requested.')
+                interpretation=validate(self.model.interpret(name,params,rows,allowed),INTERPRETATION)
         except Exception:
             source='deterministic'
             if interpret: self.force_monitor=True
@@ -83,7 +106,7 @@ class Investigation:
             result=rows,rejected_citations=rejected,interpretation_source=source)
         finding={'step':self.steps,'tool':name,'params':params,'result':rows,'text':interpretation['text'],
                  'cited_ids':cited,'rejected_citations':rejected,'account_ids':sorted(account_ids),
-                 'positive':positive_evidence(name,rows),'error':error,'interpretation_source':source}
+                 'positive':positive_evidence(name,rows),'error':bool(error),'interpretation_source':source}
         self.findings.append(finding)
         self.emit('finding',**finding)
         return rows

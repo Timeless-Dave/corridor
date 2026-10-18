@@ -1346,3 +1346,76 @@ td > small {
     scroll-behavior: auto !important;
   }
 }
+
+.freeze-impact {
+  margin: 24px 0;
+  padding: 18px 0;
+  border-block: 1px solid var(--border, #303638);
+}
+.freeze-impact h4 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.freeze-impact p {
+  font-size: 12px;
+  line-height: 1.65;
+  margin-block: 10px;
+}
+.impact-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin: 16px 0;
+}
+.impact-table caption {
+  text-align: left;
+  color: #a7b3b5;
+  font-size: 11px;
+  margin-bottom: 8px;
+}
+.impact-table th,
+.impact-table td {
+  padding: 8px 4px;
+  text-align: left;
+  border-bottom: 1px solid #303638;
+}
+.impact-table tbody th {
+  font-weight: 400;
+}
+.impact-table td {
+  font-family: var(--font-geist-mono), monospace;
+}
+.impact-steps {
+  padding-left: 20px;
+  font-size: 12px;
+}
+.impact-steps li {
+  margin: 10px 0;
+}
+.impact-steps li span {
+  display: block;
+}
+.approval-gate {
+  margin-top: 16px;
+}
+.approval-gate label {
+  display: block;
+  font-size: 12px;
+  margin: 12px 0;
+}
+.approval-gate input[type="password"] {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-top: 6px;
+  border: 1px solid #667779;
+  border-radius: 4px;
+  background: #111718;
+  color: #eef4f4;
+}
+.approval-confirm input {
+  margin-right: 8px;
+}
+.freeze-impact button {
+  margin-top: 12px;
+}

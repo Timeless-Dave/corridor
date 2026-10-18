@@ -19,7 +19,8 @@ def run_query(graph, name, params=None, *, readonly=False):
 READ_TOOLS = frozenset(('shared_identifiers', 'circular_flows', 'fan_in',
     'ajo_payout_pattern', 'ring_communities', 'connected_cluster', 'collector_rank',
     'link_to_known_bad', 'corridor_context', 'precedents', 'who_knows', 'prior_cases'))
-TOOL_NAMES = READ_TOOLS | {'open_case', 'record_finding', 'close_case'}
+SIMULATION_TOOLS = frozenset(('simulate_freeze', 'min_freeze_set'))
+TOOL_NAMES = READ_TOOLS | SIMULATION_TOOLS | {'open_case', 'record_finding', 'close_case'}
 
 
 def query_records(graph, name, params=None, *, readonly=True):
@@ -48,8 +49,9 @@ def _ids(values):
 
 class CorridorTools:
     """Fixed M2 tools. These write receipts, not model verdict guardrails."""
-    def __init__(self, graph):
+    def __init__(self, graph, case_id=None):
         self.graph = graph
+        self.case_id = case_id
 
     def call(self, name, **params):
         if name not in TOOL_NAMES:
@@ -64,6 +66,16 @@ class CorridorTools:
         if not rows:
             raise ValueError('Write rejected: case state or referenced entities are invalid.')
         return rows[0]
+
+    def simulate_freeze(self, account_ids, freeze_ids):
+        from agent.simulate import plan
+        if not self.case_id: raise ValueError('Simulation requires an active case.')
+        return plan(self.graph, self.case_id, account_ids, freeze_ids=freeze_ids)
+
+    def min_freeze_set(self, account_ids, k=4):
+        from agent.simulate import plan
+        if not self.case_id: raise ValueError('Simulation requires an active case.')
+        return plan(self.graph, self.case_id, account_ids, k=k)
 
     def shared_identifiers(self, account_id):
         return self._read('shared_identifiers', account_id=_id(account_id))
@@ -124,7 +136,7 @@ class CorridorTools:
         import json
         import time
         import uuid
-        if tool not in READ_TOOLS:
+        if tool not in READ_TOOLS | SIMULATION_TOOLS:
             raise ValueError('A finding must identify a known investigation tool.')
         if type(step) is not int or step < 1:
             raise ValueError('step must be a positive integer.')

@@ -5,18 +5,20 @@
 Corridor investigates flagged money transfers on US ↔ Nigeria remittance corridors. It walks the transaction graph to find mule rings, applies the company's own policies, routes the case to the person who owns that corridor, and shows the exact path of nodes and edges behind every decision.
 
 > Built for **Graph Hacks: Context for AI Agents** (WeMakeDevs × FalkorDB, Oct 14–18, 2026)
-> **Tracks entered:** Track 01: Agents That Act on Connected Data · Track 03: Agent Memory and Coordination · Company Brain
+> **Tracks entered:** Track 01: Agents That Act on Connected Data · Track 03: Company Brain
 
 ---
 
 [Live app](https://corridor-eosin.vercel.app/) · [Demo video](https://github.com/Timeless-Dave/corridor/releases/tag/submission-demo-v2) · [API](https://corridor-api.onrender.com/flags)
 
-## Implementation status — hosted demo and video ready
+## Status
 
-M1 and M2 are complete: all 26 tests passed, including live remote validation. The seeded demo graph is loaded and the fifteen fixed query tools are implemented. See [M2 evidence](docs/m2-verification.json) and [the Browser review guide](docs/M2.md). M3 is implemented and live-verified with OpenAI: all four planted patterns produced persisted cases, and all 41 regression tests passed. See [M3 setup and guardrails](docs/M3.md). M4 adds a read-only company verifier and tests both corridor routes, invalid references, and supersession changes before closure. See [M4 verification and Browser guide](docs/M4.md). M5 implements all seven API endpoints and SSE streaming; 53 tests passed and a real OpenAI investigation completed over HTTP. See [M5 API guide](docs/M5.md). M6 adds the dark Three.js investigation workspace; unit, browser, production-build, and live OpenAI verification passed. See [M6 setup and verification](docs/M6.md). M7 verifies cross-account memory: a second account retrieves the earlier case on step one. Live OpenAI, isolated graph, and browser checks passed. See [M7 memory demo](docs/M7.md). M8 exposes the twelve read tools over local stdio MCP; protocol verification against FalkorDB passed. See [M8 client setup](docs/M8.md). M9 is deployed and a hosted OpenAI investigation passed through Vercel/Render; the narrated submission video is available. Local release checks passed (58 backend tests, frontend build, and browser checks). The participant-owned AI disclosure and final submission remain open. See [release status](docs/M9.md).
-The remaining architecture and setup sections describe the planned M9 product,
-not functionality already shipped. Follow [the M1 runbook](docs/M1.md) for current setup,
-tests, remote connection instructions, and Browser proofs. No API key is needed for M1.
+All nine milestones (M1–M9) are built and deployed; per-milestone evidence is in [docs/](docs/).
+New on October 18: **freeze-impact simulation**. Before any freeze, the agent copies the graph
+(`GRAPH.COPY`), removes candidate accounts' transfers in the copy, and measures what stops
+reaching the ring's collector. A human approves the plan, and Corridor applies it to the demo
+graph and writes a before/after receipt. See [Measured freeze impact](#measured-freeze-impact)
+and the [synthetic evaluation](#evaluation-on-synthetic-data).
 
 Approved spec corrections: the circular ring contains five distinct accounts;
 ajo transfers carry pool/round/purpose metadata. Thresholds are fictional demo rules.
@@ -438,22 +440,23 @@ corridor/
 
 ## Demo script
 
-**Target length: 3 minutes.** Follow [the participant narration script](docs/demo/script.md).
+The 3-minute film ([scripts/film](scripts/film/README.md)) follows one real case end to end:
 
-1. Show the four synthetic queue flags and explain the three graph layers.
-2. Start an investigation or explicitly identify a saved replay. Show the first
-   memory lookup and the evidence trail; the model only calls fixed tools.
-3. Select evidence, inspect the graph, and explain cited transfers versus contextual links.
-4. Show the actual stored verdict and guardrail interventions, then the policy,
-   source document, current precedent, author, and corridor lead. Do not promise
-   FREEZE: the live model has returned conservative MONITOR outcomes.
-5. Click “Why this decision?” and replay the cited evidence.
-6. Open the M7 second account (`mule_0`): its step-one raw memory result includes
-   the earlier `collector_0` case. Use the exact paths in `docs/m7-live-verification.json`.
-7. Explain the corresponding Cypher in Browser or demonstrate the MCP read tools.
+1. Review queue → investigate `ajo_0`, the payout account of a rotating savings pool (ajo).
+2. Live `gpt-4.1-mini` run: earlier cases from graph memory, shared device, PageRank,
+   payout pattern, then a scratch-graph freeze measurement. Code lets FREEZE stand because
+   two independent evidence tools cite `ajo_0`.
+3. Freeze impact: `GRAPH.COPY`, block in the copy, re-measure (4 → 0 senders, $200 → $0
+   historical inflow, 0 outside-community counterparties). Greedy candidate, not a proven minimum.
+4. Human approval with an operator token and explicit confirmation → modeled block applied →
+   re-measured receipt that matches the projection.
+5. Traceability: cited accounts light up in the graph; technical details show the fixed Cypher
+   and raw result; policy, source document, precedent and corridor lead.
+6. Guardrails and the synthetic evaluation, with their limits.
 
-The final narrated video combines a real hosted investigation with labeled saved-case replay,
-original motion graphics, and AI-generated OpenAI narration. See [M9 video details](docs/M9.md).
+The film was recorded against a disposable copy of the demo graph so the approval does not
+change the hosted demo. The case, receipt and every live attempt are in
+[docs/demo/film-manifest.json](docs/demo/film-manifest.json).
 
 ---
 
@@ -481,13 +484,70 @@ See [implemented engineering measures and review boundaries](docs/ENGINEERING.md
 
 ## AI assistance disclosure
 
-AI coding assistants were used during this project. *(List the specific tools and what each was used for before submitting, for example: frontend components, boilerplate, test scaffolding.)*
+Timeless-Dave supplied the product direction, milestone requirements and design feedback,
+configured the deployment services, and reviewed the evolving product and demo.
+OpenAI Codex generated substantial implementation, Cypher, deterministic guardrails,
+frontend components, tests, documentation and recording/editing scripts under that direction.
+Codex also ran automated checks and investigated their failures. These automated checks
+are not a claim that the participant manually reviewed every file or query.
+Anthropic Claude Code (October 18) fixed tool-error handling in the agent loop, built the
+Puppeteer + Remotion demo-film pipeline in `scripts/film/`, and edited this README.
 
-The graph data model, the Cypher queries, the planted ring patterns, and the agent's decision guardrails were designed and written by the author, who can explain each one.
+OpenAI speech generation produced the demo narration. At runtime, Corridor uses the
+OpenAI Responses API (`OPENAI_MODEL`, default `gpt-4.1-mini`) to select fixed tools and
+interpret their results. Application code enforces verdict requirements; the model
+cannot execute arbitrary Cypher or approve an intervention.
 
-At runtime, Corridor uses the **OpenAI Responses API** (`OPENAI_MODEL`, default `gpt-4.1-mini`) to choose tools and write plain-language interpretations. The hard rule requiring two independent findings before a `FREEZE` is enforced in code, not by the model.
+The participant is responsible for understanding and explaining the submitted work.
+Manual Browser review and participant understanding are not certified by automated tests.
+
+## Build timeline
+
+Corridor was built locally after kickoff (October 14, 2026, 1:31 PM CDT) and first
+committed once M1–M9 were working, so the first public commit is large. Git history
+has not been rewritten or backdated. Local evidence (macOS file-creation times, CDT):
+
+| When | Evidence |
+|---|---|
+| Oct 16, 13:27 | Project folder and `.git` created (`git init`) |
+| Oct 16, 13:55–13:58 | First source files (`generate.py`, `tools.py`, `db.py`, `docker-compose.yml`), Python venv, `docs/M1.md` |
+| Oct 17, 10:23 | M1 verification record (`verified_at` 15:23 UTC inside the file) |
+| Oct 17, 10:32–14:50 | M2–M9 milestone docs and verification records, in order |
+| Oct 17, 16:08 | First commit `5b930cb` imports the working M1–M9 build |
+| Oct 17 20:18 – Oct 18 | Hosted verification, demo, freeze-impact simulator and evaluation (later commits) |
+
+File-creation times are local metadata, not a cryptographic proof; the milestone
+records under [docs/](docs/) carry their own timestamps. No code predates kickoff.
 
 ---
+
+## Measured freeze impact
+
+Corridor now tests candidate account blocks on a disposable FalkorDB graph copy.
+The impact panel compares reachable senders, historical inflow and cycle paths,
+then shows affected counterparties. A PageRank-ordered greedy plan is **not** a
+proven minimum freeze set. A separate operator approval applies modeled blocks
+and records a before/after receipt; no real funds are frozen.
+
+See [scope, approval controls, evidence and review wording](docs/IMPACT.md).
+
+### Evaluation on synthetic data
+
+`eval/run.py` runs the real agent (`gpt-4.1-mini`) over 4 planted rings and 8 decoys
+(families legitimately sharing a device, rotating savings pools paying out normally,
+one-way business senders and receivers). Each case runs in an isolated graph copy; ground
+truth is never passed to the model. An *alert* is FREEZE or MONITOR.
+
+| Run | Alerts on rings | False alerts on decoys | Precision | Recall | FREEZE verdicts |
+|---|---|---|---|---|---|
+| [Initial](eval/results-initial.json) | 4 / 4 | 1 / 8 (`business_receiver` → MONITOR) | 0.80 | 1.00 | `cycle_0` |
+| [Final code](eval/results.json) | 4 / 4 | 0 / 8 | 1.00 | 1.00 | `ajo_0` |
+
+Between runs the code changed (old case narratives removed from model input, simulator
+scope aligned); no prompt or rule names a specific decoy account. Twelve hand-designed synthetic
+fixtures are not a benchmark: the decoy definitions and rings were written by the same
+team, and verdicts vary between runs (most ring cases stay at MONITOR because the
+FREEZE guardrails are strict). Treat these as a smoke test, not real-world accuracy.
 
 ## Limitations
 

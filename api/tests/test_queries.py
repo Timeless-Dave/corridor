@@ -17,7 +17,7 @@ class ToolContractTests(unittest.TestCase):
         self.tools = CorridorTools(self.graph)
 
     def test_dispatch_excludes_arbitrary_queries_and_ingestion(self):
-        self.assertEqual(len(TOOL_NAMES), 15)
+        self.assertEqual(len(TOOL_NAMES), 17)
         for name in ('run_query','load_node_Account','_write','__init__'):
             with self.assertRaises(ValueError):
                 self.tools.call(name)
@@ -203,6 +203,7 @@ class QueryTests(unittest.TestCase):
         case=self.tools.open_case('cycle_0')
         self.assertTrue(case['account_exists'])
         cid=case['case_id']
+        self.assertEqual(self.graph.query('MATCH (c:Case {id: $id}) RETURN count(c)',{'id':cid}).result_set,[[1]])
         self.assertFalse(any(r['case_id']==cid for r in self.tools.prior_cases('cycle_0',cid)))
         cited=['cycle_0','shared_device_0','shared_phone_0','POL-AML-1','DEC-6']
         self.tools.record_finding(cid,1,'Synthetic evidence','shared_identifiers',{'account_id':'cycle_0'},cited+cited[:1])
@@ -233,6 +234,7 @@ class QueryTests(unittest.TestCase):
     def test_unknown_account_case_receipt(self):
         receipt=self.tools.open_case('unknown_account')
         self.assertFalse(receipt['account_exists'])
+        self.assertEqual(self.graph.query('MATCH (c:Case {id: $id}) RETURN count(c)',{'id':receipt['case_id']}).result_set,[[1]])
         self.assertEqual(query_records(self.graph,'case_state',{'case_id':receipt['case_id']})[0]['status'],'open')
 
 if __name__=='__main__':

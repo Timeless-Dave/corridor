@@ -25,6 +25,7 @@ import {
   ResizablePanel,
   ResizableHandle,
 } from "./ui/resizable";
+import { FreezeImpact } from "./freeze-impact";
 import { useCase } from "@/lib/use-case";
 import { label, parse, transferIds } from "@/lib/evidence";
 import type { CaseData, Finding, GraphNode } from "@/lib/types";
@@ -119,6 +120,7 @@ function Decision({
           precedent checks.
         </p>
       )}
+      {closed && <FreezeImpact data={data} />}
       <div className="grounding-section">
         <h4>
           <FileText size={16} /> Company grounding

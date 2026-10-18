@@ -139,13 +139,53 @@ def generate(seed=42):
     for n in nodes:
         if n['label'] == 'Account' and n['key'] in (cycle[0], collector, cluster[2], abusive[0]):
             n['props']['flagged'] = True
+    # Additional isolated negative controls. Labels stay exclusively in ground_truth.json.
+    decoys = []
+    for i in range(4):
+        members = [f'family_{i}_{j}' for j in range(3)]
+        d = f'family_device_{i}'
+        device(d)
+        for a in members:
+            person('owner_'+a)
+            account(a, 'owner_'+a)
+            used(a, d)
+        for j in range(1, 3):
+            sent(members[0], members[j], 35.0+j, BASE_TS+j*3600)
+        decoys.append({'account_id':members[0], 'kind':'family_device_sharing', 'members':members})
+    for i in range(2):
+        members = [f'rotating_{i}_{j}' for j in range(5)]
+        for a in members:
+            person('owner_'+a)
+            account(a, 'owner_'+a, 'NG')
+        pool(f'pool_rotating_{i}', members)
+        decoys.append({'account_id':members[0], 'kind':'legitimate_rotating_pool', 'members':members})
+    for role, count in [('business_sender',5), ('business_receiver',3)]:
+        person('owner_'+role)
+        account(role, 'owner_'+role, 'NG')
+        members = [role]
+        for j in range(count):
+            other = role+'_peer_'+str(j)
+            person('owner_'+other)
+            account(other, 'owner_'+other)
+            members.append(other)
+            sent(role if role=='business_sender' else other,
+                 other if role=='business_sender' else role, 1800.0+j*100, BASE_TS+j*3600)
+        decoys.append({'account_id':role, 'kind':'one_way_business', 'members':members})
+    decoy_ids = {d['account_id'] for d in decoys}
+    for n in nodes:
+        if n['label']=='Account' and n['key'] in decoy_ids:
+            n['props']['flagged']=True
     truth = {'seed': seed, 'reference_ts': BASE_TS, 'rings': {
         'cycle': {'accounts': cycle, 'transfers': cycle_txs, 'params': {'account_id': cycle[0]}},
         'fan_in': {'accounts': senders+[collector], 'params': {'account_id': collector, 'since': BASE_TS-1,
                                                            'until': BASE_TS+48*3600, 'max_amount': 500.0}},
         'shared': {'accounts': cluster, 'params': {'account_id': cycle[0]}},
         'ajo': {'accounts': abusive, 'params': {'pool_id': 'pool_abuse'}}},
-        'controls': {'family_account': 'acct_0000', 'legitimate_pool': 'pool_00'}}
+        'controls': {'family_account': 'acct_0000', 'legitimate_pool': 'pool_00'},
+        'decoys': decoys,
+        'evaluation_flags': [{'account_id':a, 'expected_ring_member':True} for a in
+            (cycle[0], collector, cluster[2], abusive[0])] +
+            [{'account_id':d['account_id'], 'expected_ring_member':False} for d in decoys]}
     return {'nodes': nodes, 'edges': edges}, truth
 
 
