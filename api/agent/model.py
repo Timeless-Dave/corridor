@@ -57,8 +57,9 @@ class OpenAIModel:
             self.pending=None
         return {'name':name,'params':args}
 
-    def interpret(self,tool,params,result,allowed_citations):
+    def interpret(self,tool,params,result,allowed_citations,note=None):
         value={'tool':tool,'params':params,'result':result,'allowed_citations':sorted(allowed_citations)}
+        if note: value['correction']=note
         if self.pending and self.pending[2]==tool:
             inputs,call_id,_=self.pending
             # Scope interpretation to this result, not the investigation history.

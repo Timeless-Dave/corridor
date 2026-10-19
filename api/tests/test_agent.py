@@ -292,5 +292,20 @@ class CorroborationStatusTests(unittest.TestCase):
         self.assertEqual(s['positive_tools_by_account'], {'a': ['ajo_payout_pattern', 'shared_identifiers'], 'b': ['shared_identifiers']})
         self.assertEqual(s['structural_done'], ['collector_rank'])
         self.assertFalse(s['scratch_plan_done'])
+        self.assertEqual(s['freeze_ready_accounts'], ['a'])
+        self.assertFalse(s['freeze_rule_met'])
         self.assertIn('circular_flows', s['evidence_tools_not_yet_run'])
         self.assertNotIn('shared_identifiers', s['evidence_tools_not_yet_run'])
+        inv.findings.append({'tool': 'min_freeze_set', 'positive': False, 'error': False, 'cited_ids': [], 'account_ids': [], 'result': [{'freeze_ids': ['a']}]})
+        self.assertTrue(inv.corroboration()['freeze_rule_met'])
+
+    def test_monitor_without_positive_evidence_becomes_clear(self):
+        from agent.guardrails import apply
+        proposed = {'verdict': 'MONITOR', 'risk': .4, 'members': ['x'], 'policy_id': 'P', 'precedent_decision_id': 'D', 'assignee_employee_id': 'E'}
+        empty = [{'tool': 'fan_in', 'positive': False, 'error': False, 'cited_ids': ['x'], 'account_ids': ['x'], 'result': [{'senders': 3}]}]
+        decision, reasons, _ = apply(proposed, empty, 'x', [], [])
+        self.assertEqual((decision['verdict'], decision['risk']), ('CLEAR', .2))
+        for kwargs in ({'prior_freeze': True}, {'force_monitor': True}, {'capped': True}):
+            self.assertEqual(apply(proposed, empty, 'x', [], [], **kwargs)[0]['verdict'], 'MONITOR')
+        positive = [dict(empty[0], tool='shared_identifiers', positive=True)]
+        self.assertEqual(apply(proposed, positive, 'x', [], [])[0]['verdict'], 'MONITOR')

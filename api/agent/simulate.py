@@ -22,7 +22,14 @@ def copy_graph(graph, case_id):
     name = graph.name + '_sim_' + uuid.uuid4().hex
     clone = None
     try:
-        clone = graph.copy(name)
+        for attempt in range(5):
+            try:
+                clone = graph.copy(name)
+                break
+            except Exception as error:
+                # GRAPH.COPY forks the server, which refuses concurrent forks; wait and retry.
+                if 'fork' not in str(error) or attempt == 4: raise
+                time.sleep(1 + attempt)
         yield clone
     except DatabaseError:
         raise

@@ -16,8 +16,8 @@ DEVICE_PEERS = 3       # other accounts on a shared device or phone
 WINDOW = 172800
 
 
-def main():
-    data, _ = generate(42)
+def rule_alerts(data, accounts):
+    """Which accounts each per-account rule alerts on."""
     edges = data['edges']
     sent = [e for e in edges if e['type'] == 'SENT']
     by_account = defaultdict(list)
@@ -42,21 +42,28 @@ def main():
         peers = set().union(set(), *[us for us in users.values() if a in us])
         return len(peers - {a}) >= DEVICE_PEERS
 
-    gt = json.loads((ROOT / 'api/data/ground_truth.json').read_text())
-    expected = {f['account_id']: f['expected_ring_member'] for f in gt['evaluation_flags']}
     rules = {'Per-transfer amount ≥ $500': amount_rule, 'Incoming velocity ≥ 10 in 48h': velocity_rule,
              'Shared device/phone with ≥ 3 accounts': device_rule}
+    out = {name: {a for a in accounts if rule(a)} for name, rule in rules.items()}
+    out['Any of the three rules'] = set().union(*out.values())
+    return out
+
+
+def score(alerted, expected):
+    tp = sum(a in alerted and expected[a] for a in expected); fp = sum(a in alerted and not expected[a] for a in expected)
+    fn = sum(a not in alerted and expected[a] for a in expected); tn = len(expected) - tp - fp - fn
+    return {'tp': tp, 'fp': fp, 'fn': fn, 'tn': tn, 'precision': round(tp / (tp + fp), 2) if tp + fp else None,
+            'recall': round(tp / (tp + fn), 2) if tp + fn else None}
+
+
+def main():
+    data, _ = generate(42)
+    gt = json.loads((ROOT / 'api/data/ground_truth.json').read_text())
+    expected = {f['account_id']: f['expected_ring_member'] for f in gt['evaluation_flags']}
     agent = json.loads((ROOT / 'eval/results.json').read_text())
-    agent_alert = {r['account_id']: r['verdict'] in ('FREEZE', 'MONITOR') for r in agent['results']}
-    rows = []
-    for name, rule in list(rules.items()) + [('Any of the three rules', lambda a: any(r(a) for r in rules.values())),
-                                             ('Corridor agent (eval/results.json)', lambda a: agent_alert[a])]:
-        alerts = {a: bool(rule(a)) for a in expected}
-        tp = sum(alerts[a] and expected[a] for a in expected); fp = sum(alerts[a] and not expected[a] for a in expected)
-        fn = sum((not alerts[a]) and expected[a] for a in expected); tn = sum((not alerts[a]) and not expected[a] for a in expected)
-        rows.append({'method': name, 'tp': tp, 'fp': fp, 'fn': fn, 'tn': tn,
-                     'precision': round(tp / (tp + fp), 2) if tp + fp else None, 'recall': round(tp / (tp + fn), 2),
-                     'alerted': sorted(a for a in alerts if alerts[a])})
+    agent_alerted = {r['account_id'] for r in agent['results'] if r['verdict'] in ('FREEZE', 'MONITOR')}
+    rows = [{'method': name, **score(alerted, expected), 'alerted': sorted(alerted)}
+            for name, alerted in list(rule_alerts(data, list(expected)).items()) + [('Corridor agent (eval/results.json)', agent_alerted)]]
     out = {'flags': len(expected), 'rings': sum(expected.values()), 'decoys': sum(not v for v in expected.values()),
            'parameters': {'amount_threshold': THRESHOLD, 'velocity': VELOCITY, 'window_s': WINDOW, 'device_peers': DEVICE_PEERS},
            'results': rows}

@@ -32,7 +32,7 @@ def positive_evidence(tool,rows):
     return False
 
 
-def apply(proposed,findings,account_id,context,precedents,prior_freeze=False,force_monitor=False):
+def apply(proposed,findings,account_id,context,precedents,prior_freeze=False,force_monitor=False,capped=False):
     decision=dict(proposed)
     reasons=[]
     account_ids={account_id}
@@ -57,6 +57,12 @@ def apply(proposed,findings,account_id,context,precedents,prior_freeze=False,for
     if decision['verdict']=='FREEZE' and not any(p.get('scratch_deleted') and p.get('freeze_ids') for p in plans):
         decision['verdict']='MONITOR'
         reasons.append('FREEZE downgraded: no completed nonempty scratch-graph intervention plan.')
+    # Mirror of the FREEZE rule: a MONITOR must rest on at least one positive evidence finding.
+    if (decision['verdict']=='MONITOR' and not supports and not prior_freeze and not force_monitor and not capped
+            and not any(f.get('error') for f in findings)):
+        decision['verdict']='CLEAR'
+        decision['risk']=min(float(decision['risk']),0.2)
+        reasons.append('MONITOR changed to CLEAR: no positive evidence tool fired.')
     policy_ids={p['id'] for r in context for p in r['policies'] if p.get('id')}
     lead_ids={r['lead_id'] for r in context if r.get('lead_id')}
     decision_ids={r['decision'] for r in precedents}

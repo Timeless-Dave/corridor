@@ -107,6 +107,14 @@ class Investigation:
                 'No evidence returned.' if not rows else f'{name} returned {len(rows)} records; model interpretation unavailable.'),
                 'cited_ids':[]}
         rejected=sorted(set(interpretation['cited_ids'])-allowed)
+        if rejected and source=='model':
+            # One re-ask on a mistyped id; a second miss still forces review.
+            try:
+                retry=validate(self.model.interpret(name,params,rows,allowed,
+                    note=f'Citations {rejected} are not in allowed_citations. Cite only ids copied exactly from that list.'),INTERPRETATION)
+                if not set(retry['cited_ids'])-allowed: interpretation,rejected=retry,[]
+            except Exception:
+                pass
         if rejected: self.force_monitor=True
         cited=sorted(set(interpretation['cited_ids']) & allowed)
         self.sequence+=1
@@ -127,14 +135,21 @@ class Investigation:
                 for account in set(f['cited_ids']) & set(f.get('account_ids',[])):
                     supports.setdefault(account,set()).add(f['tool'])
         ran={f['tool'] for f in self.findings if not f.get('error')}
+        ready=sorted(a for a,t in supports.items() if len(t)>=2)
+        structural=sorted(ran & {'collector_rank','ring_communities'})
+        plan=any(r.get('freeze_ids') for f in self.findings if f['tool']=='min_freeze_set' and not f.get('error')
+                 for r in f.get('result') or [] if isinstance(r,dict))
         return {'positive_tools_by_account':{a:sorted(t) for a,t in sorted(supports.items())},
+                'freeze_ready_accounts':ready,
+                'freeze_rule_met':bool(ready and structural and plan),
                 'freeze_rule':'FREEZE stands only if one account is cited by two different positive evidence tools, '
                               'collector_rank or ring_communities completed, and min_freeze_set completed.',
-                'verdict_guide':'No positive evidence tool fired: CLEAR. Some positive evidence but the FREEZE rule is not met: MONITOR. '
+                'verdict_guide':'freeze_rule_met true: FREEZE is supported unless a finding contradicts it. '
+                                'Some positive evidence but the rule is not met: MONITOR. No positive evidence tool fired: CLEAR. '
                                 'Shared devices among few accounts, structure, prior cases and policy text are not positive evidence.',
                 'evidence_tools_not_yet_run':sorted(EVIDENCE_TOOLS-ran),
-                'structural_done':sorted(ran & {'collector_rank','ring_communities'}),
-                'scratch_plan_done':'min_freeze_set' in ran}
+                'structural_done':structural,
+                'scratch_plan_done':plan}
 
     def run(self,account_id,corridor='US-NG'):
         if self.started: raise ValueError('Use a new Investigation instance for each case.')
@@ -208,7 +223,7 @@ class Investigation:
             self.force_monitor=True
             self.note('Final model response unavailable or invalid; deterministic MONITOR fallback.')
         decision,reasons,grounded=apply(proposed,self.findings,account_id,company,precedents,
-            prior_freeze=prior_freeze,force_monitor=self.force_monitor)
+            prior_freeze=prior_freeze,force_monitor=self.force_monitor,capped=capped)
         grounded=grounded and decision['policy_id']==selected
         if reasons: self.note(' '.join(reasons),{'proposed_verdict':proposed['verdict'],'final_verdict':decision['verdict']})
         if grounded:
