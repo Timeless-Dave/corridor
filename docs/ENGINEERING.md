@@ -13,8 +13,8 @@ Corridor is a prototype on synthetic payment data. It records decisions and assi
 
 ## Verification
 
-- 72 backend tests against FalkorDB Cloud (`CORRIDOR_LIVE_TESTS=1`), web unit tests, TypeScript checks and browser workflows.
-- Agent evaluation on FalkorDB Cloud: 8/8 ring runs alerted, 0/16 decoy runs, `FREEZE` on 6/8 ring runs ([`eval/results-cloud.json`](../eval/results-cloud.json)).
+- 73 backend tests against FalkorDB Cloud (`CORRIDOR_LIVE_TESTS=1`), web unit tests, TypeScript checks and browser workflows.
+- Held-out evaluation on anonymized worlds, FalkorDB Cloud: 16/16 ring runs alerted, 0/32 decoy runs, `FREEZE` on 11/16 ring runs ([`eval/results-heldout.json`](../eval/results-heldout.json)).
 - Scale: 1,021,450 transfers on embedded FalkorDB ([`eval/scale.json`](../eval/scale.json)).
 - Tenancy: 100 institutions as 100 graphs on one server, with isolation checked through the API ([`eval/tenants.json`](../eval/tenants.json)).
 

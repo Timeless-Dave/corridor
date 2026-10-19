@@ -11,8 +11,8 @@
 **What it does.** An agent picks fixed graph tools (cycles, fan-in, shared identifiers, pool payouts, PageRank, label propagation, shortest paths) based on what each result shows. Code decides whether a `FREEZE` stands: two independent evidence tools must cite the same account, plus a structural algorithm result and a measured freeze plan. Before a freeze, Corridor copies the graph, finds the exact minimum set of accounts to freeze with FalkorDB `algo.maxFlow`, and confirms it on a second copy. An operator approves; Corridor applies the block to the demo graph and writes a before/after receipt. Cases, findings and receipts live in the same graph, so the next investigation of any ring member recalls them on step one.
 
 **Results (synthetic data).**
-- FalkorDB Cloud, 2 repeats: 8/8 ring runs alerted, 0/16 decoy runs, `FREEZE` on 6/8 ring runs, each with a confirmed exact cut.
-- On the same flags, a $500 per-transfer rule alerts on 0/4 rings; three common rules combined reach 4/4 only with 2/8 false alerts.
+- Held-out worlds with anonymized ids, 48 investigations on FalkorDB Cloud: 16/16 ring runs alerted, 0/32 decoy runs, `FREEZE` on 11/16 ring runs, each with a confirmed exact cut.
+- On the same worlds, a $500 per-transfer rule alerts on 0/16 rings; three common rules combined reach 16/16 only with 8/32 false alerts.
 - At 1,021,450 transfers the evidence tools answer in under 1 ms.
 
 **Graph.** Transactions (accounts, transfers, devices, phones, savings pools), company knowledge (policies, source documents, decisions with supersession, corridor owners) and memory (cases, findings, citations, freeze plans, receipts) in one FalkorDB graph. Every query is a parameterized `.cypher` file; the model never writes Cypher. The twelve read tools are also served over MCP.

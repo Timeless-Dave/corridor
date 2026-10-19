@@ -36,7 +36,7 @@ Spotting that is half the job. The other half is deciding what to freeze: freeze
 | A freeze is measured before it is applied | Open a closed case in the [live app](https://corridor-eosin.vercel.app/), scroll to **What would a freeze interrupt?**, click **Re-run simulation**. The panel prints the exact max-flow cut and confirms it on a fresh copy. |
 | You can see why a FREEZE stood | The **Freeze rule check** in the decision panel lists which tools cite which account, the algorithm results and the scratch plan. |
 | Memory lives in the graph | `prior_cases` walks `Account ← INVOLVES ← Case`. Start `POST /investigate/ajo_1` after an `ajo_0` case exists: step one returns that case. |
-| It beats per-transfer rules | [Results](#results): rule baselines on the same flags. |
+| It beats rules on worlds it has never seen | [Results](#results): 48 investigations on anonymized held-out worlds, 16/16 rings, 0/32 decoys; three rules combined raise 8 false alerts. |
 | It scales past the demo | [Results](#results): 1,021,450 transfers in one graph; 100 institutions as 100 isolated graphs on one server. |
 
 ---
@@ -45,34 +45,27 @@ Spotting that is half the job. The other half is deciding what to freeze: freeze
 
 All numbers come from files in [`eval/`](eval/), on the synthetic dataset.
 
-### Agent evaluation
+### Held-out evaluation: unseen worlds, anonymized ids
 
-[`eval/run.py`](eval/run.py) runs the real agent (`gpt-4.1-mini`) on 4 planted rings and 8 decoys: families sharing a device, rotating savings pools paying out normally, and one-way business senders and receivers. Each case runs on its own graph copy, and ground truth never reaches the model. An alert is `FREEZE` or `MONITOR`.
+The development data names accounts after their role (`collector_0`, `mule_3`, `family_0_0`), which a model could read. [`eval/worlds.py`](eval/worlds.py) removes that: each held-out world comes from an unused seed, every account, device, phone, pool and person gets a random id (`acct_9517d831`), transfer ids are randomized, and planted transfers get a per-world time shift and amount scaling that keeps each ring's shape. Each world has the same 12 flags: 4 planted rings and 8 decoys (families sharing a device, rotating savings pools paying out normally, one-way business senders and receivers). `eval/run.py --heldout` runs the real agent (`gpt-4.1-mini`) on FalkorDB Cloud, each case on its own graph copy, and scores the rules on the same worlds.
 
-| Run | Rings alerted | Decoys alerted | FREEZE on rings |
-|---|---|---|---|
-| [Initial](eval/results-initial.json) | 4 / 4 | 1 / 8 | 1 / 4 |
-| [After removing old case narratives from model input](eval/results.json) | 4 / 4 | 0 / 8 | 1 / 4 |
-| [Corroboration status shown to the model, 2 repeats, embedded FalkorDB](eval/results-repeat.json) | 8 / 8 | 0 / 16 | 6 / 8 |
-| [Same, on FalkorDB Cloud with a 12-read budget, 2 repeats](eval/results-cloud.json) | **8 / 8** | **0 / 16** | **6 / 8** |
+**4 unseen worlds, 48 investigations** ([`results-heldout.json`](eval/results-heldout.json), seeds 301–304):
 
-On FalkorDB Cloud, every decoy closed `CLEAR`. The cycle, fan-in and pool rings reached `FREEZE` in both runs, each with an exact max-flow cut confirmed on a fresh copy (`cycle_4`, `collector_0`, `ajo_0`). The shared-device ring stays `MONITOR`: device sharing is its only evidence type, so the two-tool rule can't be met.
+| Method | Ring runs alerted | Decoy runs alerted | Precision | Recall |
+|---|---|---|---|---|
+| Per-transfer amount ≥ $500 | 0 / 16 | 8 / 32 | 0.00 | 0.00 |
+| Incoming velocity ≥ 10 in 48 h | 4 / 16 | 0 / 32 | 1.00 | 0.25 |
+| Shared device or phone with ≥ 3 accounts | 12 / 16 | 0 / 32 | 1.00 | 0.75 |
+| All three rules combined | 16 / 16 | 8 / 32 | 0.67 | 1.00 |
+| **Corridor agent** | **16 / 16** | **0 / 32** | **1.00** | **1.00** |
 
-The change behind the jump: before each tool choice, the model now sees the same bookkeeping the guardrail uses: which positive tools cite which account, and what is still missing. One intermediate wording ("otherwise MONITOR") caused two false MONITORs on family decoys; it was replaced and the run repeated. No prompt or rule names a specific account.
+Every decoy closed `CLEAR`. `FREEZE` came on 11 of 16 ring runs: the fan-in and pool rings in all four worlds, the cycle ring in three. The shared-device ring stays `MONITOR` by design, since identifier sharing is its only evidence type and the freeze rule needs two independent tools. Each freeze carries an exact max-flow cut confirmed on a fresh copy.
 
-### Rule baselines on the same flags
+How it got there, all on held-out worlds: seed 101 was used to diagnose problems and then set aside. Seeds 201–204 ([`results-heldout-v1.json`](eval/results-heldout-v1.json)) gave 16/16 rings, 1/32 decoys and `FREEZE` on 12/16; the one false alert was a mistyped citation id that forced review. One re-ask on a rejected citation was added, then seeds 301–304 were run once. No rule or prompt names an account or a world.
 
-[`eval/baselines.py`](eval/baselines.py) scores three common per-account rules, with thresholds fixed in advance ([`baselines.json`](eval/baselines.json)).
+The shared-device rule does well because the family decoys sit one account under its cutoff; no single-account rule catches the circular ring, which takes following transfers back to their start. Rings, decoys and rules were written by the same team, so this is a controlled test, not real-world accuracy.
 
-| Method | Rings | Decoys |
-|---|---|---|
-| Per-transfer amount ≥ $500 (the demo policy threshold) | 0 / 4 | 2 / 8 |
-| Incoming velocity ≥ 10 transfers in 48 h | 1 / 4 | 0 / 8 |
-| Shared device or phone with ≥ 3 accounts | 3 / 4 | 0 / 8 |
-| Any of the three | 4 / 4 | 2 / 8 |
-| **Corridor agent** | **4 / 4** | **0 / 8** |
-
-The device rule does well partly because the family decoys sit one account under its cutoff. No single-account rule catches the circular ring; that takes following the transfers back to where they started.
+Earlier development runs on the named seed-42 data are kept for the record: [`results-initial.json`](eval/results-initial.json), [`results.json`](eval/results.json), [`results-repeat.json`](eval/results-repeat.json), [`results-cloud.json`](eval/results-cloud.json) (8/8 rings, 0/16 decoys, `FREEZE` 6/8), and [`baselines.json`](eval/baselines.json).
 
 ### Scale
 
@@ -108,7 +101,7 @@ Each institution gets its own FalkorDB graph (`corridor_<tenant>`); the API pick
 PYTHONPATH=api .venv/bin/python eval/tenants.py 100
 PYTHONPATH=api .venv/bin/python eval/scale.py 50
 PYTHONPATH=api .venv/bin/python eval/baselines.py
-.venv/bin/python eval/run.py --repeat 2                  # add --embedded to skip the cloud
+.venv/bin/python eval/run.py --heldout 301,302,303,304   # add --embedded to skip the cloud
 ```
 
 ---
@@ -267,7 +260,7 @@ cd api && ../.venv/bin/python -m data.generate --seed 42 && ../.venv/bin/python 
 
 For a local Docker FalkorDB set `FALKORDB_HOST=127.0.0.1`, `FALKORDB_PORT=6379`, `FALKORDB_TLS=false`. `data.load` refuses to overwrite a populated graph unless given `--reset`. To enable approval locally, set `CORRIDOR_APPROVAL_TOKEN`. To serve several institutions, load each into `corridor_<name>` (`GRAPH_NAME=corridor_acme ../.venv/bin/python -m data.load`) and set `CORRIDOR_TENANTS=acme,…`.
 
-Tests: `cd api && CORRIDOR_LIVE_TESTS=1 ../.venv/bin/python -m unittest discover -s tests` (72 tests, live FalkorDB), plus `npm test --prefix web` and `npm run typecheck --prefix web`.
+Tests: `cd api && CORRIDOR_LIVE_TESTS=1 ../.venv/bin/python -m unittest discover -s tests` (73 tests, live FalkorDB), plus `npm test --prefix web` and `npm run typecheck --prefix web`.
 
 ```
 api/
