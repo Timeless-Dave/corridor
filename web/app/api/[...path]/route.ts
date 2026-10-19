@@ -32,6 +32,8 @@ async function proxy(
     headers.set("Last-Event-ID", request.headers.get("last-event-id")!);
   if (request.method === "POST")
     headers.set("Content-Type", "application/json");
+  const tenant = request.headers.get("x-tenant");
+  if (tenant) headers.set("X-Tenant", tenant);
   if (path.endsWith("/approve-freeze")) {
     // Forward operator-entered credential only to the dedicated approval endpoint.
     const token = request.headers.get("x-approval-token");

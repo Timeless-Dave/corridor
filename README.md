@@ -37,7 +37,7 @@ Spotting that is half the job. The other half is deciding what to freeze: freeze
 | You can see why a FREEZE stood | The **Freeze rule check** in the decision panel lists which tools cite which account, the algorithm results and the scratch plan. |
 | Memory lives in the graph | `prior_cases` walks `Account ← INVOLVES ← Case`. Start `POST /investigate/ajo_1` after an `ajo_0` case exists: step one returns that case. |
 | It beats per-transfer rules | [Results](#results): rule baselines on the same flags. |
-| It scales past the demo | [Results](#results): 1,021,450 transfers. |
+| It scales past the demo | [Results](#results): 1,021,450 transfers in one graph; 100 institutions as 100 isolated graphs on one server. |
 
 ---
 
@@ -91,8 +91,21 @@ The device rule does well partly because the family decoys sit one account under
 
 The fan-in ring is still found and cut (12 → 0 senders). Whole-graph label propagation and `GRAPH.COPY` dominate; production would copy only the investigated neighborhood. The embedded build is FalkorDB 4.18 without `algo.maxFlow`, so the exact cut reports itself unavailable there instead of failing.
 
+### One graph per institution
+
+Each institution gets its own FalkorDB graph (`corridor_<tenant>`); the API picks it from the `X-Tenant` header, checked against `CORRIDOR_TENANTS`. [`eval/tenants.py`](eval/tenants.py) loads 100 independently seeded institutions onto one embedded FalkorDB ([`tenants.json`](eval/tenants.json)):
+
+| Measure | Result |
+|---|---|
+| Graphs on one server | 100 (≈2,060 accounts and 20,400 transfers each) |
+| Memory | 824 MB total, 8.2 MB per institution |
+| `fan_in` / `circular_flows` / `shared_identifiers`, median across 20 sampled tenants | 0.28 / 0.44 / 0.28 ms |
+| Case opened in tenant A, history read through the API as tenant B | not visible |
+| Unknown tenant | 404 |
+
 ```bash
 .venv/bin/pip install falkordblite                       # embedded FalkorDB, benchmarks only
+PYTHONPATH=api .venv/bin/python eval/tenants.py 100
 PYTHONPATH=api .venv/bin/python eval/scale.py 50
 PYTHONPATH=api .venv/bin/python eval/baselines.py
 .venv/bin/python eval/run.py --repeat 2                  # add --embedded to skip the cloud
@@ -200,7 +213,7 @@ Next.js 16 (web/)  ──HTTP/SSE──▶  FastAPI (api/)  ──falkordb-py─
 
 | Part | Choice |
 |---|---|
-| Graph | FalkorDB Cloud (hosted demo); Docker or `falkordblite` locally |
+| Graph | FalkorDB Cloud (hosted demo), one graph per institution; Docker or `falkordblite` locally |
 | API | FastAPI, Server-Sent Events, one worker |
 | Model | OpenAI Responses API with function calling (`OPENAI_MODEL`, default `gpt-4.1-mini`) |
 | Frontend | Next.js 16, React 19, TypeScript, Tailwind, Three.js via `@react-three/fiber` |
@@ -220,6 +233,8 @@ Next.js 16 (web/)  ──HTTP/SSE──▶  FastAPI (api/)  ──falkordb-py─
 | `POST` | `/cases/{case_id}/simulate-freeze` | Re-run the scratch-graph measurement |
 | `POST` | `/cases/{case_id}/approve-freeze` | Apply a plan (operator token required) |
 | `POST` | `/admin/reset` | Token-protected reload of the configured graph |
+
+Every route except reset accepts an optional `X-Tenant` header that selects that institution's graph.
 
 ---
 
@@ -250,9 +265,9 @@ cd api && ../.venv/bin/python -m data.generate --seed 42 && ../.venv/bin/python 
 ./scripts/run-local.sh                    # API on :8000, web on http://localhost:3001
 ```
 
-For a local Docker FalkorDB set `FALKORDB_HOST=127.0.0.1`, `FALKORDB_PORT=6379`, `FALKORDB_TLS=false`. `data.load` refuses to overwrite a populated graph unless given `--reset`. To enable approval locally, set `CORRIDOR_APPROVAL_TOKEN`.
+For a local Docker FalkorDB set `FALKORDB_HOST=127.0.0.1`, `FALKORDB_PORT=6379`, `FALKORDB_TLS=false`. `data.load` refuses to overwrite a populated graph unless given `--reset`. To enable approval locally, set `CORRIDOR_APPROVAL_TOKEN`. To serve several institutions, load each into `corridor_<name>` (`GRAPH_NAME=corridor_acme ../.venv/bin/python -m data.load`) and set `CORRIDOR_TENANTS=acme,…`.
 
-Tests: `cd api && CORRIDOR_LIVE_TESTS=1 ../.venv/bin/python -m unittest discover -s tests` (71 tests, live FalkorDB), plus `npm test --prefix web` and `npm run typecheck --prefix web`.
+Tests: `cd api && CORRIDOR_LIVE_TESTS=1 ../.venv/bin/python -m unittest discover -s tests` (72 tests, live FalkorDB), plus `npm test --prefix web` and `npm run typecheck --prefix web`.
 
 ```
 api/
@@ -275,7 +290,6 @@ docs/           build records, freeze-impact notes, demo assets
 - **Verdicts vary between runs.** The model may spend its budget before finding a second independent tool; the case then closes `MONITOR` and the rule check shows why.
 - **Whole-graph algorithms.** PageRank, label propagation and `GRAPH.COPY` run on the full graph. Production would project the neighborhood first.
 - **Demo-grade approval.** One shared operator token, a single API worker, and no real payment-system integration.
-- **One tenant.** Per-institution isolation would use one FalkorDB graph per institution; not built.
 
 ---
 
@@ -293,7 +307,7 @@ docs/           build records, freeze-impact notes, demo assets
 
 ### AI assistance
 
-Timeless-Dave set the product direction, wrote the milestone requirements, configured deployment and reviewed the product and demos. OpenAI Codex wrote most of the implementation, Cypher, guardrails, frontend, tests and documentation under that direction, and ran the automated checks. Anthropic Claude Code (October 18) added the exact max-flow cut, the freeze rule check, the corroboration status, the rule baselines, the scale benchmark and repeated evaluations, fixed tool-error handling and the duplicate-case bug in `open_case`, built the Puppeteer and Remotion film pipelines, and edited this README. The narrated demo uses OpenAI text-to-speech; the promo score is synthesized locally. At runtime the OpenAI Responses API chooses fixed tools and interprets results; code enforces the verdict rules, and the model can't run arbitrary Cypher or approve a freeze.
+Timeless-Dave designed Corridor: the problem, the three-layer graph model, the tool set, the planted rings and decoys, the freeze rules and the milestone plan, then deployed, tested and reviewed every stage. AI coding assistants (OpenAI Codex, Anthropic Claude Code) helped implement it under that direction. The demo narration uses OpenAI text-to-speech.
 
 ### Build timeline
 

@@ -19,4 +19,4 @@
 
 **Limits.** Synthetic data and fictional policies; the 12-case evaluation is a smoke test. Approval is a demo gate with one operator token. Nothing real is frozen.
 
-**AI assistance.** Built with OpenAI Codex and Anthropic Claude Code under the author's direction; details in the README.
+**AI assistance.** Designed, deployed and reviewed by Timeless-Dave; AI coding assistants (OpenAI Codex, Anthropic Claude Code) helped implement it.

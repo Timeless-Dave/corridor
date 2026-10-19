@@ -7,13 +7,15 @@ Corridor is a prototype on synthetic payment data. It records decisions and assi
 - **Measured interventions.** Plans run on `GRAPH.COPY` scratch graphs; the exact cut comes from `algo.maxFlow` and is confirmed on a second copy. Approval needs an operator token, an explicit confirmation and an unchanged graph fingerprint, and it writes a before/after receipt.
 - **Connections.** TLS verifies certificates and hostnames. Database errors never include credentials, and API secrets stay server-side.
 - **Bounded work.** Twelve evidence reads per investigation plus two grounding reads, at most four concurrent investigations, and one active investigation per account.
+- **Per-institution graphs.** `X-Tenant` selects `corridor_<tenant>` from the `CORRIDOR_TENANTS` allowlist; unknown tenants get 404.
 - **Reset.** Requires a server-side admin token and the exact graph name; there is no reset button in the UI.
 - **Interface.** Status colors always have text labels. Keyboard controls, reduced motion, mobile layouts and the accessible graph list have browser tests.
 
 ## Verification
 
-- 71 backend tests against FalkorDB Cloud (`CORRIDOR_LIVE_TESTS=1`), web unit tests, TypeScript checks and browser workflows.
+- 72 backend tests against FalkorDB Cloud (`CORRIDOR_LIVE_TESTS=1`), web unit tests, TypeScript checks and browser workflows.
 - Agent evaluation on FalkorDB Cloud: 8/8 ring runs alerted, 0/16 decoy runs, `FREEZE` on 6/8 ring runs ([`eval/results-cloud.json`](../eval/results-cloud.json)).
 - Scale: 1,021,450 transfers on embedded FalkorDB ([`eval/scale.json`](../eval/scale.json)).
+- Tenancy: 100 institutions as 100 graphs on one server, with isolation checked through the API ([`eval/tenants.json`](../eval/tenants.json)).
 
-Tests aren't a security audit. The public demo has no login, and per-institution isolation isn't built.
+Tests aren't a security audit. The public demo has no login; tenants are selected by header, not by authenticated identity.

@@ -89,6 +89,14 @@ def create_app(graph_factory=connect, model_factory=OpenAIModel):
     async def model_error(request, error):
         return JSONResponse(status_code=503, content={'detail': 'Model unavailable; check local configuration.'})
 
+    def graph_of(tenant):
+        # One FalkorDB graph per institution; no header means the default graph.
+        tenant = tenant.strip()
+        if not tenant: return graph_factory()
+        allowed = {t.strip() for t in os.getenv('CORRIDOR_TENANTS', '').split(',') if t.strip()}
+        if tenant not in allowed: raise HTTPException(404, 'Unknown tenant.')
+        return graph_factory(graph_name=f"{os.getenv('GRAPH_NAME', 'corridor')}_{identifier(tenant)}")
+
     def case(graph, case_id):
         rows = query_records(graph, 'investigation_audit', {'case_id': identifier(case_id)})
         if not rows: raise HTTPException(404, 'Case not found.')
@@ -100,24 +108,24 @@ def create_app(graph_factory=connect, model_factory=OpenAIModel):
         return {'nodes': nodes, 'edges': edges, 'possibly_truncated': len(nodes) == 500 or len(edges) == 1000}
 
     @app.get('/flags')
-    def flags():
-        rows = query_records(graph_factory(), 'api_flags')
+    def flags(x_tenant: str = Header('')):
+        rows = query_records(graph_of(x_tenant), 'api_flags')
         # The seeded review queue is the US→NG demo corridor, including recipient accounts.
         return {'flags': [dict(r, corridor='US-NG') for r in rows]}
 
     @app.get('/accounts/{account_id}/history')
-    def history(account_id: str):
-        return {'cases': CorridorTools(graph_factory()).prior_cases(identifier(account_id))}
+    def history(account_id: str, x_tenant: str = Header('')):
+        return {'cases': CorridorTools(graph_of(x_tenant)).prior_cases(identifier(account_id))}
 
     @app.get('/cases/{case_id}/subgraph')
-    def get_subgraph(case_id: str):
-        graph = graph_factory()
+    def get_subgraph(case_id: str, x_tenant: str = Header('')):
+        graph = graph_of(x_tenant)
         case(graph, case_id)
         return subgraph(graph, case_id)
 
     @app.get('/cases/{case_id}')
-    def get_case(case_id: str):
-        graph = graph_factory()
+    def get_case(case_id: str, x_tenant: str = Header('')):
+        graph = graph_of(x_tenant)
         result = case(graph, case_id)
         result['routing'] = query_records(graph, 'case_state', {'case_id': case_id})[0]
         # Normalize duplicate aggregate projections without rewriting case history.
@@ -143,18 +151,18 @@ def create_app(graph_factory=connect, model_factory=OpenAIModel):
         return result
 
     @app.get('/cases/{case_id}/freeze-impact')
-    def freeze_impact(case_id: str):
+    def freeze_impact(case_id: str, x_tenant: str = Header('')):
         from agent.simulate import get_plan
-        graph = graph_factory()
+        graph = graph_of(x_tenant)
         case(graph, case_id)
         return {'plan': get_plan(graph, case_id), 'orders': query_records(graph, 'sim_orders', {'case_id': case_id})}
 
     @app.post('/cases/{case_id}/simulate-freeze')
-    async def simulate_case(case_id: str, body: SimulationRequest):
+    async def simulate_case(case_id: str, body: SimulationRequest, x_tenant: str = Header('')):
         from agent.simulate import plan
         async with lock:
             if resetting: raise HTTPException(409, 'Graph reset in progress.')
-            graph = graph_factory()
+            graph = graph_of(x_tenant)
             state = case(graph, case_id)
             if state['case']['status'] != 'closed': raise HTTPException(409, 'Wait for the investigation to complete.')
             try:
@@ -164,7 +172,7 @@ def create_app(graph_factory=connect, model_factory=OpenAIModel):
                 raise HTTPException(409, str(error)) from None
 
     @app.post('/cases/{case_id}/approve-freeze')
-    async def approve_case(case_id: str, body: ApprovalRequest, x_approval_token: str = Header('')):
+    async def approve_case(case_id: str, body: ApprovalRequest, x_approval_token: str = Header(''), x_tenant: str = Header('')):
         from agent.simulate import approve
         expected = os.getenv('CORRIDOR_APPROVAL_TOKEN', '')
         if not expected or not hmac.compare_digest(expected, x_approval_token):
@@ -174,7 +182,7 @@ def create_app(graph_factory=connect, model_factory=OpenAIModel):
             if resetting or any(not j['done'] for j in jobs.values()):
                 raise HTTPException(409, 'Wait for active investigations or reset to finish.')
             try:
-                return await asyncio.to_thread(approve, graph_factory(), identifier(case_id), identifier(body.plan_id))
+                return await asyncio.to_thread(approve, graph_of(x_tenant), identifier(case_id), identifier(body.plan_id))
             except ValueError as error:
                 raise HTTPException(409, str(error)) from None
 
@@ -188,17 +196,17 @@ def create_app(graph_factory=connect, model_factory=OpenAIModel):
             job['done'] = True
 
     @app.post('/investigate/{account_id}', status_code=202)
-    async def investigate(account_id: str, body: StartRequest = StartRequest()):
+    async def investigate(account_id: str, body: StartRequest = StartRequest(), x_tenant: str = Header('')):
         identifier(account_id)
         async with lock:
             if resetting: raise HTTPException(409, 'Graph reset in progress.')
-            if any(not j['done'] and j['account_id'] == account_id for j in jobs.values()):
+            if any(not j['done'] and j['account_id'] == account_id and j.get('tenant') == x_tenant for j in jobs.values()):
                 raise HTTPException(409, 'Account investigation already running.')
             if sum(not j['done'] for j in jobs.values()) >= 4:
                 raise HTTPException(429, 'Investigation capacity reached.')
             model = model_factory()  # Preflight before creating a case.
-            graph = graph_factory()
-            job = {'events': [], 'done': False, 'account_id': account_id}
+            graph = graph_of(x_tenant)
+            job = {'events': [], 'done': False, 'account_id': account_id, 'tenant': x_tenant}
             event_loop = asyncio.get_running_loop()
             investigation = Investigation(graph, model,
                 on_event=lambda e: event_loop.call_soon_threadsafe(job['events'].append, e))
@@ -212,13 +220,13 @@ def create_app(graph_factory=connect, model_factory=OpenAIModel):
             return {'case_id': cid, 'stream_url': f'/cases/{cid}/stream'}
 
     @app.get('/cases/{case_id}/stream')
-    async def stream(case_id: str, after: int = Query(0, ge=0), last_event_id: str | None = Header(None)):
+    async def stream(case_id: str, after: int = Query(0, ge=0), last_event_id: str | None = Header(None), x_tenant: str = Header('')):
         identifier(case_id)
         if last_event_id is not None:
             try: after = int(last_event_id)
             except ValueError: raise HTTPException(422, 'Last-Event-ID must be a nonnegative integer.')
             if after < 0: raise HTTPException(422, 'Last-Event-ID must be a nonnegative integer.')
-        snapshot = await asyncio.to_thread(case, graph_factory(), case_id)
+        snapshot = await asyncio.to_thread(case, graph_of(x_tenant), case_id)
         job = jobs.get(case_id)
         if job and after > len(job['events']): raise HTTPException(422, 'Event cursor is ahead of this stream.')
 

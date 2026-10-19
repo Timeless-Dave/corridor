@@ -7,7 +7,7 @@ class DatabaseError(RuntimeError):
     pass
 
 
-def connect():
+def connect(graph_name=None):
     from dotenv import load_dotenv
     from falkordb import FalkorDB
     from redis.retry import Retry
@@ -19,7 +19,7 @@ def connect():
     tls = os.getenv('FALKORDB_TLS', 'true').lower()
     if tls not in ('true', 'false'):
         raise DatabaseError('FALKORDB_TLS must be true or false.')
-    name = os.getenv('GRAPH_NAME', 'corridor')
+    name = graph_name or os.getenv('GRAPH_NAME', 'corridor')
     if not name or not all(c.isalnum() or c in '_-' for c in name):
         raise DatabaseError('GRAPH_NAME must contain only letters, digits, underscores or hyphens.')
     try:

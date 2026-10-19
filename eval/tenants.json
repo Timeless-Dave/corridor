@@ -1,0 +1,24 @@
+{
+  "tenants": 100,
+  "graphs_on_one_server": 100,
+  "load_seconds": 105.6,
+  "used_memory_mb": 823.8,
+  "memory_per_tenant_mb": 8.24,
+  "sampled_tenants": 20,
+  "median_ms": {
+    "fan_in": 0.28,
+    "circular_flows": 0.44,
+    "shared_identifiers": 0.28
+  },
+  "p95_ms": {
+    "fan_in": 0.51,
+    "circular_flows": 1.57,
+    "shared_identifiers": 0.52
+  },
+  "isolation": {
+    "case_in_tenant_a": true,
+    "case_visible_in_tenant_b": false,
+    "unknown_tenant_status": 404
+  },
+  "engine": "falkordblite (embedded FalkorDB 4.18), single laptop process"
+}

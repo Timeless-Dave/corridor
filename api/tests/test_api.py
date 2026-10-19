@@ -169,3 +169,19 @@ class RuleCheckTests(unittest.TestCase):
         self.assertTrue(check['freeze_allowed'])
         check = rule_check(graph, 'case_x', evidence[:1], ['a0', 'a1'])
         self.assertFalse(check['freeze_allowed'])
+
+
+class TenantRoutingTests(unittest.TestCase):
+    def test_tenant_header_selects_allowlisted_graph(self):
+        from fastapi.testclient import TestClient
+        from types import SimpleNamespace
+        from main import create_app
+        seen = []
+        def factory(graph_name=None):
+            seen.append(graph_name)
+            return SimpleNamespace(ro_query=lambda q, p: SimpleNamespace(header=[], result_set=[]))
+        with patch.dict(os.environ, {'CORRIDOR_TENANTS': 'acme,globex', 'GRAPH_NAME': 'corridor'}), TestClient(create_app(graph_factory=factory)) as client:
+            self.assertEqual(client.get('/flags').status_code, 200)
+            self.assertEqual(client.get('/flags', headers={'X-Tenant': 'acme'}).status_code, 200)
+            self.assertEqual(client.get('/flags', headers={'X-Tenant': 'other'}).status_code, 404)
+        self.assertEqual(seen, [None, 'corridor_acme'])
