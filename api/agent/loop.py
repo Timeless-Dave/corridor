@@ -126,7 +126,9 @@ class Investigation:
         ran={f['tool'] for f in self.findings if not f.get('error')}
         return {'positive_tools_by_account':{a:sorted(t) for a,t in sorted(supports.items())},
                 'freeze_rule':'FREEZE stands only if one account is cited by two different positive evidence tools, '
-                              'collector_rank or ring_communities completed, and min_freeze_set completed. Otherwise code downgrades to MONITOR.',
+                              'collector_rank or ring_communities completed, and min_freeze_set completed.',
+                'verdict_guide':'No positive evidence tool fired: CLEAR. Some positive evidence but the FREEZE rule is not met: MONITOR. '
+                                'Shared devices among few accounts, structure, prior cases and policy text are not positive evidence.',
                 'evidence_tools_not_yet_run':sorted(EVIDENCE_TOOLS-ran),
                 'structural_done':sorted(ran & {'collector_rank','ring_communities'}),
                 'scratch_plan_done':'min_freeze_set' in ran}

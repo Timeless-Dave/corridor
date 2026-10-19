@@ -25,7 +25,7 @@ All nine milestones (M1–M9) are built, deployed, and submitted. Evidence is in
 | Company knowledge is graph data | Policy, source document, current precedent (superseded decisions excluded), and corridor owner. |
 | A freeze is measured before it is applied | `GRAPH.COPY`, then FalkorDB `algo.maxFlow` for an exact minimum vertex cut, re-measured on a second copy. A person approves; the receipt records whether the outcome matches the projection. |
 | You can see why a FREEZE stood | The decision panel's **Freeze rule check** recomputes the guardrail from stored findings: which account two independent positive tools cite, the structural algorithm results, and the scratch plan. The model sees the same corroboration status before every tool choice. |
-| Negative controls exist | [`eval/results.json`](eval/results.json): 4/4 planted rings alerted, 0/8 decoys, on `gpt-4.1-mini`. Synthetic smoke test, not a production accuracy claim. |
+| Negative controls exist | [`eval/results-repeat.json`](eval/results-repeat.json): 8/8 ring runs alerted, 0/16 decoy runs, FREEZE on 6/8 ring runs (`gpt-4.1-mini`, 2 repeats). Rule baselines on the same flags: [`eval/baselines.json`](eval/baselines.json). Synthetic smoke test, not a production accuracy claim. |
 
 Live app, video, and API are linked above. Wake the free Render instance via `/flags` before opening the app.
 
@@ -35,7 +35,7 @@ Live app, video, and API are linked above. Wake the free Render instance via `/f
 - `algo.maxFlow` returns an exact minimum vertex cut inside the 72-hour neighborhood. A second disposable copy blocks that cut and checks that zero senders still reach the collector. The impact panel prints that line on a closed case.
 - A rejected scratch-graph call is recorded as “Tool call rejected” and does not, by itself, cancel a freeze that the evidence rules already support.
 - Case memory, policy, precedent, and the corridor owner are graph reads. The workspace replays each finding with its parameters, raw result, and fixed Cypher.
-- Per-transfer rules miss these rings. On the same 12 flags, a $500 threshold alerts on 0/4 rings (and 2/8 decoys); all three common rules combined reach 4/4 only with 2 false alerts. The agent: 4/4 rings, 0/8 decoys ([baselines](#rule-baselines-on-the-same-flags)).
+- Per-transfer rules miss these rings. On the same 12 flags, a $500 threshold alerts on 0/4 rings (and 2/8 decoys); all three common rules combined reach 4/4 only with 2 false alerts. The agent: 4/4 rings, 0/8 decoys; over two repeats 8/8 and 0/16 ([baselines](#rule-baselines-on-the-same-flags)).
 - It scales past the demo. At 50× (103,100 accounts, 1,021,450 transfers) the anchored evidence tools answer in under 1 ms and every planted ring is still found and cut ([scale benchmark](#scale-benchmark-50-the-demo-graph)).
 - The seeded graph is synthetic. The decoy eval is a smoke test, not a production accuracy claim. Corridor's claim is a closed loop a judge can click: investigate, inspect the path, measure the cut, approve, read the receipt.
 
@@ -567,6 +567,16 @@ truth is never passed to the model. An *alert* is FREEZE or MONITOR.
 |---|---|---|---|---|---|
 | [Initial](eval/results-initial.json) | 4 / 4 | 1 / 8 (`business_receiver` → MONITOR) | 0.80 | 1.00 | `cycle_0` |
 | [Final code](eval/results.json) | 4 / 4 | 0 / 8 | 1.00 | 1.00 | `ajo_0` |
+| [Corroboration status, 2 repeats](eval/results-repeat.json) | **8 / 8** | **0 / 16** (every decoy CLEAR) | **1.00** | **1.00** | **6 / 8 ring runs**: `cycle_0`, `collector_0`, `ajo_0` both times |
+
+The latest change shows the model the same evidence bookkeeping the FREEZE guardrail uses
+(which account which positive tools cite, what is still missing) plus a plain verdict guide
+(no positive evidence → CLEAR). FREEZE on ring runs went from 1 / 4 to 6 / 8 with no false
+alerts. `shared_0` stays MONITOR in both runs by design: device and phone sharing is its only
+evidence type, so the two-independent-tools rule cannot be met. The repeat run used an embedded
+FalkorDB (`--embedded`; no `algo.maxFlow` there, so the greedy scratch plan satisfies the rule).
+A first attempt at this change said "otherwise MONITOR" and produced two false MONITORs on family
+decoys; that wording was replaced and the run above is the rerun.
 
 Between runs the code changed (old case narratives removed from model input, simulator
 scope aligned); no prompt or rule names a specific decoy account. Twelve hand-designed synthetic
