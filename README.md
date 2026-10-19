@@ -24,6 +24,7 @@ All nine milestones (M1–M9) are built, deployed, and submitted. Evidence is in
 | Memory survives the chat | `prior_cases` walks `Account ← INVOLVES — Case` in FalkorDB. A second account retrieves the earlier case on step one. |
 | Company knowledge is graph data | Policy, source document, current precedent (superseded decisions excluded), and corridor owner. |
 | A freeze is measured before it is applied | `GRAPH.COPY`, then FalkorDB `algo.maxFlow` for an exact minimum vertex cut, re-measured on a second copy. A person approves; the receipt records whether the outcome matches the projection. |
+| You can see why a FREEZE stood | The decision panel's **Freeze rule check** recomputes the guardrail from stored findings: which account two independent positive tools cite, the structural algorithm results, and the scratch plan. The model sees the same corroboration status before every tool choice. |
 | Negative controls exist | [`eval/results.json`](eval/results.json): 4/4 planted rings alerted, 0/8 decoys, on `gpt-4.1-mini`. Synthetic smoke test, not a production accuracy claim. |
 
 Live app, video, and API are linked above. Wake the free Render instance via `/flags` before opening the app.
