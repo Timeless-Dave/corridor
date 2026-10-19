@@ -187,7 +187,7 @@ class AgentGraphTests(unittest.TestCase):
         result=loop.run(account,corridor)
         audit=query_records(self.graph,'investigation_audit',{'case_id':result['case_id']})[0]
         self.assertEqual(loop.findings[0]['tool'],'prior_cases')
-        self.assertLessEqual(result['steps'],12)
+        self.assertLessEqual(result['steps'],14)
         self.assertEqual(audit['case']['status'],'closed')
         return loop,result,audit
 
@@ -235,7 +235,7 @@ class AgentGraphTests(unittest.TestCase):
 
     def test_cap_and_repeated_tools_downgrade(self):
         loop,result,audit=self.investigate('acct_0000','cap')
-        self.assertEqual(result['steps'],12)
+        self.assertEqual(result['steps'],14)
         self.assertTrue(result['step_cap_reached'])
         self.assertEqual(result['verdict'],'MONITOR')
         self.assertTrue(audit['case']['step_cap_reached'])

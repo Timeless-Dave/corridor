@@ -9,6 +9,9 @@ from agent.guardrails import candidate_ids, positive_evidence, apply
 from agent.model import OpenAIModel, ModelError
 from db import connect, DatabaseError
 
+# Evidence reads (including the memory lookup), then two reserved company-grounding reads.
+EVIDENCE_READS = 12
+MAX_READS = EVIDENCE_READS + 2
 EVIDENCE_TOOLS = frozenset(('circular_flows', 'shared_identifiers', 'fan_in', 'ajo_payout_pattern', 'link_to_known_bad'))
 
 
@@ -55,7 +58,7 @@ class Investigation:
         self.emit('guardrail',text=text,details=details or {})
 
     def read(self,name,params,*,interpret=True):
-        if self.steps>=12: raise RuntimeError('Investigation tool budget exhausted.')
+        if self.steps>=MAX_READS: raise RuntimeError('Investigation tool budget exhausted.')
         self.steps+=1
         error=False
         try:
@@ -161,10 +164,10 @@ class Investigation:
         context={'account_id':account_id,'corridor':corridor,'account':metadata,'prior_freeze':prior_freeze,
                  'starting_risk':0.7 if prior_freeze else 0.0,
                  'suggested_since':max(0,(metadata['latest_transfer_ts'] or int(time.time()))-172800),
-                 'remaining_steps':9}
+                 'remaining_steps':EVIDENCE_READS-1}
         # Reserve two reads for mandatory corridor context and current precedents.
-        while self.steps<10 and not self.force_monitor:
-            context['remaining_steps']=10-self.steps
+        while self.steps<EVIDENCE_READS and not self.force_monitor:
+            context['remaining_steps']=EVIDENCE_READS-self.steps
             context['corroboration']=self.corroboration()
             try:
                 action=self.model.choose(context,self.findings)
@@ -177,7 +180,7 @@ class Investigation:
                 self.note('Model selection failed or requested a disallowed tool; review required.')
                 break
             self.read(name,params)
-        capped=self.steps==10
+        capped=self.steps==EVIDENCE_READS
         if capped: self.note('Investigation step cap reached; reserving final two reads for company grounding.')
         company=self.read('corridor_context',{'corridor_code':corridor})
         policies=sorted({p['id'] for r in company for p in r['policies'] if p.get('id')})

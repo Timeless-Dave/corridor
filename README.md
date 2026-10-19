@@ -286,7 +286,7 @@ Live OpenAI verification completed for all four planted patterns; actual outcome
 
 1. **Open a case.** Create a `Case` node linked to the flagged account (`role: 'flagged'`).
 2. **Check memory.** Always call `prior_cases` first. If a prior `FREEZE` exists, say so and raise the starting risk.
-3. **Investigate.** The OpenAI model chooses tools in a loop (max 12 steps). After each tool result, the loop calls `record_finding` with the model's one-sentence interpretation and the IDs it cites.
+3. **Investigate.** The OpenAI model chooses tools in a loop (up to 12 evidence reads, then 2 reserved company-grounding reads). After each tool result, the loop calls `record_finding` with the model's one-sentence interpretation and the IDs it cites.
 4. **Ground in the company.** Before deciding, the agent must call `corridor_context` and `precedents`.
 5. **Decide.** The model returns structured output:
    ```json
@@ -309,7 +309,7 @@ Live OpenAI verification completed for all four planted patterns; actual outcome
 - **Hard rules in code, not in the model.** A `FREEZE` requires at least two independent findings from different tools that cite the same account. If the model returns `FREEZE` without that, the loop downgrades it to `MONITOR` and records why. The README and UI say clearly which parts the code decides and which parts the model decides.
 - **Empty results** are recorded with raw results and interpretation source as findings ("No shared devices found") so the absence of evidence is visible.
 - **Unknown account ID:** after the mandatory memory lookup, the case closes as `CLEAR` with an error finding and `error=unknown_account`; this is not a compliance clearance.
-- **Step cap:** after 12 steps the agent must decide with what it has, and the UI shows that the cap was reached.
+- **Step cap:** after 12 evidence reads (plus the 2 reserved grounding reads) the agent must decide with what it has, and the UI shows that the cap was reached.
 - **Ingested doc text** is treated as data. Policy text is passed inside delimited blocks and the system prompt tells the model not to follow instructions in it.
 
 ---
