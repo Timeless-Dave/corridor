@@ -34,7 +34,9 @@ Live app, video, and API are linked above. Wake the free Render instance via `/f
 - `algo.maxFlow` returns an exact minimum vertex cut inside the 72-hour neighborhood. A second disposable copy blocks that cut and checks that zero senders still reach the collector. The impact panel prints that line on a closed case.
 - A rejected scratch-graph call is recorded as “Tool call rejected” and does not, by itself, cancel a freeze that the evidence rules already support.
 - Case memory, policy, precedent, and the corridor owner are graph reads. The workspace replays each finding with its parameters, raw result, and fixed Cypher.
-- The seeded graph is synthetic and small on purpose. The decoy eval is a smoke test. Scale claims belong to projects that loaded public transaction corpora; Corridor’s claim is a closed loop a judge can click: investigate, inspect the path, measure the cut, approve, read the receipt.
+- Per-transfer rules miss these rings. On the same 12 flags, a $500 threshold alerts on 0/4 rings (and 2/8 decoys); all three common rules combined reach 4/4 only with 2 false alerts. The agent: 4/4 rings, 0/8 decoys ([baselines](#rule-baselines-on-the-same-flags)).
+- It scales past the demo. At 50× (103,100 accounts, 1,021,450 transfers) the anchored evidence tools answer in under 1 ms and every planted ring is still found and cut ([scale benchmark](#scale-benchmark-50-the-demo-graph)).
+- The seeded graph is synthetic. The decoy eval is a smoke test, not a production accuracy claim. Corridor's claim is a closed loop a judge can click: investigate, inspect the path, measure the cut, approve, read the receipt.
 
 Approved spec corrections: the circular ring contains five distinct accounts;
 ajo transfers carry pool/round/purpose metadata. Thresholds are fictional demo rules.
@@ -571,10 +573,55 @@ fixtures are not a benchmark: the decoy definitions and rings were written by th
 team, and verdicts vary between runs (most ring cases stay at MONITOR because the
 FREEZE guardrails are strict). Treat these as a smoke test, not real-world accuracy.
 
+### Rule baselines on the same flags
+
+`eval/baselines.py` scores three common per-account monitoring rules on the identical 12 flags.
+Thresholds were fixed before running and not tuned to the flags; results are in
+[`eval/baselines.json`](eval/baselines.json).
+
+| Method | Rings alerted | Decoys alerted | Precision | Recall |
+|---|---|---|---|---|
+| Per-transfer amount ≥ $500 (the demo policy threshold) | 0 / 4 | 2 / 8 | 0.00 | 0.00 |
+| Incoming velocity ≥ 10 transfers in 48 h | 1 / 4 | 0 / 8 | 1.00 | 0.25 |
+| Shared device or phone with ≥ 3 accounts | 3 / 4 | 0 / 8 | 1.00 | 0.75 |
+| Any of the three | 4 / 4 | 2 / 8 | 0.67 | 1.00 |
+| **Corridor agent** ([results.json](eval/results.json)) | **4 / 4** | **0 / 8** | **1.00** | **1.00** |
+
+Honest reading: the shared-device rule scores well partly because the family decoys have exactly
+three members, just under its cutoff. The circular ring is caught only by following transfers
+back to their start, which no single-account rule does. The rules and the fixtures were written
+by the same team.
+
+### Scale benchmark (50× the demo graph)
+
+`eval/scale.py` merges 50 independently seeded worlds (ids prefixed per world) into one graph on
+an embedded FalkorDB (`falkordblite`, one laptop process) and times the agent's real tools on
+one world's planted rings. Raw output: [`eval/scale.json`](eval/scale.json).
+
+| Graph | Accounts | Transfers | Nodes |
+|---|---|---|---|
+| 50 worlds | 103,100 | 1,021,450 | 409,550 |
+
+| Tool (median) | Time |
+|---|---|
+| `fan_in` (finds all 12 mule senders) | 0.3 ms |
+| `circular_flows` (finds the 5-account cycle) | 0.5 ms |
+| `shared_identifiers` | 0.2 ms |
+| `collector_rank` (global PageRank) | 54 ms |
+| `ring_communities` (global label propagation) | 1.09 s |
+| Full freeze plan: `GRAPH.COPY` + greedy cut + re-measure | 6.0 s |
+
+The greedy plan still cuts the fan-in ring (12 → 0 senders). The embedded build is FalkorDB
+4.18, which has no `algo.maxFlow`; the exact cut reports that explicitly instead of failing
+(FalkorDB Cloud 4.22 runs it, see the live API). What does not scale for free: label propagation
+and `GRAPH.COPY` are whole-graph operations, so production would copy a projected neighborhood
+and precompute communities. Five unindexed labels (Person, AjoPool, …) needed range indexes at
+this size; the benchmark creates them.
+
 ## Limitations
 
 - **Synthetic data.** Ring patterns are planted, so detection quality on real data is unproven.
-- **Global algorithms.** PageRank and label propagation run over the whole graph and are filtered afterwards. At production scale they would run on a precomputed schedule or a projected subgraph.
+- **Global algorithms.** PageRank and label propagation run over the whole graph and are filtered afterwards. Measured at 1M transfers: PageRank 54 ms, label propagation 1.1 s, full-graph `GRAPH.COPY` dominates a 6 s freeze plan. Production would project the neighborhood first.
 - **No real integrations.** Routing to an assignee is recorded in the graph; no email or ticketing system is connected.
 - **Single tenant.** Per-institution isolation would use FalkorDB's multi-graph support (one graph per institution), which is not implemented.
 - **The model can misread results.** Guardrails catch unsupported `FREEZE` verdicts but not every misinterpretation.

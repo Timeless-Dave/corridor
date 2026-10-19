@@ -71,7 +71,11 @@ def min_cut(scratch, params, candidates, senders):
     if not senders: return {'size': 0, 'accounts': [], 'max_flow': 0.0}
     query_records(scratch, 'sim_flow_nodes', {'scope_ids': params['scope_ids'], 'candidate_ids': candidates}, readonly=False)
     query_records(scratch, 'sim_flow_edges', params, readonly=False)
-    row = query_records(scratch, 'sim_max_flow', {'sender_ids': senders, 'collector': params['collector']})[0]
+    try:
+        row = query_records(scratch, 'sim_max_flow', {'sender_ids': senders, 'collector': params['collector']})[0]
+    except DatabaseError:
+        # algo.maxFlow ships in newer FalkorDB releases (Cloud 4.22 has it; embedded 4.18 does not).
+        return {'size': None, 'accounts': [], 'max_flow': None, 'error': 'algo.maxFlow unavailable on this FalkorDB server'}
     flows = {tuple(e): f for e, f in zip(row['edges'], row['edgeFlows'])}
     net = query_records(scratch, 'sim_flow_network')
     forward, backward = {}, {}

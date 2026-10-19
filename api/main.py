@@ -46,6 +46,28 @@ def identifier(value):
     return value
 
 
+def rule_check(graph, case_id, evidence, members):
+    """Recompute the FREEZE preconditions from stored findings, so a reader sees why a verdict stood."""
+    from agent.guardrails import positive_evidence
+    cites = {e['finding_id']: set(e['cited']) for e in evidence}
+    supports, structural, plan = {}, set(), False
+    for f in query_records(graph, 'investigation_audit', {'case_id': case_id})[0]['findings']:
+        tool = f.get('tool')
+        try:
+            rows = json.loads(f.get('result_json') or '[]')
+        except ValueError:
+            continue
+        if positive_evidence(tool, rows):
+            for account in cites.get(f.get('id'), set()) & set(members):
+                supports.setdefault(account, set()).add(tool)
+        if tool in ('collector_rank', 'ring_communities') and rows: structural.add(tool)
+        if tool == 'min_freeze_set' and any(isinstance(r, dict) and r.get('freeze_ids') for r in rows): plan = True
+    corroborated = sorted(a for a, t in supports.items() if len(t) >= 2)
+    return {'supports': {a: sorted(t) for a, t in sorted(supports.items())}, 'corroborated_accounts': corroborated,
+            'structural': sorted(structural), 'scratch_plan': plan,
+            'freeze_allowed': bool(corroborated and structural and plan)}
+
+
 def create_app(graph_factory=connect, model_factory=OpenAIModel):
     load_dotenv(Path(__file__).resolve().parents[1] / '.env')
     jobs = {}
@@ -113,7 +135,9 @@ def create_app(graph_factory=connect, model_factory=OpenAIModel):
             finding['query_text'] = QUERIES.get(name) if name in READ_TOOLS else None
             if name in SIMULATION_TOOLS:
                 finding['query_text'] = '\n\n'.join('// '+q+'\n'+QUERIES[q] for q in
-                    ('collector_rank','sim_communities','sim_scope','sim_edges','sim_reach','sim_inflow','sim_cycles','sim_remove'))
+                    ('collector_rank','sim_communities','sim_scope','sim_edges','sim_reach','sim_inflow','sim_cycles','sim_remove',
+                     'sim_flow_nodes','sim_flow_edges','sim_max_flow'))
+        result['rule_check'] = rule_check(graph, case_id, result['evidence'], [m['id'] for m in result['routing']['members']])
         result['grounding'] = query_records(graph, 'api_case_grounding', {'case_id': case_id})
         result['subgraph'] = subgraph(graph, case_id)
         return result

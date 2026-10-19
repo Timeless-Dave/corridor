@@ -46,6 +46,13 @@ export type CaseData = {
   evidence: Evidence[];
   subgraph: Subgraph;
   routing: Properties;
+  rule_check?: {
+    supports: Record<string, string[]>;
+    corroborated_accounts: string[];
+    structural: string[];
+    scratch_plan: boolean;
+    freeze_allowed: boolean;
+  };
   grounding: {
     policy: Properties | null;
     source: Properties | null;

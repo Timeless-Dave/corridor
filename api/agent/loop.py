@@ -9,6 +9,8 @@ from agent.guardrails import candidate_ids, positive_evidence, apply
 from agent.model import OpenAIModel, ModelError
 from db import connect, DatabaseError
 
+EVIDENCE_TOOLS = frozenset(('circular_flows', 'shared_identifiers', 'fan_in', 'ajo_payout_pattern', 'link_to_known_bad'))
+
 
 class InvestigationError(RuntimeError):
     def __init__(self,case_id):
@@ -114,6 +116,21 @@ class Investigation:
         self.emit('finding',**finding)
         return rows
 
+    def corroboration(self):
+        """The same evidence bookkeeping the FREEZE guardrail applies, shown to the model before each choice."""
+        supports={}
+        for f in self.findings:
+            if f.get('positive') and not f.get('error'):
+                for account in set(f['cited_ids']) & set(f.get('account_ids',[])):
+                    supports.setdefault(account,set()).add(f['tool'])
+        ran={f['tool'] for f in self.findings if not f.get('error')}
+        return {'positive_tools_by_account':{a:sorted(t) for a,t in sorted(supports.items())},
+                'freeze_rule':'FREEZE stands only if one account is cited by two different positive evidence tools, '
+                              'collector_rank or ring_communities completed, and min_freeze_set completed. Otherwise code downgrades to MONITOR.',
+                'evidence_tools_not_yet_run':sorted(EVIDENCE_TOOLS-ran),
+                'structural_done':sorted(ran & {'collector_rank','ring_communities'}),
+                'scratch_plan_done':'min_freeze_set' in ran}
+
     def run(self,account_id,corridor='US-NG'):
         if self.started: raise ValueError('Use a new Investigation instance for each case.')
         if self.receipt and self.prepared_account!=account_id: raise ValueError('Prepared account mismatch.')
@@ -146,6 +163,7 @@ class Investigation:
         # Reserve two reads for mandatory corridor context and current precedents.
         while self.steps<10 and not self.force_monitor:
             context['remaining_steps']=10-self.steps
+            context['corroboration']=self.corroboration()
             try:
                 action=self.model.choose(context,self.findings)
                 name=action['name']

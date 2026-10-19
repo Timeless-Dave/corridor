@@ -147,3 +147,25 @@ class APIGraphTests(unittest.TestCase):
             self.assertEqual(response.status_code, 200, response.text)
             self.assertEqual(response.json()['seed'], 42)
             self.assertEqual(query_records(self.graph, 'count_nodes')[0]['count'], len(generate(42)[0]['nodes']))
+
+
+class RuleCheckTests(unittest.TestCase):
+    def test_rule_check_recomputes_freeze_preconditions(self):
+        import json as _json
+        from types import SimpleNamespace
+        from main import rule_check
+        findings = [
+            {'id': 'f1', 'tool': 'shared_identifiers', 'result_json': _json.dumps([{'account': x} for x in ('a1', 'a2', 'a3')])},
+            {'id': 'f2', 'tool': 'ajo_payout_pattern', 'result_json': _json.dumps([{'shared_devices': ['d'], 'first_round': 1, 'next_round': 2}])},
+            {'id': 'f3', 'tool': 'collector_rank', 'result_json': _json.dumps([{'account': 'a0', 'score': .1}])},
+            {'id': 'f4', 'tool': 'min_freeze_set', 'result_json': _json.dumps([{'freeze_ids': ['a0']}])},
+        ]
+        graph = SimpleNamespace(ro_query=lambda q, p: SimpleNamespace(header=[(0, 'case'), (0, 'findings')], result_set=[[{}, findings]]))
+        evidence = [{'finding_id': 'f1', 'cited': ['a0', 'a1', 'dev']}, {'finding_id': 'f2', 'cited': ['a0']},
+                    {'finding_id': 'f3', 'cited': ['a0']}, {'finding_id': 'f4', 'cited': ['a0']}]
+        check = rule_check(graph, 'case_x', evidence, ['a0', 'a1'])
+        self.assertEqual(check['supports'], {'a0': ['ajo_payout_pattern', 'shared_identifiers'], 'a1': ['shared_identifiers']})
+        self.assertEqual(check['corroborated_accounts'], ['a0'])
+        self.assertTrue(check['freeze_allowed'])
+        check = rule_check(graph, 'case_x', evidence[:1], ['a0', 'a1'])
+        self.assertFalse(check['freeze_allowed'])

@@ -1,0 +1,84 @@
+{
+  "flags": 12,
+  "rings": 4,
+  "decoys": 8,
+  "parameters": {
+    "amount_threshold": 500.0,
+    "velocity": 10,
+    "window_s": 172800,
+    "device_peers": 3
+  },
+  "results": [
+    {
+      "method": "Per-transfer amount \u2265 $500",
+      "tp": 0,
+      "fp": 2,
+      "fn": 4,
+      "tn": 6,
+      "precision": 0.0,
+      "recall": 0.0,
+      "alerted": [
+        "business_receiver",
+        "business_sender"
+      ]
+    },
+    {
+      "method": "Incoming velocity \u2265 10 in 48h",
+      "tp": 1,
+      "fp": 0,
+      "fn": 3,
+      "tn": 8,
+      "precision": 1.0,
+      "recall": 0.25,
+      "alerted": [
+        "collector_0"
+      ]
+    },
+    {
+      "method": "Shared device/phone with \u2265 3 accounts",
+      "tp": 3,
+      "fp": 0,
+      "fn": 1,
+      "tn": 8,
+      "precision": 1.0,
+      "recall": 0.75,
+      "alerted": [
+        "ajo_0",
+        "cycle_0",
+        "shared_0"
+      ]
+    },
+    {
+      "method": "Any of the three rules",
+      "tp": 4,
+      "fp": 2,
+      "fn": 0,
+      "tn": 6,
+      "precision": 0.67,
+      "recall": 1.0,
+      "alerted": [
+        "ajo_0",
+        "business_receiver",
+        "business_sender",
+        "collector_0",
+        "cycle_0",
+        "shared_0"
+      ]
+    },
+    {
+      "method": "Corridor agent (eval/results.json)",
+      "tp": 4,
+      "fp": 0,
+      "fn": 0,
+      "tn": 8,
+      "precision": 1.0,
+      "recall": 1.0,
+      "alerted": [
+        "ajo_0",
+        "collector_0",
+        "cycle_0",
+        "shared_0"
+      ]
+    }
+  ]
+}

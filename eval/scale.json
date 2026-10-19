@@ -1,0 +1,29 @@
+{
+  "worlds": 50,
+  "accounts": 103100,
+  "sent_transfers": 1021450,
+  "nodes_total": 409550,
+  "load_seconds": 22.0,
+  "engine": "falkordblite (embedded FalkorDB), single laptop process",
+  "median_ms": {
+    "fan_in": 0.3,
+    "circular_flows": 0.5,
+    "shared_identifiers": 0.2,
+    "collector_rank_pagerank": 53.8,
+    "ring_communities_label_propagation": 1085.8,
+    "freeze_plan_graph_copy_greedy_and_measure": 6028.6
+  },
+  "checks": {
+    "fan_in_senders": 12,
+    "cycles_found": 1,
+    "min_cut": [],
+    "min_cut_verified": null,
+    "min_cut_note": "algo.maxFlow unavailable on this FalkorDB server",
+    "greedy_freeze": [
+      "w25_collector_0"
+    ],
+    "senders_after_greedy": 0,
+    "senders_before": 12,
+    "scope_accounts": 13
+  }
+}

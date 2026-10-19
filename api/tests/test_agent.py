@@ -276,3 +276,21 @@ class AgentGraphTests(unittest.TestCase):
         self.assertEqual(events[-1]['type'],'closed')
 
 if __name__=='__main__': unittest.main()
+
+
+class CorroborationStatusTests(unittest.TestCase):
+    def test_status_mirrors_freeze_guardrail(self):
+        from agent.loop import Investigation
+        inv = Investigation.__new__(Investigation)
+        inv.findings = [
+            {'tool': 'shared_identifiers', 'positive': True, 'error': False, 'cited_ids': ['a', 'b', 'dev'], 'account_ids': ['a', 'b']},
+            {'tool': 'ajo_payout_pattern', 'positive': True, 'error': False, 'cited_ids': ['a'], 'account_ids': ['a']},
+            {'tool': 'fan_in', 'positive': True, 'error': True, 'cited_ids': ['b'], 'account_ids': ['b']},
+            {'tool': 'collector_rank', 'positive': False, 'error': False, 'cited_ids': ['a'], 'account_ids': ['a']},
+        ]
+        s = inv.corroboration()
+        self.assertEqual(s['positive_tools_by_account'], {'a': ['ajo_payout_pattern', 'shared_identifiers'], 'b': ['shared_identifiers']})
+        self.assertEqual(s['structural_done'], ['collector_rank'])
+        self.assertFalse(s['scratch_plan_done'])
+        self.assertIn('circular_flows', s['evidence_tools_not_yet_run'])
+        self.assertNotIn('shared_identifiers', s['evidence_tools_not_yet_run'])

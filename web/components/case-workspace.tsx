@@ -49,6 +49,46 @@ function Properties({
     </dl>
   );
 }
+function RuleCheck({ check }: { check: NonNullable<CaseData["rule_check"]> }) {
+  const rows: [boolean, string][] = [
+    [
+      check.corroborated_accounts.length > 0,
+      check.corroborated_accounts.length
+        ? check.corroborated_accounts
+            .map((a) => `${a}: ${check.supports[a].map(label).join(" + ")}`)
+            .join("; ")
+        : "No account is cited by two independent positive evidence tools",
+    ],
+    [
+      check.structural.length > 0,
+      check.structural.length
+        ? "Structural evidence: " + check.structural.map(label).join(", ")
+        : "No PageRank or community result recorded",
+    ],
+    [
+      check.scratch_plan,
+      check.scratch_plan
+        ? "Freeze measured on a scratch graph copy"
+        : "No completed scratch-graph freeze plan",
+    ],
+  ];
+  return (
+    <div className="rule-check" aria-label="Freeze rule check">
+      <strong>
+        Freeze rule check:{" "}
+        {check.freeze_allowed ? "all conditions met" : "FREEZE not allowed"}
+      </strong>
+      <ul>
+        {rows.map(([ok, text]) => (
+          <li key={text} className={ok ? "ok" : "missing"}>
+            <span aria-hidden>{ok ? "✓" : "–"}</span> {text}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 function Decision({
   data,
   onReplay,
@@ -92,6 +132,7 @@ function Decision({
               c.rationale ?? "Review the saved findings for this decision.",
             )}
           </p>
+          {data.rule_check && <RuleCheck check={data.rule_check} />}
           {c.proposed_verdict && c.proposed_verdict !== c.verdict && (
             <p className="override">
               Model proposed {String(c.proposed_verdict)}. Code recorded{" "}
