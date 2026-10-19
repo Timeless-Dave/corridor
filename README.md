@@ -9,7 +9,7 @@ Corridor investigates flagged money transfers on US ↔ Nigeria remittance corri
 
 ---
 
-[Live app](https://corridor-eosin.vercel.app/) · [Demo video](https://github.com/Timeless-Dave/corridor/releases/tag/submission-demo-v3) · [API](https://corridor-api.onrender.com/flags)
+[Live app](https://corridor-eosin.vercel.app/) · [Demo video](https://github.com/Timeless-Dave/corridor/releases/tag/submission-demo-v3) · [60s update: exact cut, rule check, results](https://github.com/Timeless-Dave/corridor/releases/tag/update-v4) · [Promo](https://github.com/Timeless-Dave/corridor/releases/tag/promo-v1) · [API](https://corridor-api.onrender.com/flags)
 
 ## Status
 
@@ -25,7 +25,7 @@ All nine milestones (M1–M9) are built, deployed, and submitted. Evidence is in
 | Company knowledge is graph data | Policy, source document, current precedent (superseded decisions excluded), and corridor owner. |
 | A freeze is measured before it is applied | `GRAPH.COPY`, then FalkorDB `algo.maxFlow` for an exact minimum vertex cut, re-measured on a second copy. A person approves; the receipt records whether the outcome matches the projection. |
 | You can see why a FREEZE stood | The decision panel's **Freeze rule check** recomputes the guardrail from stored findings: which account two independent positive tools cite, the structural algorithm results, and the scratch plan. The model sees the same corroboration status before every tool choice. |
-| Negative controls exist | [`eval/results-repeat.json`](eval/results-repeat.json): 8/8 ring runs alerted, 0/16 decoy runs, FREEZE on 6/8 ring runs (`gpt-4.1-mini`, 2 repeats). Rule baselines on the same flags: [`eval/baselines.json`](eval/baselines.json). Synthetic smoke test, not a production accuracy claim. |
+| Negative controls exist | [`eval/results-cloud.json`](eval/results-cloud.json) on FalkorDB Cloud: 8/8 ring runs alerted, 0/16 decoy runs, FREEZE on 6/8 ring runs with exact max-flow cuts verified (`gpt-4.1-mini`, 2 repeats; reproduced on embedded FalkorDB in [`results-repeat.json`](eval/results-repeat.json)). Rule baselines on the same flags: [`eval/baselines.json`](eval/baselines.json). Synthetic smoke test, not a production accuracy claim. |
 
 Live app, video, and API are linked above. Wake the free Render instance via `/flags` before opening the app.
 
@@ -568,6 +568,7 @@ truth is never passed to the model. An *alert* is FREEZE or MONITOR.
 | [Initial](eval/results-initial.json) | 4 / 4 | 1 / 8 (`business_receiver` → MONITOR) | 0.80 | 1.00 | `cycle_0` |
 | [Final code](eval/results.json) | 4 / 4 | 0 / 8 | 1.00 | 1.00 | `ajo_0` |
 | [Corroboration status, 2 repeats](eval/results-repeat.json) | **8 / 8** | **0 / 16** (every decoy CLEAR) | **1.00** | **1.00** | **6 / 8 ring runs**: `cycle_0`, `collector_0`, `ajo_0` both times |
+| [FalkorDB Cloud, 12-read budget, 2 repeats](eval/results-cloud.json) | **8 / 8** | **0 / 16** (every decoy CLEAR) | **1.00** | **1.00** | **6 / 8**, each with an exact `algo.maxFlow` cut verified on a fresh copy (`cycle_4`, `collector_0`, `ajo_0`) |
 
 The latest change shows the model the same evidence bookkeeping the FREEZE guardrail uses
 (which account which positive tools cite, what is still missing) plus a plain verdict guide
