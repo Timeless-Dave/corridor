@@ -123,7 +123,7 @@ function Decision({
           {c.error && (
             <div className="notice error">
               {c.error === "unknown_account"
-                ? "Unknown account. This is an input error, not a compliance clearance."
+                ? "Unknown account: an input error, not a clearance."
                 : "Company grounding requires review."}
             </div>
           )}
@@ -522,8 +522,8 @@ export function CaseWorkspace({ caseId }: { caseId: string }) {
           )}
         </div>
         <div className="case-footer">
-          <span>Every decision stays connected to its evidence.</span>
-          <span>Synthetic demonstration · No real funds are frozen</span>
+          <span>Every finding links to the graph nodes it cites.</span>
+          <span>Synthetic data · nothing real is frozen</span>
         </div>
       </main>
     </Shell>

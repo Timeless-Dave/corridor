@@ -123,8 +123,8 @@ export function FreezeImpact({ data }: { data: CaseData }) {
     <section className="freeze-impact" aria-labelledby="freeze-impact-title">
       <h4 id="freeze-impact-title">What would a freeze interrupt?</h4>
       <p className="muted">
-        Test historical transfer routes on a disposable copy. No real funds move
-        or freeze.
+        Blocks candidate accounts on a copy of the graph and measures the
+        historical routes that remain. Nothing real is frozen.
       </p>
       {error && (
         <p role="alert" className="notice error">
@@ -135,7 +135,7 @@ export function FreezeImpact({ data }: { data: CaseData }) {
         <>
           <p className="mono">Target: {plan.collector}</p>
           <table className="impact-table">
-            <caption>Modeled impact within the measured scope</caption>
+            <caption>Measured on the scratch copy</caption>
             <thead>
               <tr>
                 <th>Measure</th>
@@ -167,7 +167,7 @@ export function FreezeImpact({ data }: { data: CaseData }) {
                 <span className="mono">{step.account}</span>
                 <span>
                   {step.after.senders_reaching_collector} senders still reach
-                  the target
+                  the target after this block
                 </span>
               </li>
             ))}
@@ -188,12 +188,11 @@ export function FreezeImpact({ data }: { data: CaseData }) {
             <strong>
               {last?.outside_community_counterparties.length ?? 0}
             </strong>{" "}
-            affected counterparties outside the target’s computed community;{" "}
+            counterparties outside the ring’s community lose a transfer route (
             <strong>
               {last?.outside_candidate_counterparties.length ?? 0}
             </strong>{" "}
-            outside the candidate set. These are affected neighbors, not proven
-            innocent accounts or fully disconnected users.
+            outside the candidate set).
           </p>
           <details>
             <summary>Method and scope</summary>
@@ -201,8 +200,8 @@ export function FreezeImpact({ data }: { data: CaseData }) {
             <p>{plan.scope}</p>
             <p>
               {plan.scratch_deleted
-                ? "Scratch graph deleted after measurement."
-                : "Scratch cleanup not confirmed."}
+                ? "Scratch copies deleted."
+                : "Scratch copy cleanup failed; check the database."}
             </p>
           </details>
         </>
@@ -221,7 +220,7 @@ export function FreezeImpact({ data }: { data: CaseData }) {
       )}
       {!!orders.length && (
         <div className="guardrail-summary" aria-live="polite">
-          <strong>Modeled intervention receipt</strong>
+          <strong>Freeze receipt</strong>
           {orders.map(({ order, measurement }) => (
             <div key={order.id}>
               <p className="mono">{order.id}</p>
@@ -229,8 +228,8 @@ export function FreezeImpact({ data }: { data: CaseData }) {
                 {order.status === "measured"
                   ? measurement?.matched_projection
                     ? "Measured outcome matches the projection."
-                    : "Outcome differs from projection. Review required."
-                  : "Transfer blocks recorded; measurement incomplete. Operator review required."}
+                    : "Outcome differs from the projection. Review it."
+                  : "Blocks applied, but the measurement did not finish. Review it."}
               </p>
               {measurement?.before && measurement?.after && (
                 <p>
@@ -248,13 +247,13 @@ export function FreezeImpact({ data }: { data: CaseData }) {
         !orders.length &&
         data.case.verdict === "FREEZE" && (
           <details className="approval-gate">
-            <summary>Approve modeled freeze</summary>
+            <summary>Approve freeze</summary>
             <p>
-              Marks {plan.freeze_ids.join(", ")} frozen and their transfer edges
-              blocked in the demo graph. Historical evidence is preserved.
+              Marks {plan.freeze_ids.join(", ")} frozen and blocks their
+              transfers in the demo graph. Findings stay intact.
             </p>
             <label>
-              Operator approval token
+              Operator token
               <input
                 type="password"
                 autoComplete="off"
@@ -268,17 +267,15 @@ export function FreezeImpact({ data }: { data: CaseData }) {
                 checked={confirm}
                 onChange={(e) => setConfirm(e.target.checked)}
               />
-              I approve this exact plan’s modeled transfer blocks.
+              I approve this plan.
             </label>
             <Button onClick={approve} disabled={!confirm || !token || busy}>
-              Apply modeled freeze and measure
+              Apply and measure
             </Button>
           </details>
         )}
       {plan && data.case.verdict !== "FREEZE" && (
-        <p className="muted">
-          Exploration only. A closed FREEZE decision is required for approval.
-        </p>
+        <p className="muted">Approval needs a closed FREEZE case.</p>
       )}
     </section>
   );

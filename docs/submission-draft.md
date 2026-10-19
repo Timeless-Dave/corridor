@@ -1,50 +1,22 @@
-# Corridor — submission draft
+# Corridor: submission summary
 
-**One sentence:** An investigation workspace that helps payment teams follow connected
-activity, explain decisions, and carry what they learn into the next case.
+**One line:** A compliance agent for cross-border payments that follows the money through a FalkorDB graph, tests a freeze on a copy before anyone applies it, and shows the path behind every decision.
 
-**Project direction:** Timeless-Dave — product brief, milestone specifications,
-design direction, deployment setup, and iterative review. Implementation, testing,
-and demo production used AI assistance; personal code/query review remains for
-the participant to confirm.
+**Tracks:** Agents That Act on Connected Data (primary) · Agent Memory and Coordination · Company Brain
 
-**Tracks:** Agents That Act on Connected Data; Agent Memory and Coordination;
-Company Brain.
+**Links:** [Repository](https://github.com/Timeless-Dave/corridor) · [Live app](https://corridor-eosin.vercel.app/) · [Demo video](https://github.com/Timeless-Dave/corridor/releases/tag/submission-demo-v3) · [60-second update](https://github.com/Timeless-Dave/corridor/releases/tag/update-v4)
 
-**Source:** https://github.com/Timeless-Dave/corridor
+**Problem.** Mule rings on remittance corridors hide in the connections between transfers, and deciding what to freeze is as hard as finding them. Analysts piece both together by hand.
 
-**Live app:** https://corridor-eosin.vercel.app/
+**What it does.** An agent picks fixed graph tools (cycles, fan-in, shared identifiers, pool payouts, PageRank, label propagation, shortest paths) based on what each result shows. Code decides whether a `FREEZE` stands: two independent evidence tools must cite the same account, plus a structural algorithm result and a measured freeze plan. Before a freeze, Corridor copies the graph, finds the exact minimum set of accounts to freeze with FalkorDB `algo.maxFlow`, and confirms it on a second copy. An operator approves; Corridor applies the block to the demo graph and writes a before/after receipt. Cases, findings and receipts live in the same graph, so the next investigation of any ring member recalls them on step one.
 
-**Video:** https://github.com/Timeless-Dave/corridor/releases/tag/submission-demo-v3
+**Results (synthetic data).**
+- FalkorDB Cloud, 2 repeats: 8/8 ring runs alerted, 0/16 decoy runs, `FREEZE` on 6/8 ring runs, each with a confirmed exact cut.
+- On the same flags, a $500 per-transfer rule alerts on 0/4 rings; three common rules combined reach 4/4 only with 2/8 false alerts.
+- At 1,021,450 transfers the evidence tools answer in under 1 ms.
 
-**Submitted** to Graph Hacks. This draft is the public record of the filed project.
+**Graph.** Transactions (accounts, transfers, devices, phones, savings pools), company knowledge (policies, source documents, decisions with supersession, corridor owners) and memory (cases, findings, citations, freeze plans, receipts) in one FalkorDB graph. Every query is a parameterized `.cypher` file; the model never writes Cypher. The twelve read tools are also served over MCP.
 
-**Run locally:** Follow the root README. The app uses remote FalkorDB with verified
-TLS, one FastAPI worker, and a Next.js investigation workspace. Docker is optional
-for a local database. No private or real payment records are included.
+**Limits.** Synthetic data and fictional policies; the 12-case evaluation is a smoke test. Approval is a demo gate with one operator token. Nothing real is frozen.
 
-**Why it matters:** A transfer-level alert leaves an analyst to assemble the wider
-story. Corridor puts connected accounts, supporting evidence, relevant company
-context, and previous cases in one review flow. The demo shows those interactions;
-it does not claim measured time savings or superiority over commercial systems.
-
-**What the graph does:** Parameterized Cypher traces transfers, shared identifiers,
-rotating savings pools, prior cases, policies, document provenance, decision
-supersession, and corridor ownership. Findings and case relationships persist
-in FalkorDB. The agent selects fixed tools; deterministic code controls verdict
-eligibility. MCP clients can call the twelve read tools directly.
-
-**Verified behavior:** Four planted patterns have executable graph proofs. Live
-OpenAI investigations have been stored and inspected. A second account retrieves
-an earlier case on its first tool call. The frontend supports incremental SSE,
-Three.js evidence inspection, saved-case reload, and step-by-step replay.
-
-**Limits:** All data and policy thresholds are fictional. Model interpretations
-can be wrong; structural citation checks do not prove every sentence. This is a
-single-worker demonstration, not production payment enforcement. No real funds
-are frozen and no external ticket/email is sent.
-
-**Before submitting:** Review this draft and complete the original README AI
-disclosure accurately. The video uses disclosed AI narration; its live section
-is condensed and saved-case sections are labeled. Do not claim unverified
-participant authorship or query understanding.
+**AI assistance.** Built with OpenAI Codex and Anthropic Claude Code under the author's direction; details in the README.

@@ -1,49 +1,19 @@
-# Engineering measures and review boundaries
+# Engineering measures
 
-Corridor is a working investigation prototype, demonstrated with realistic synthetic
-payment scenarios. It records decisions and assignments; it does not control real
-funds, contact customers, or create external tickets.
+Corridor is a prototype on synthetic payment data. It records decisions and assignments; it doesn't move money, contact customers or open external tickets.
 
-## Measures implemented
+- **Fixed queries.** The model picks a tool and parameters. All Cypher lives in versioned `.cypher` files with parameters, and the browser cannot submit queries. MCP serves the twelve read tools only.
+- **Evidence rules in code.** `FREEZE` needs two different positive evidence tools citing the same account, a structural algorithm result and a measured freeze plan. Repeating a tool adds nothing. Rejected citations and failed evidence tools force review. The decision panel shows this check for every closed case.
+- **Measured interventions.** Plans run on `GRAPH.COPY` scratch graphs; the exact cut comes from `algo.maxFlow` and is confirmed on a second copy. Approval needs an operator token, an explicit confirmation and an unchanged graph fingerprint, and it writes a before/after receipt.
+- **Connections.** TLS verifies certificates and hostnames. Database errors never include credentials, and API secrets stay server-side.
+- **Bounded work.** Twelve evidence reads per investigation plus two grounding reads, at most four concurrent investigations, and one active investigation per account.
+- **Reset.** Requires a server-side admin token and the exact graph name; there is no reset button in the UI.
+- **Interface.** Status colors always have text labels. Keyboard controls, reduced motion, mobile layouts and the accessible graph list have browser tests.
 
-- **Constrained database access.** The model selects fixed tools. Cypher is held in
-  versioned query files and values are parameterized. The browser cannot submit
-  arbitrary queries. MCP exposes the twelve read tools, not case writers.
-- **Evidence checks.** A FREEZE recommendation needs two distinct positive tools
-  citing the same included account. Repeating one tool does not add corroboration.
-  Invalid citations and model/tool errors trigger review behavior. This checks
-  structural support; it does not establish that every interpretation is correct.
-- **Connection protection.** TLS verifies certificates and hostnames when enabled.
-  Database connections have timeouts and configuration errors omit credentials.
-  API credentials stay on the server, outside browser bundles.
-- **Bounded work.** Investigations have an analytical step cap. The API limits
-  concurrent runs to four and rejects a duplicate active account investigation.
-  These controls operate within the documented single-worker deployment.
-- **Recoverable review.** Findings and case membership persist in FalkorDB.
-  The interface deduplicates stream events and labels recovered snapshots.
-- **Controlled reset.** Reset requires a server-side admin token and the exact
-  configured graph name; it is disabled without that token. There is no reset UI.
-- **Proven intervention bound.** Freeze plans copy the graph, compute an exact minimum vertex cut with FalkorDB `algo.maxFlow`, and re-measure that cut on a second disposable copy before a human can approve a modeled block. A rejected simulation call is stored as a failed tool call and does not, by itself, cancel a freeze the evidence rules already support.
-- **Negative controls.** A synthetic eval runs four planted rings and eight decoys (shared family devices, legitimate pools, one-way business flow). Ground truth is not given to the model. Results are in `eval/results.json`.
-- **Reviewable interface.** Text accompanies status colors. Keyboard controls,
-  reduced motion, mobile layouts, and the accessible graph list have browser tests.
+## Verification
 
-## Evidence, not blanket assurances
+- 71 backend tests against FalkorDB Cloud (`CORRIDOR_LIVE_TESTS=1`), web unit tests, TypeScript checks and browser workflows.
+- Agent evaluation on FalkorDB Cloud: 8/8 ring runs alerted, 0/16 decoy runs, `FREEZE` on 6/8 ring runs ([`eval/results-cloud.json`](../eval/results-cloud.json)).
+- Scale: 1,021,450 transfers on embedded FalkorDB ([`eval/scale.json`](../eval/scale.json)).
 
-Historical release verification recorded 58 passing backend tests against remote
-FalkorDB (see `m9-backend-tests.log`). The current interface revision passed five
-unit tests, six browser workflows, TypeScript checking, and a production build.
-Ten targeted backend checks also passed for connection configuration, guardrails,
-and model-adapter behavior. The video verification report records the actual hosted run and media checks.
-Automated tests are not an independent security audit or evidence of participant
-manual review. No production accuracy, throughput, or regulatory certification
-is claimed. Public-demo access is unauthenticated; institution isolation and
-production identity/access controls are outside this prototype.
-
-## Contribution record
-
-The participant supplied the product direction, detailed milestone requirements,
-design choices, deployment settings, and iterative review feedback. AI assistance
-in this repository includes implementation, tests, debugging, documentation, and
-video production. Specific claims about personally written code or personally
-reviewed queries should be added only after the participant confirms them.
+Tests aren't a security audit. The public demo has no login, and per-institution isolation isn't built.
