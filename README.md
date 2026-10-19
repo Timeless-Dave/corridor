@@ -609,6 +609,13 @@ by the same team.
 an embedded FalkorDB (`falkordblite`, one laptop process) and times the agent's real tools on
 one world's planted rings. Raw output: [`eval/scale.json`](eval/scale.json).
 
+```bash
+.venv/bin/pip install falkordblite                      # dev-only, embedded FalkorDB
+PYTHONPATH=api .venv/bin/python eval/scale.py 50        # scale benchmark
+PYTHONPATH=api .venv/bin/python eval/baselines.py       # rule baselines, no database
+.venv/bin/python eval/run.py --embedded --repeat 2      # agent eval (needs OPENAI_API_KEY)
+```
+
 | Graph | Accounts | Transfers | Nodes |
 |---|---|---|---|
 | 50 worlds | 103,100 | 1,021,450 | 409,550 |
